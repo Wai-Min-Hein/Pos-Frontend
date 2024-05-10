@@ -1,4 +1,3 @@
-import React from "react";
 import login from "/images/login.svg";
 import fav from "/images/favicon.png";
 

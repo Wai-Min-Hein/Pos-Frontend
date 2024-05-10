@@ -1,4 +1,3 @@
-import React from 'react'
 import SideNav from './Components/SideNav'
 import PosComponent from './Components/PosComponent'
 
