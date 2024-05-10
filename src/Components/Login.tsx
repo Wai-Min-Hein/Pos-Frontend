@@ -28,7 +28,7 @@ const Login = () => {
   });
 
   return (
-    <div className="container mx-auto w-screen h-screen bg-green-600 grid place-items-center">
+    <div className=" w-screen h-screen bg-green-600 grid place-items-center">
       <div className="w-3/4 h-4/5 border-8 border-black rounded-xl flex items-start justify-between px-4 py-6 gap-12">
         <div className=" basis-1/2 w-full h-full object-contain  ">
           <img src={login} alt="login svg avator" />
