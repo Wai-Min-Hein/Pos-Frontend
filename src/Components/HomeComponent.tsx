@@ -3,11 +3,14 @@ import { useState } from "react";
 import { Input } from "@mantine/core";
 import { BiSearch } from "react-icons/bi";
 
-
 import { HiOutlineBuildingStorefront } from "react-icons/hi2";
 
-
-import { MdProductionQuantityLimits ,MdPriceCheck,MdBalance,MdOutlineManageAccounts   } from "react-icons/md";
+import {
+  MdProductionQuantityLimits,
+  MdPriceCheck,
+  MdBalance,
+  MdOutlineManageAccounts,
+} from "react-icons/md";
 
 import { IoFastFoodOutline } from "react-icons/io5";
 
@@ -19,10 +22,7 @@ import { FiUserCheck } from "react-icons/fi";
 
 import { FaRegUserCircle } from "react-icons/fa";
 import { CiMobile4 } from "react-icons/ci";
-
-
-
-
+import { IoIosNotificationsOutline } from "react-icons/io";
 
 const HomeComponent = () => {
   const [value, setValue] = useState("");
@@ -45,10 +45,22 @@ const HomeComponent = () => {
         <div className="">
           <h6>Branch : Aliean Coffee shop</h6>
         </div>
+
+        <div className="cursor-pointer relative">
+          <div className="w-8 h-8 bg-[rgba(221,220,220,0.7)] grid place-items-center rounded-md ">
+            <IoIosNotificationsOutline size={24} />
+          
+          </div>
+
+          <div className="w-5 h-5 bg-red-500 rounded-full absolute -top-2 -right-2 grid place-items-center">
+            <span className="text-white text-sm">2</span>
+          </div>
+
+        </div>
       </div>
 
       <div className="branch-row">
-      <div className="flex items-center justify-start gap-2">
+        <div className="flex items-center justify-start gap-2">
           <HiOutlineBuildingStorefront size={32} />
 
           <h4>Branch Informations</h4>
@@ -66,8 +78,6 @@ const HomeComponent = () => {
 
             <h4>Branch List</h4>
           </div>
-
-          
         </div>
       </div>
 
@@ -97,7 +107,6 @@ const HomeComponent = () => {
             <h4>Price table</h4>
           </div>
 
-
           <div className="flex items-center justify-start gap-2 basis-[31%] cursor-pointer">
             <AiOutlineProduct size={20} />
 
@@ -111,16 +120,12 @@ const HomeComponent = () => {
           </div>
 
           <div className="flex items-center justify-start gap-2 basis-[31%] cursor-pointer">
-            <MdBalance  size={20} />
+            <MdBalance size={20} />
 
             <h4>Build up material</h4>
           </div>
         </div>
       </div>
-
-
-
-
 
       <div className="good-material-row  mt-6">
         <div className="flex items-center justify-start gap-2">
@@ -131,46 +136,30 @@ const HomeComponent = () => {
 
         <div className="flex flex-wrap justify-start items-center px-10 mt-6 gap-y-8">
           <div className="flex items-center justify-start gap-2 basis-[31%] cursor-pointer">
-            <MdOutlineManageAccounts  size={20} />
+            <MdOutlineManageAccounts size={20} />
 
             <h4>User account</h4>
           </div>
 
           <div className="flex items-center justify-start gap-2 basis-[31%] cursor-pointer">
-            <MdOutlineManageAccounts  size={20} />
+            <MdOutlineManageAccounts size={20} />
 
             <h4>User rights</h4>
           </div>
 
           <div className="flex items-center justify-start gap-2 basis-[31%] cursor-pointer">
-            <FaRegUserCircle  size={20} />
+            <FaRegUserCircle size={20} />
 
             <h4>Employee</h4>
           </div>
 
           <div className="flex items-center justify-start gap-2 basis-[31%] cursor-pointer">
-            <CiMobile4  size={20} />
+            <CiMobile4 size={20} />
 
             <h4>Mobile account</h4>
           </div>
-
-          
-
-
         </div>
       </div>
-
-
-
-
-
-
-
-
-
-
-
-
     </div>
   );
 };
