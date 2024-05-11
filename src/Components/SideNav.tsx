@@ -57,7 +57,7 @@ const SideNav = () => {
         {
           name: "F&B Menu List",
           icon: fnb,
-          href: "/system/fnb",
+          href: "/",
         },
 
         {
@@ -69,7 +69,7 @@ const SideNav = () => {
         {
           name: "Branch List",
           icon: branchList,
-          href: "/system/branches",
+          href: "/system/branchlists",
 
         },
 
