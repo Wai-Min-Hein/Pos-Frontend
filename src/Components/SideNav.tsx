@@ -34,71 +34,95 @@ import openingDebtList from "/images/iconsImage/openingDebtList.png";
 import analysisReport from "/images/iconsImage/analysisReport.svg";
 
 import pos from "/images/iconsImage/posRestaurant.svg";
+import { useLocation, useNavigate } from "react-router-dom";
 
 const SideNav = () => {
-  const menuList = [
-    {
-      id: "home",
 
-      name: "Home",
-      link: "/",
+  interface menuListInterface {
+    id: string;
+    name: string;
+    link?: string;
+    lists: {
+      name: string;
+      icon: string;
+      href?: string;
+    }[];
+  }
+  const menuList : menuListInterface[] = [
+    {
+      id: "system",
+
+      name: "System",
       lists: [
         {
-          name: "Customer Service area",
-          icon: csArea,
+          name: "F&B Menu List",
+          icon: fnb,
+          href: "/system/fnb",
+        },
+
+        {
+          name: "Menu Category",
+          icon: menuCategory,
+          href: "/system/menucategory",
+
         },
         {
           name: "Branch List",
           icon: branchList,
-        },
-        {
-          name: "Menu Category",
-          icon: menuCategory,
+          href: "/system/branches",
+
         },
 
         {
-          name: "F&B Menu List",
-          icon: fnb,
+          name: "Customer Service area",
+          icon: csArea,
+          href: "/system/customerservice",
+
         },
 
         {
           name: "Price Table ",
           icon: priceTable,
+
+          href: "/system/pricetable",
+
         },
 
-        {
-          name: "Product Category",
-          icon: productCategory,
-        },
-
-        {
-          name: "Product List",
-          icon: product,
-        },
+       
 
         {
           name: "Ingredient List",
           icon: ingredients,
+
+          href: "/system/ingredients",
         },
 
         {
           name: "User Rights ",
           icon: userRight,
+
+          href: "/system/rights",
         },
 
         {
           name: "User Account ",
           icon: userAccount,
+
+          href: "/system/accounts",
         },
 
         {
           name: "Employee List",
           icon: employee,
+
+          href: "/system/employees",
         },
 
         {
           name: "Mobile Account",
           icon: mobile,
+
+          href: "/system/mobileaccounts",
         },
       ],
     },
@@ -112,20 +136,28 @@ const SideNav = () => {
         {
           name: "Product Category",
           icon: productCategory,
+
+          href: "/inventory/productcategories",
         },
 
         {
           name: "Product List",
           icon: product,
+
+          href: "/inventory/products",
         },
         {
           name: "Stock In",
           icon: stockIn,
+          href: "/inventory/stockin",
+
         },
 
         {
           name: "Stock Out",
           icon: stockOut,
+          href: "/inventory/stockout",
+
         },
       ],
     },
@@ -139,15 +171,18 @@ const SideNav = () => {
         {
           name: "Customer",
           icon: customer,
+          href: "/crm/customers",
         },
         {
           name: "Discount",
           icon: discount,
+          href: "/crm/discounts",
         },
 
         {
           name: "Voucher Payment",
           icon: voucherPayment,
+          href: "/crm/voucherpayments",
         },
       ],
     },
@@ -161,44 +196,53 @@ const SideNav = () => {
         {
           name: "Cash book list",
           icon: cashBookList,
+          href: "/finance/cashbooks",
         },
 
         {
           name: "Income Type",
           icon: income,
+          href: "/finance/income",
         },
         {
           name: "Expense Type",
           icon: expense,
+          href: "/finance/expense",
         },
 
         {
           name: "Cash Receipt Voucher",
           icon: cashReceipt,
+          href: "/finance/cashreceipt",
         },
 
         {
           name: "Cash Payment Voucher",
           icon: cashPayment,
+          href: "/finance/cashpayment",
         },
 
         {
           name: "Debt Receipt Voucher",
           icon: debt,
+          href: "/finance/debtreceipt",
         },
 
         {
           name: "Debt Payment Voucher",
           icon: debt,
+          href: "/finance/debtpayment",
         },
 
         {
           name: "Cash Book Report",
           icon: cashBookReport,
+          href: "/finance/cashbookreport",
         },
         {
           name: "Opening Debt List",
           icon: openingDebtList,
+          href: "/finance/openingdebtlists",
         },
       ],
     },
@@ -212,6 +256,7 @@ const SideNav = () => {
         {
           name: "Sales Report",
           icon: analysisReport,
+          href: "/salereports",
         },
       ],
     },
@@ -225,10 +270,21 @@ const SideNav = () => {
         {
           name: "Point of Sale",
           icon: pos,
+          href: "/pos",
         },
       ],
     },
+
+    
   ];
+
+  const location = useLocation()
+
+  const activeNav = (location.pathname.includes("system") && 'system') ||  (location.pathname.includes("crm") && 'crm') ||  (location.pathname.includes("inventory") && 'inventory') ||  (location.pathname.includes("finance") && 'finance') ||  (location.pathname.includes("salereports") && 'analysisReport') ||  (location.pathname.includes("pos") && 'pos') || 'system'
+
+  
+
+  const router = useNavigate();
 
   const menuItems = menuList.map((menu, index) => (
     <Accordion.Item value={menu.id} key={index} className="!border-none">
@@ -237,6 +293,7 @@ const SideNav = () => {
         <div className="text-sm flex flex-col gap-y-4">
           {menu.lists.map((list, index) => (
             <div
+              onClick={() => list.href && router(list.href)}
               className="flex items-center justify-start gap-2 basis-[31%] cursor-pointer"
               key={index}
             >
@@ -259,6 +316,7 @@ const SideNav = () => {
 
       <Accordion
         chevronPosition="right"
+        defaultValue={activeNav}
         variant="contained"
         className="flex-1 mt-6 overflow-auto"
       >
@@ -272,47 +330,3 @@ const SideNav = () => {
 };
 
 export default SideNav;
-
-// <nav className="mt-12 flex-1">
-//         <ul className="flex flex-col gap-4">
-
-//           <Link to={"/"}>
-//             <li className="bg-[rgba(255,255,255,0.50)]  rounded-lg px-1 py-2 cursor-pointer">
-//             Home
-//             </li>
-//           </Link>
-//           <Link to={"/pos"}>
-//             <li className="bg-[rgba(255,255,255,0.50)]  rounded-lg px-1 py-2 cursor-pointer">
-//               Pos
-//             </li>
-//           </Link>
-
-//           <Link to={"/crm"}>
-//             <li className="bg-[rgba(255,255,255,0.50)]  rounded-lg px-1 py-2 cursor-pointer">
-//               CRM
-//             </li>
-//           </Link>
-
-//           <Link to={"/inventory"}>
-//             <li className="bg-[rgba(255,255,255,0.50)]  rounded-lg px-1 py-2 cursor-pointer">
-//               Inventory
-//             </li>
-//           </Link>
-
-//           {/* <Link to={"/hrm"}>
-//             <li className="bg-[rgba(255,255,255,0.50)]  rounded-lg px-1 py-2 cursor-pointer">
-//               HRM
-//             </li>
-//           </Link> */}
-//           <Link to={"/finance"}>
-//             <li className="bg-[rgba(255,255,255,0.50)]  rounded-lg px-1 py-2 cursor-pointer">
-//               Finance
-//             </li>
-//           </Link>
-//           <Link to={"/report"}>
-//             <li className="bg-[rgba(255,255,255,0.50)]  rounded-lg px-1 py-2 cursor-pointer">
-//               Analysis Report
-//             </li>
-//           </Link>
-//         </ul>
-//       </nav>

@@ -1,15 +1,17 @@
 import SideNav from './Components/SideNav'
-import FinanceComponent from './Components/FinanceComponent'
 
-const Finance = () => {
+const Fnb = () => {
   return (
     <div className=" w-screen h-screen flex justify-start items-start ">
     <SideNav/>
 
-    <FinanceComponent/>
+    
+    <h1>F&B products</h1>
+
+
 
 </div>
   )
 }
 
-export default Finance
+export default Fnb
