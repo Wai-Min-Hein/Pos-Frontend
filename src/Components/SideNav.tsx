@@ -280,7 +280,7 @@ const SideNav = () => {
 
   const location = useLocation()
 
-  const activeNav = (location.pathname.includes("system") && 'system') ||  (location.pathname.includes("crm") && 'crm') ||  (location.pathname.includes("inventory") && 'inventory') ||  (location.pathname.includes("finance") && 'finance') ||  (location.pathname.includes("salereports") && 'analysisReport') ||  (location.pathname.includes("pos") && 'pos') || 'system'
+  const activeNav: string = (location.pathname.includes("system") && 'system') ||  (location.pathname.includes("crm") && 'crm') ||  (location.pathname.includes("inventory") && 'inventory') ||  (location.pathname.includes("finance") && 'finance') ||  (location.pathname.includes("salereports") && 'analysisReport') ||  (location.pathname.includes("pos") && 'pos') || 'system'
 
   
 

@@ -39,7 +39,7 @@ const AppRouter = () => {
       {/* home */}
 
 
-      <Route path="/system/fnb" element={<Fnb />} />
+      <Route path="/" element={<Fnb />} />
       <Route path="/system/menucategory" element={<MenuCategory />} />
       <Route path="/system/customerservice" element={<Csa />} />
       <Route path="/system/pricetable" element={<PriceTable />} />
