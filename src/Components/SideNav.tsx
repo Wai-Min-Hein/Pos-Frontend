@@ -46,6 +46,7 @@ const SideNav = () => {
       name: string;
       icon: string;
       href?: string;
+      baseRoute?: boolean;
     }[];
   }
   const menuList : menuListInterface[] = [
@@ -58,6 +59,7 @@ const SideNav = () => {
           name: "F&B Menu List",
           icon: fnb,
           href: "/",
+          baseRoute: true
         },
 
         {
@@ -287,14 +289,14 @@ const SideNav = () => {
   const router = useNavigate();
 
   const menuItems = menuList.map((menu, index) => (
-    <Accordion.Item value={menu.id} key={index} className="!border-none">
+    <Accordion.Item value={menu.id} key={index} className="!border-none !bg-transparent">
       <Accordion.Control>{menu.name}</Accordion.Control>
       <Accordion.Panel>
-        <div className="text-sm flex flex-col gap-y-4">
+        <div className="text-sm flex flex-col gap-y-2">
           {menu.lists.map((list, index) => (
             <div
               onClick={() => list.href && router(list.href)}
-              className="flex items-center justify-start gap-2 basis-[31%] cursor-pointer"
+              className={ list.href &&( location.pathname.includes(list.href) && (!list.baseRoute || location.pathname=='/')?'bg-transparentBgGreen flex items-center justify-start gap-2 basis-[31%] cursor-pointer hover:bg-transparentBgGreen px-2 py-3 rounded-sm' :'flex items-center justify-start gap-2 basis-[31%] cursor-pointer hover:bg-transparentBgGreen px-2 py-3 rounded-sm')  }
               key={index}
             >
               <img src={list.icon} className="w-6 h-6" alt="" />
@@ -306,12 +308,12 @@ const SideNav = () => {
     </Accordion.Item>
   ));
   return (
-    <div className="basis-[20%] h-screen py-3 px-6 bg-white rounded-r-2xl text-gray-500 flex flex-col ">
+    <div className="basis-[25%] h-screen py-3 px-6 bg-white rounded-r-2xl text-gray-500 flex flex-col sticky top-0">
       <div className="flex justify-start items-center gap-2">
         <div className="">
           <img src={fav} className="w-24 h-12 object-contain" alt="" />
         </div>
-        <h4>Ali Pos</h4>
+        <h4 className="capitalize text-2xl font-[500]">ALI Pos</h4>
       </div>
 
       <Accordion
@@ -323,7 +325,7 @@ const SideNav = () => {
         {menuItems}
       </Accordion>
       <div className="basis-10 w-full mt-6">
-        <Button className="!w-full h-6">Logout</Button>
+        <Button className="!w-full h-6 !bg-btn !text-[#000]">Logout</Button>
       </div>
     </div>
   );

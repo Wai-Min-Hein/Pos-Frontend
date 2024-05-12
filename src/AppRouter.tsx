@@ -29,6 +29,7 @@ import CashBookReport from "./CashBookReport";
 import OpeningDebtList from "./OpeningDebtList";
 import Report from "./Report";
 import Pos from "./Pos";
+import AddFnb from "./AddFnb";
 
 const AppRouter = () => {
   return (
@@ -38,8 +39,11 @@ const AppRouter = () => {
 
       {/* home */}
 
+      <Route path="/" element={<Fnb />}/>
+        <Route path="/new" element={<AddFnb />} />
+      
 
-      <Route path="/" element={<Fnb />} />
+
       <Route path="/system/menucategory" element={<MenuCategory />} />
       <Route path="/system/customerservice" element={<Csa />} />
       <Route path="/system/pricetable" element={<PriceTable />} />
@@ -52,29 +56,27 @@ const AppRouter = () => {
 
       {/* home */}
 
+      {/* inventory */}
 
-
-    {/* inventory */}
-      
-      <Route path="/inventory/productcategories" element={<ProductCategory />} />
+      <Route
+        path="/inventory/productcategories"
+        element={<ProductCategory />}
+      />
       <Route path="/inventory/products" element={<ProductList />} />
       <Route path="/inventory/stockin" element={<StockIn />} />
       <Route path="/inventory/stockout" element={<StockOut />} />
 
-    {/* inventory */}
+      {/* inventory */}
 
-
-
-    {/* crm */}
+      {/* crm */}
 
       <Route path="/crm/customers" element={<Customer />} />
       <Route path="/crm/discounts" element={<Discount />} />
       <Route path="/crm/voucherpayments" element={<VoucherPayment />} />
 
-    {/* crm */}
+      {/* crm */}
 
-
-    {/* finance */}
+      {/* finance */}
       <Route path="/finance/cashbooks" element={<CashBookList />} />
       <Route path="/finance/income" element={<IncomeType />} />
       <Route path="/finance/expense" element={<ExpenseType />} />
@@ -84,19 +86,15 @@ const AppRouter = () => {
       <Route path="/finance/debtpayment" element={<DebtPaymentVoucher />} />
       <Route path="/finance/cashbookreport" element={<CashBookReport />} />
       <Route path="/finance/openingdebtlists" element={<OpeningDebtList />} />
-    {/* finance */}
+      {/* finance */}
 
-
-    {/* report */}
+      {/* report */}
       <Route path="/salereports" element={<Report />} />
-    {/* report */}
+      {/* report */}
 
       {/* pos */}
       <Route path="/pos" element={<Pos />} />
       {/* pos */}
-
-
-
     </Routes>
   );
 };

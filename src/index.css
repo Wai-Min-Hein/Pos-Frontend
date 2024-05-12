@@ -1,3 +1,6 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&family=Nunito:ital,wght@0,200..1000;1,200..1000&family=Poppins:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400;1,500;1,600;1,700&family=Roboto:ital,wght@0,400;0,500;0,700;1,400;1,500;1,700&display=swap');
+
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -29,19 +32,27 @@ a:hover {
 }
 
 
-h1 {
-  font-size: 3.2em;
-  line-height: 1.1;
+h1,h2,h3,h4,h5,h6 {
+  font-family: "Roboto", 'sans-serif';
+  color: #092C4C;
+
+}
+
+p,span,a,div{
+  font-family: "Poppins", 'sans-serif';
+  color: #868788;
 }
 
 button {
   border-radius: 8px;
   border: 1px solid transparent;
+  font-family: "Nunito", 'sans-serif';
   padding: 0.6em 1.2em;
   font-size: 1em;
   font-weight: 500;
   font-family: inherit;
   background-color: #1a1a1a;
+  color: white;
   cursor: pointer;
   transition: border-color 0.25s;
 }
@@ -52,6 +63,23 @@ button:focus,
 button:focus-visible {
   outline: none;
 }
+
+.add-fnb-form .mantine-Input-input  {
+  border: 2px solid #e7e7e5 !important;
+  background-color: transparent !important;
+}
+
+.mantine-Input-input{
+  border: none !important;
+  background-color: #e7e7e5 !important;
+  color: #092C4C !important;
+}
+
+.filter .mantine-Accordion-chevron{
+  display: none !important;
+}
+
+
 
 @media (prefers-color-scheme: light) {
   :root {

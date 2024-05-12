@@ -1,13 +1,14 @@
-import FnbComponent from './Components/FnbComponent'
+import AddFnbComponent from './Components/AddFnbComponent'
 import SideNav from './Components/SideNav'
 
-const Fnb = () => {
+const AddFnb = () => {
   return (
     <div className=" w-full min-h-screen flex justify-start items-start">
     <SideNav/>
 
+    <AddFnbComponent/>
+
     
-    <FnbComponent/>
 
 
 
@@ -15,4 +16,4 @@ const Fnb = () => {
   )
 }
 
-export default Fnb
+export default AddFnb
