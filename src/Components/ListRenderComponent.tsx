@@ -40,38 +40,57 @@ const ListRenderComponent = ({
 }: propsInterface) => {
   const [value, setValue] = useState("");
 
-  const tableDatas = productDatas || categoryDatas;
-
-  const rows = tableDatas.map((product) => {
-    const keys = Object.keys(product).filter(
-      (key) => key !== "id" && key !== "createdByImage"
-    );
-
-    return (
-      <Table.Tr key={product.id}>
-        {keys.map((key) => (
-          <Table.Td key={key} className="capitalize">
-            {product[key]}
+  const rows =
+    (productDatas &&
+      productDatas?.map((product) => (
+        <Table.Tr key={product.id}>
+          <Table.Td className="capitalize w-24">{product.name}</Table.Td>
+          <Table.Td className="capitalize w-24">{product.category}</Table.Td>
+          <Table.Td className="capitalize w-24">{product.sku}</Table.Td>
+          <Table.Td className="capitalize w-24">{product.unit}</Table.Td>
+          <Table.Td className="capitalize w-24">{product.price}</Table.Td>
+          <Table.Td className="capitalize w-24">
+            {product.createdByName}
           </Table.Td>
-        ))}
+          <Table.Td className="capitalize w-24">
+            <div className="flex items-center justify-start gap-x-2">
+              <div className="w-8 h-8 grid place-items-center rounded border-2  border-gray">
+                <LuEye />
+              </div>
+              <div className="w-8 h-8 grid place-items-center rounded border-2 border-gray">
+                <TbEdit />
+              </div>
 
-        <Table.Td className="capitalize w-24">
-          <div className="flex items-center justify-start gap-x-2">
-            <div className="w-8 h-8 grid place-items-center rounded border-2  border-gray">
-              <LuEye />
+              <div className="w-8 h-8 grid place-items-center rounded border-2 border-gray">
+                <MdDeleteOutline />
+              </div>
             </div>
-            <div className="w-8 h-8 grid place-items-center rounded border-2 border-gray">
-              <TbEdit />
-            </div>
+          </Table.Td>
+        </Table.Tr>
+      ))) ||
+    (categoryDatas &&
+      categoryDatas?.map((product) => (
+        <Table.Tr key={product.id}>
+          <Table.Td className="capitalize w-24">{product.code}</Table.Td>
+          <Table.Td className="capitalize w-24">{product.name}</Table.Td>
+          <Table.Td className="capitalize w-24">{product.created_on}</Table.Td>
+          <Table.Td className="capitalize w-24">{product.status}</Table.Td>
+          <Table.Td className="capitalize w-24">
+            <div className="flex items-center justify-start gap-x-2">
+              <div className="w-8 h-8 grid place-items-center rounded border-2  border-gray">
+                <LuEye />
+              </div>
+              <div className="w-8 h-8 grid place-items-center rounded border-2 border-gray">
+                <TbEdit />
+              </div>
 
-            <div className="w-8 h-8 grid place-items-center rounded border-2 border-gray">
-              <MdDeleteOutline />
+              <div className="w-8 h-8 grid place-items-center rounded border-2 border-gray">
+                <MdDeleteOutline />
+              </div>
             </div>
-          </div>
-        </Table.Td>
-      </Table.Tr>
-    );
-  });
+          </Table.Td>
+        </Table.Tr>
+      )));
 
   return (
     <div className="border border-gray p-4  rounded-md m-6">
