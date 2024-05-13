@@ -1,3 +1,4 @@
+import MenuCategoryComponent from "./Components/MenuCategoryComponent"
 import SideNav from "./Components/SideNav"
 
 const MenuCategory = () => {
@@ -5,7 +6,7 @@ const MenuCategory = () => {
     <div className="w-screen h-screen flex justify-start items-start ">
         <SideNav/>
 
-        <h1>Menu Category</h1>
+        <MenuCategoryComponent/>
     </div>
   )
 }
