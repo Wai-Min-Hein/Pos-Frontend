@@ -38,9 +38,14 @@ h1,h2,h3,h4,h5,h6 {
 
 }
 
-p,span,a,div{
+p,a,span,div{
   font-family: "Poppins", 'sans-serif';
   color: #868788;
+}
+
+span .mantine-Button-label{
+  font-family: "Poppins", 'sans-serif';
+color: white;
 }
 
 button {
@@ -52,7 +57,7 @@ button {
   font-weight: 500;
   font-family: inherit;
   background-color: #1a1a1a;
-  color: white;
+  color: white !important;
   cursor: pointer;
   transition: border-color 0.25s;
 }
