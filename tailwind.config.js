@@ -28,6 +28,8 @@ export default {
 
         'paraText': '#868788',
         'headerText': '#092C4C',
+
+        'darkText': '#112A46'
         
       },
     },

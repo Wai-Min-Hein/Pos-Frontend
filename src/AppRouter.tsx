@@ -30,6 +30,7 @@ import OpeningDebtList from "./OpeningDebtList";
 import Report from "./Report";
 import Pos from "./Pos";
 import AddFnb from "./AddFnb";
+import PriceTableForm from "./PriceTableForm";
 
 const AppRouter = () => {
   return (
@@ -47,6 +48,7 @@ const AppRouter = () => {
       <Route path="/system/menucategory" element={<MenuCategory />} />
       <Route path="/system/customerservice" element={<Csa />} />
       <Route path="/system/pricetable" element={<PriceTable />} />
+      <Route path="/system/pricetable/:id" element={<PriceTableForm />} />
       <Route path="/system/ingredients" element={<IngredientList />} />
       <Route path="/system/branchlists" element={<BranchList />} />
       <Route path="/system/rights" element={<UserRight />} />

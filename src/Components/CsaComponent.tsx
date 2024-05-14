@@ -45,7 +45,7 @@ const CsaComponent = () => {
 
 
   return (
-    <div className="w-full h-full px-8   !overflow-hidden">
+    <div className="w-full h-full !overflow-hidden">
       <TopBar />
 
       <Modal opened={opened} onClose={close} title="Add New Area" centered>

@@ -38,14 +38,14 @@ h1,h2,h3,h4,h5,h6 {
 
 }
 
-p,a,span,div{
+p,a,div{
   font-family: "Poppins", 'sans-serif';
   color: #868788;
 }
 
-span .mantine-Button-label{
+span .mantine-Button-label, span{
   font-family: "Poppins", 'sans-serif';
-color: white;
+color: inherit;
 }
 
 button {
@@ -82,6 +82,10 @@ button:focus-visible {
 
 .filter .mantine-Accordion-chevron{
   display: none !important;
+}
+
+.price-table-form .mantine-Input-input{
+  background-color: transparent !important;
 }
 
 
