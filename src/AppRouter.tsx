@@ -31,6 +31,7 @@ import Report from "./Report";
 import Pos from "./Pos";
 import AddFnb from "./AddFnb";
 import PriceTableForm from "./PriceTableForm";
+import UserRightDetail from "./UserRightDetail";
 
 const AppRouter = () => {
   return (
@@ -52,6 +53,7 @@ const AppRouter = () => {
       <Route path="/system/ingredients" element={<IngredientList />} />
       <Route path="/system/branchlists" element={<BranchList />} />
       <Route path="/system/rights" element={<UserRight />} />
+      <Route path="/system/rights/:name" element={<UserRightDetail />} />
       <Route path="/system/accounts" element={<UserAccount />} />
       <Route path="/system/employees" element={<EmployeeList />} />
       <Route path="/system/mobileaccounts" element={<MobileAccount />} />

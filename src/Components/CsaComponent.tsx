@@ -7,52 +7,36 @@ import TopBar from "./TopBar";
 import { HiOutlinePrinter } from "react-icons/hi2";
 import { useDisclosure } from "@mantine/hooks";
 
-
 const CsaComponent = () => {
-
   interface csaInterface {
-    id: string,
-    code: string,
-    name: string,
-    
-
+    id: string;
+    code: string;
+    name: string;
   }
 
-  
-  const tableTitle: string[] = [
-    "code",
-    "name",
-    
-    
-  ];
+  const tableTitle: string[] = ["code", "name"];
 
   const csaDatas: csaInterface[] = [
     {
-        id:'1',
-        code:'111',
-        name: 'Food',
-        
+      id: "1",
+      code: "111",
+      name: "Food",
     },
     {
-        id:'2',
-        code:'111',
-        name: 'Food',
-       
-    }
-  ]
+      id: "2",
+      code: "111",
+      name: "Food",
+    },
+  ];
 
   const [opened, { open, close }] = useDisclosure(false);
-
 
   return (
     <div className="w-full h-full !overflow-hidden">
       <TopBar />
 
       <Modal opened={opened} onClose={close} title="Add New Area" centered>
-        <TextInput
-          label="Code"
-          placeholder="Code"
-        />
+        <TextInput label="Code" placeholder="Code" />
         <TextInput label="Name" placeholder="Name" />
 
         <div className="flex justify-end mt-4">
@@ -79,15 +63,10 @@ const CsaComponent = () => {
             >
               Add New Area
             </Button>
-
-           
           </div>
         </div>
 
-        <ListRenderComponent
-          csaDatas={csaDatas}
-          tableTitle={tableTitle}
-        />
+        <ListRenderComponent csaDatas={csaDatas} tableTitle={tableTitle} />
       </div>
     </div>
   );

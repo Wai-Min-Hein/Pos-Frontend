@@ -51,6 +51,17 @@ interface priceTableInterface {
 
 }
 
+interface userAccountInterface {
+  id: string;
+  code: string;
+  name: string;
+  phone:string;
+  email?:string;
+  role: string;
+  status: string;
+  created_on: string;
+}
+
 
 
 interface propsInterface {
@@ -61,6 +72,8 @@ interface propsInterface {
   csaDatas?: csaInterface[];
   priceTableDatas?: priceTableInterface[],
   handleDetail?: (id: string) => void
+  open?: () => void
+  userAccount?: userAccountInterface[]
 }
 
 const ListRenderComponent = ({
@@ -70,7 +83,9 @@ const ListRenderComponent = ({
   branchDatas,
   csaDatas,
   priceTableDatas,
-  handleDetail
+  handleDetail,
+  open,
+  userAccount
 }: propsInterface) => {
   const [value, setValue] = useState("");
 
@@ -192,7 +207,33 @@ const ListRenderComponent = ({
                 </div>
               </Table.Td>
             </Table.Tr>
-          )))
+          ))) ||
+          (userAccount &&
+            userAccount?.map((product) => (
+              <Table.Tr key={product.id}>
+                <Table.Td className="capitalize w-24">{product.code}</Table.Td>
+                <Table.Td className="capitalize w-24">{product.name}</Table.Td>
+                <Table.Td className="capitalize w-24">{product.phone}</Table.Td>
+                <Table.Td className="capitalize w-24">{product.email}</Table.Td>
+                <Table.Td className="capitalize w-24">{product.role}</Table.Td>
+                <Table.Td className="capitalize w-24">{product.created_on}</Table.Td>
+                <Table.Td className="capitalize w-24">{product.status}</Table.Td>
+                <Table.Td className="capitalize w-24">
+                  <div  className="flex items-center justify-start gap-x-2">
+                    <div onClick={open && open} className="w-8 h-8 grid place-items-center rounded border-2  border-gray cursor-pointer">
+                      <LuEye />
+                    </div>
+                    <div className="w-8 h-8 grid place-items-center rounded border-2 border-gray cursor-pointer">
+                      <TbEdit />
+                    </div>
+      
+                    <div className="w-8 h-8 grid place-items-center rounded border-2 border-gray cursor-pointer">
+                      <MdDeleteOutline />
+                    </div>
+                  </div>
+                </Table.Td>
+              </Table.Tr>
+            )))
 
 
 
