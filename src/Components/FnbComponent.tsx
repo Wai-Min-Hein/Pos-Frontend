@@ -185,7 +185,7 @@ const FnbComponent = () => {
   const nav = useNavigate();
 
   return (
-    <div className="w-full h-full px-8   !overflow-hidden">
+    <div className="w-full h-full !overflow-hidden">
       <TopBar />
 
       <div className="">

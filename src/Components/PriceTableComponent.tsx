@@ -1,73 +1,78 @@
-import { Button, Modal, TextInput } from "@mantine/core";
+import { Button } from "@mantine/core";
 import ListRenderComponent from "./ListRenderComponent";
 import { IoMdAddCircleOutline } from "react-icons/io";
 
 import excel from "../../public/images/iconsImage/excel.png";
 import TopBar from "./TopBar";
 import { HiOutlinePrinter } from "react-icons/hi2";
-import { useDisclosure } from "@mantine/hooks";
+import { useNavigate } from "react-router-dom";
 
 
-const MenuCategoryComponent = () => {
+const PriceTableComponent = () => {
 
-  interface categoryInterface {
+  interface priceTableInterface {
     id: string,
     code: string,
     name: string,
-    created_on: string,
-    status: string
+    dateFrom: string,
+    dateTo: string,
+    
+
   }
 
   
   const tableTitle: string[] = [
     "code",
     "name",
-    "created on",
-    "status",
+    'dateFrom',
+    'dateTo'
+    
     
   ];
 
-  const categoryDatas: categoryInterface[] = [
+  const priceTableDatas: priceTableInterface[] = [
     {
         id:'1',
         code:'111',
         name: 'Food',
-        created_on: 'sunday',
-        status: 'Active'
+        dateFrom:'saturday',
+        dateTo:'saturday'
+
+        
     },
     {
         id:'2',
         code:'111',
         name: 'Food',
-        created_on: 'sunday',
-        status: 'Inactive'
+        dateFrom:'saturday',
+        dateTo:'saturday'
+
+
+       
     }
   ]
 
-  const [opened, { open, close }] = useDisclosure(false);
+  const nav = useNavigate()
+
+ 
+  
+
+  const handleDetail  = (id: string) => {
+    nav(`/system/pricetable/${id}`)
+  }
 
 
   return (
-    <div className="w-full h-full !overflow-hidden">
+    <div className="w-full h-full !overflow-hidden ">
       <TopBar />
 
-      <Modal opened={opened} onClose={close} title="Add New Category" centered>
-        <TextInput
-          className="!bg-transparent"
-          label="Code"
-          placeholder="Code"
-        />
-        <TextInput label="Name" placeholder="Name" />
-        <div className="flex justify-end mt-4">
-          <Button>Save</Button>
-        </div>
-      </Modal>
+      
 
       <div className="">
         <div className="flex justify-between items-center">
           <div className="">
-            <h1>Category</h1>
-            <p>Manage Category</p>
+            <h1>Price Table</h1>
+            <p>Manage Price Table</p>
           </div>
 
           <div className="flex justify-start items-center gap-4">
@@ -76,11 +81,10 @@ const MenuCategoryComponent = () => {
             </div>
             <HiOutlinePrinter size={24} />
             <Button
-              onClick={open}
               className="!bg-btn !text-white"
               leftSection={<IoMdAddCircleOutline size={18} />}
             >
-              Add New Category
+              Add New Area
             </Button>
 
            
@@ -88,12 +92,13 @@ const MenuCategoryComponent = () => {
         </div>
 
         <ListRenderComponent
-          categoryDatas={categoryDatas}
+          priceTableDatas={priceTableDatas}
           tableTitle={tableTitle}
+          handleDetail={handleDetail}
         />
       </div>
     </div>
   );
 };
 
-export default MenuCategoryComponent;
+export default PriceTableComponent;

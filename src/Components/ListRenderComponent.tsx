@@ -27,16 +27,50 @@ interface categoryInterface {
   status: string;
 }
 
+interface branchInterface {
+  id: string;
+  code: string;
+  name: string;
+  address?: string;
+  phone?: string;
+}
+
+interface csaInterface {
+  id: string;
+  code: string;
+  name: string;
+}
+
+interface priceTableInterface {
+  id: string,
+  code: string,
+  name: string,
+  dateFrom: string,
+  dateTo: string,
+  
+
+}
+
+
+
 interface propsInterface {
   productDatas?: productInterface[];
   tableTitle: string[];
   categoryDatas?: categoryInterface[];
+  branchDatas?: branchInterface[];
+  csaDatas?: csaInterface[];
+  priceTableDatas?: priceTableInterface[],
+  handleDetail?: (id: string) => void
 }
 
 const ListRenderComponent = ({
   productDatas,
   tableTitle,
   categoryDatas,
+  branchDatas,
+  csaDatas,
+  priceTableDatas,
+  handleDetail
 }: propsInterface) => {
   const [value, setValue] = useState("");
 
@@ -90,10 +124,80 @@ const ListRenderComponent = ({
             </div>
           </Table.Td>
         </Table.Tr>
-      )));
+      ))) ||
+    (branchDatas &&
+      branchDatas?.map((product) => (
+        <Table.Tr key={product.id}>
+          <Table.Td className="capitalize w-24">{product.code}</Table.Td>
+          <Table.Td className="capitalize w-24">{product.name}</Table.Td>
+          <Table.Td className="capitalize w-24">{product.address}</Table.Td>
+          <Table.Td className="capitalize w-24">{product.phone}</Table.Td>
+          <Table.Td className="capitalize w-24">
+            <div className="flex items-center justify-start gap-x-2">
+              <div className="w-8 h-8 grid place-items-center rounded border-2  border-gray">
+                <LuEye />
+              </div>
+              <div className="w-8 h-8 grid place-items-center rounded border-2 border-gray">
+                <TbEdit />
+              </div>
+
+              <div className="w-8 h-8 grid place-items-center rounded border-2 border-gray">
+                <MdDeleteOutline />
+              </div>
+            </div>
+          </Table.Td>
+        </Table.Tr>
+      ))) || 
+      (csaDatas &&
+        csaDatas?.map((product) => (
+          <Table.Tr key={product.id}>
+            <Table.Td className="capitalize w-24">{product.code}</Table.Td>
+            <Table.Td className="capitalize w-24">{product.name}</Table.Td>
+            <Table.Td className="capitalize w-24">
+              <div className="flex items-center justify-start gap-x-2">
+                <div className="w-8 h-8 grid place-items-center rounded border-2  border-gray">
+                  <LuEye />
+                </div>
+                <div className="w-8 h-8 grid place-items-center rounded border-2 border-gray">
+                  <TbEdit />
+                </div>
+  
+                <div className="w-8 h-8 grid place-items-center rounded border-2 border-gray">
+                  <MdDeleteOutline />
+                </div>
+              </div>
+            </Table.Td>
+          </Table.Tr>
+        ))) || 
+
+        (priceTableDatas &&
+          priceTableDatas?.map((product) => (
+            <Table.Tr key={product.id}>
+              <Table.Td className="capitalize w-24">{product.code}</Table.Td>
+              <Table.Td className="capitalize w-24">{product.name}</Table.Td>
+              <Table.Td className="capitalize w-24">{product.dateFrom}</Table.Td>
+              <Table.Td className="capitalize w-24">{product.dateTo}</Table.Td>
+              <Table.Td className="capitalize w-24">
+                <div  className="flex items-center justify-start gap-x-2">
+                  <div onClick={() => handleDetail && handleDetail(product.id)} className="w-8 h-8 grid place-items-center rounded border-2  border-gray cursor-pointer">
+                    <LuEye />
+                  </div>
+                  <div className="w-8 h-8 grid place-items-center rounded border-2 border-gray cursor-pointer">
+                    <TbEdit />
+                  </div>
+    
+                  <div className="w-8 h-8 grid place-items-center rounded border-2 border-gray cursor-pointer">
+                    <MdDeleteOutline />
+                  </div>
+                </div>
+              </Table.Td>
+            </Table.Tr>
+          )))
+
+
 
   return (
-    <div className="border border-gray p-4  rounded-md m-6">
+    <div className="border border-gray p-4  rounded-md my-6">
       <div className=" relative grid place-items-center">
         <Input
           placeholder="Search "

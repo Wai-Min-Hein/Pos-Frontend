@@ -8,39 +8,36 @@ import { HiOutlinePrinter } from "react-icons/hi2";
 import { useDisclosure } from "@mantine/hooks";
 
 
-const MenuCategoryComponent = () => {
+const CsaComponent = () => {
 
-  interface categoryInterface {
+  interface csaInterface {
     id: string,
     code: string,
     name: string,
-    created_on: string,
-    status: string
+    
+
   }
 
   
   const tableTitle: string[] = [
     "code",
     "name",
-    "created on",
-    "status",
+    
     
   ];
 
-  const categoryDatas: categoryInterface[] = [
+  const csaDatas: csaInterface[] = [
     {
         id:'1',
         code:'111',
         name: 'Food',
-        created_on: 'sunday',
-        status: 'Active'
+        
     },
     {
         id:'2',
         code:'111',
         name: 'Food',
-        created_on: 'sunday',
-        status: 'Inactive'
+       
     }
   ]
 
@@ -51,13 +48,13 @@ const MenuCategoryComponent = () => {
     <div className="w-full h-full !overflow-hidden">
       <TopBar />
 
-      <Modal opened={opened} onClose={close} title="Add New Category" centered>
+      <Modal opened={opened} onClose={close} title="Add New Area" centered>
         <TextInput
-          className="!bg-transparent"
           label="Code"
           placeholder="Code"
         />
         <TextInput label="Name" placeholder="Name" />
+
         <div className="flex justify-end mt-4">
           <Button>Save</Button>
         </div>
@@ -66,8 +63,8 @@ const MenuCategoryComponent = () => {
       <div className="">
         <div className="flex justify-between items-center">
           <div className="">
-            <h1>Category</h1>
-            <p>Manage Category</p>
+            <h1>Customer service area</h1>
+            <p>Manage Customer service area</p>
           </div>
 
           <div className="flex justify-start items-center gap-4">
@@ -80,7 +77,7 @@ const MenuCategoryComponent = () => {
               className="!bg-btn !text-white"
               leftSection={<IoMdAddCircleOutline size={18} />}
             >
-              Add New Category
+              Add New Area
             </Button>
 
            
@@ -88,7 +85,7 @@ const MenuCategoryComponent = () => {
         </div>
 
         <ListRenderComponent
-          categoryDatas={categoryDatas}
+          csaDatas={csaDatas}
           tableTitle={tableTitle}
         />
       </div>
@@ -96,4 +93,4 @@ const MenuCategoryComponent = () => {
   );
 };
 
-export default MenuCategoryComponent;
+export default CsaComponent;

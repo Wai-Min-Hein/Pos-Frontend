@@ -1,4 +1,4 @@
-import { Button, Modal, TextInput } from "@mantine/core";
+import { Button, Modal, NumberInput, TextInput } from "@mantine/core";
 import ListRenderComponent from "./ListRenderComponent";
 import { IoMdAddCircleOutline } from "react-icons/io";
 
@@ -8,39 +8,40 @@ import { HiOutlinePrinter } from "react-icons/hi2";
 import { useDisclosure } from "@mantine/hooks";
 
 
-const MenuCategoryComponent = () => {
+const BranchListComponent = () => {
 
-  interface categoryInterface {
+  interface branchInterface {
     id: string,
     code: string,
     name: string,
-    created_on: string,
-    status: string
+    address?: string,
+    phone?:string,
+
   }
 
   
   const tableTitle: string[] = [
     "code",
     "name",
-    "created on",
-    "status",
+    "address",
+    "phone",
     
   ];
 
-  const categoryDatas: categoryInterface[] = [
+  const branchDatas: branchInterface[] = [
     {
         id:'1',
         code:'111',
         name: 'Food',
-        created_on: 'sunday',
-        status: 'Active'
+        address: 'yangon',
+        phone:'09888777555'
     },
     {
         id:'2',
         code:'111',
         name: 'Food',
-        created_on: 'sunday',
-        status: 'Inactive'
+        address: 'yangon',
+        phone:'09888777555'
     }
   ]
 
@@ -48,16 +49,18 @@ const MenuCategoryComponent = () => {
 
 
   return (
-    <div className="w-full h-full !overflow-hidden">
+    <div className="w-full h-full    !overflow-hidden">
       <TopBar />
 
-      <Modal opened={opened} onClose={close} title="Add New Category" centered>
+      <Modal opened={opened} onClose={close} title="Add New Branch" centered>
         <TextInput
-          className="!bg-transparent"
           label="Code"
           placeholder="Code"
         />
         <TextInput label="Name" placeholder="Name" />
+        <NumberInput label="Phone" placeholder="Phone" />
+        <TextInput label="Address" placeholder="Address" />
+
         <div className="flex justify-end mt-4">
           <Button>Save</Button>
         </div>
@@ -66,8 +69,8 @@ const MenuCategoryComponent = () => {
       <div className="">
         <div className="flex justify-between items-center">
           <div className="">
-            <h1>Category</h1>
-            <p>Manage Category</p>
+            <h1>Branches</h1>
+            <p>Manage Branches</p>
           </div>
 
           <div className="flex justify-start items-center gap-4">
@@ -80,7 +83,7 @@ const MenuCategoryComponent = () => {
               className="!bg-btn !text-white"
               leftSection={<IoMdAddCircleOutline size={18} />}
             >
-              Add New Category
+              Add New Branch
             </Button>
 
            
@@ -88,7 +91,7 @@ const MenuCategoryComponent = () => {
         </div>
 
         <ListRenderComponent
-          categoryDatas={categoryDatas}
+          branchDatas={branchDatas}
           tableTitle={tableTitle}
         />
       </div>
@@ -96,4 +99,4 @@ const MenuCategoryComponent = () => {
   );
 };
 
-export default MenuCategoryComponent;
+export default BranchListComponent;
