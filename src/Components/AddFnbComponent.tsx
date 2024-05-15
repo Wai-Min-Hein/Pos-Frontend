@@ -9,7 +9,6 @@ import {
   TextInput,
   Textarea,
 } from "@mantine/core";
-import TopBar from "./TopBar";
 import { LuMoveLeft, LuPlusCircle } from "react-icons/lu";
 import { HiOutlineInformationCircle } from "react-icons/hi2";
 
@@ -27,7 +26,6 @@ const AddFnbComponent = () => {
 
   return (
     <div className="w-full h-full px-8   !overflow-hidden">
-      <TopBar />
 
       <div className="flex justify-between items-center">
         <div className="">

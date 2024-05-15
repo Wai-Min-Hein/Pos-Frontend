@@ -135,18 +135,19 @@ const SideNav = () => {
       name: "Inventory",
       link: "/inventory",
       lists: [
-        {
-          name: "Product Category",
-          icon: productCategory,
-
-          href: "/inventory/productcategories",
-        },
+        
 
         {
           name: "Product List",
           icon: product,
 
           href: "/inventory/products",
+        },
+        {
+          name: "Product Category",
+          icon: productCategory,
+
+          href: "/inventory/productcategories",
         },
         {
           name: "Stock In",

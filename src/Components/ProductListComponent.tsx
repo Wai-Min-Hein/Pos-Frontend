@@ -4,20 +4,20 @@ import excel from "../../public/images/iconsImage/excel.png";
 
 import { IoMdAddCircleOutline } from "react-icons/io";
 
-import { CiImport } from "react-icons/ci";
+import {  CiImport } from "react-icons/ci";
 
-import { HiOutlinePrinter } from "react-icons/hi2";
-import { Button, Modal } from "@mantine/core";
+import {  HiOutlinePrinter } from "react-icons/hi2";
+import {  Button,  Modal } from "@mantine/core";
 
 import ListRenderComponent from "./ListRenderComponent";
 import { useDisclosure } from "@mantine/hooks";
-import AddFnbComponent from "./AddFnbComponent";
+import AddProductComponent from "./AddProductComponent";
 
-const FnbComponent = () => {
-  interface fnbInterface {
+
+const ProductListComponent = () => {
+  interface productInterface {
     id: string;
     name: string;
-    price: number;
     category: string;
     sku: string;
     createdByName: string;
@@ -30,15 +30,13 @@ const FnbComponent = () => {
     "category",
     "sku",
     "unit",
-    "price",
     "created by",
   ];
 
-  const fnbDatas: fnbInterface[] = [
+  const productDatas: productInterface[] = [
     {
       id: "1",
       name: "Product 1",
-      price: 100,
       category: "laptop",
       sku: "p001",
       createdByName: "John",
@@ -49,7 +47,6 @@ const FnbComponent = () => {
     {
       id: "2",
       name: "Product 2",
-      price: 101,
       category: "laptop",
       sku: "p002",
       createdByName: "John",
@@ -60,7 +57,6 @@ const FnbComponent = () => {
     {
       id: "3",
       name: "Product 3",
-      price: 102,
       category: "laptop",
       sku: "p003",
       createdByName: "John",
@@ -71,7 +67,6 @@ const FnbComponent = () => {
     {
       id: "4",
       name: "Product 4",
-      price: 103,
       category: "laptop",
       sku: "p004",
       createdByName: "John",
@@ -82,7 +77,6 @@ const FnbComponent = () => {
     {
       id: "5",
       name: "Product 5",
-      price: 104,
       category: "laptop",
       sku: "p005",
       createdByName: "John",
@@ -93,7 +87,6 @@ const FnbComponent = () => {
     {
       id: "6",
       name: "Product 6",
-      price: 105,
       category: "laptop",
       sku: "p006",
       createdByName: "John",
@@ -104,7 +97,6 @@ const FnbComponent = () => {
     {
       id: "7",
       name: "Product 7",
-      price: 106,
       category: "laptop",
       sku: "p007",
       createdByName: "John",
@@ -115,7 +107,6 @@ const FnbComponent = () => {
     {
       id: "8",
       name: "Product 8",
-      price: 107,
       category: "laptop",
       sku: "p008",
       createdByName: "John",
@@ -126,7 +117,6 @@ const FnbComponent = () => {
     {
       id: "9",
       name: "Product 9",
-      price: 108,
       category: "laptop",
       sku: "p009",
       createdByName: "John",
@@ -137,7 +127,6 @@ const FnbComponent = () => {
     {
       id: "10",
       name: "Product 10",
-      price: 109,
       category: "laptop",
       sku: "p010",
       createdByName: "John",
@@ -149,7 +138,6 @@ const FnbComponent = () => {
     {
       id: "11",
       name: "Product 10",
-      price: 109,
       category: "laptop",
       sku: "p010",
       createdByName: "John",
@@ -161,7 +149,6 @@ const FnbComponent = () => {
     {
       id: "12",
       name: "Product 10",
-      price: 109,
       category: "laptop ",
       sku: "p010",
       createdByName: "John",
@@ -173,7 +160,6 @@ const FnbComponent = () => {
     {
       id: "13",
       name: "Product 10",
-      price: 109,
       category: "laptop",
       sku: "p010",
       createdByName: "John",
@@ -182,15 +168,11 @@ const FnbComponent = () => {
       unit: "pc",
     },
   ];
-
   const [opened, { open, close }] = useDisclosure(false);
+
   return (
     <div className="w-full h-full !overflow-hidden">
       <TopBar />
-
-      <Modal opened={opened} onClose={close} fullScreen>
-        <AddFnbComponent/>
-      </Modal>
 
       <div className="">
         <div className="flex justify-between items-center">
@@ -221,8 +203,17 @@ const FnbComponent = () => {
           </div>
         </div>
 
+        <Modal
+          opened={opened}
+          fullScreen
+          onClose={close}
+          
+        >
+         <AddProductComponent/>
+        </Modal>
+
         <ListRenderComponent
-          fnbDatas={fnbDatas}
+          productDatas={productDatas}
           tableTitle={tableTitle}
         />
       </div>
@@ -230,4 +221,4 @@ const FnbComponent = () => {
   );
 };
 
-export default FnbComponent;
+export default ProductListComponent;

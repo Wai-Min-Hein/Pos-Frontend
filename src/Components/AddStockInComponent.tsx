@@ -7,12 +7,8 @@ import {
   TextInput,
 } from "@mantine/core";
 import { DateTimePicker } from "@mantine/dates";
-import { useState } from "react";
 
-const PriceTableFormComponent = () => {
-  const [applyPolicy, setApplyPolicy] = useState(true);
-  const [detailInfo, setDetailInfo] = useState(false);
-
+const AddStockInComponent = () => {
   interface menuInterface {
     id: string;
     code: string;
@@ -65,88 +61,49 @@ const PriceTableFormComponent = () => {
     </Table.Tr>
   ));
   return (
-    <div className="w-full mt-4 px-6 py-4 overflow-auto">
-      <div className="bg-white py-2">
-        <Button
-          onClick={() => (setDetailInfo(false), setApplyPolicy(true))}
-          className={`!bg-transparent !text-darkText  focus:border-none visited:border-none hover:border-none !transition-none ${
-            applyPolicy ? "!border-b-2 !border-b-btn pb-1" : ""
-          }`}
-        >
-          Apply Policy
-        </Button>
-        <Button
-          onClick={() => (setDetailInfo(true), setApplyPolicy(false))}
-          className={`!bg-transparent !text-darkText  focus:border-none hover:border-none !transition-none ${
-            detailInfo ? "!border-b-2 !border-b-btn pb-1" : ""
-          }`}
-        >
-          Products Details Information
-        </Button>
-      </div>
-
-      <div className={`py-2 mt-4 apply-policy ${applyPolicy ? "" : "hidden"}`}>
-        <form action="" className="price-table-form">
-          <div className="bg-white px-4 py-3 rounded-md">
-            <h6>Price Table Informations</h6>
-            <div className="flex items-center justify-start gap-4">
-              <TextInput
-                className="!border-b border-b-gray !bg-transparent basis-1/4"
-                label="Price table code"
-                placeholder=""
-              />
-              <TextInput
-                className="!border-b border-b-gray !bg-transparent basis-1/4"
-                label="Price table name"
-                placeholder=""
-              />
-            </div>
+    <div>
+      <div className="">
+        <form action="">
+          <div className="flex justify-start items-center gap-6">
+            <TextInput
+              placeholder="Code"
+              label="Reference code"
+              className="basis-1/3"
+            />
+            <Select
+              placeholder="Supplier"
+              className="basis-1/3"
+              label="Supplier"
+              data={["React", "Angular", "Vue", "Svelte"]}
+            />
+            <DateTimePicker
+              label="Date"
+              placeholder="Choose Date"
+              className="basis-1/3"
+            />
           </div>
 
-          <div className="my-6 bg-white px-4 py-3 rounded-md">
-            <h6>Apply at</h6>
-            <div className="flex items-center justify-start gap-4">
-              <Select
-                label="Choose Branch"
-                className="basis-1/3"
-                placeholder="Choose Branch"
-                data={["React", "Angular", "Vue", "Svelte"]}
-              />
+          <div className="flex justify-start items-center gap-6">
+            <TextInput
+            //   placeholder="Total Quantity"
+            defaultValue={44}
+              label="Total Quantity"
+              className="basis-1/3"
+            />
 
-              <Select
-                label="Choose Customers"
-                className="basis-1/3"
-                placeholder="Choose Customers"
-                data={["React", "Angular", "Vue", "Svelte"]}
-              />
-            </div>
-          </div>
-
-          <div className="my-6 bg-white px-4 py-3 rounded-md">
-            <h6>Time of Application</h6>
-            <div className="flex items-center justify-start gap-4">
-              <DateTimePicker
-                label="Effective time from"
-                className="basis-1/2"
-                placeholder="Choose Date"
-              />
-
-              <DateTimePicker
-                label="Effective time to"
-                className="basis-1/2"
-                placeholder="Choose Date"
-              />
-            </div>
+<TextInput
+            //   placeholder="Total Quantity"
+            defaultValue={299442}
+              label="Total Amount"
+              className="basis-1/3"
+            />
+           
           </div>
         </form>
       </div>
 
-      <div
-        className={`py-2 mt-4 apply-policy overflow-auto w-full bg-white px-4  ${
-          detailInfo ? "" : "hidden"
-        }`}
-      >
-        <Table.ScrollContainer minWidth={500}  className="w-[90rem]">
+      <div className="bg-transparentBgGreen mt-6 p-4 rounded-sm">
+        <Table.ScrollContainer minWidth={500}>
           <Table>
             <Table.Thead>
               <Table.Tr>
@@ -213,4 +170,4 @@ const PriceTableFormComponent = () => {
   );
 };
 
-export default PriceTableFormComponent;
+export default AddStockInComponent;
