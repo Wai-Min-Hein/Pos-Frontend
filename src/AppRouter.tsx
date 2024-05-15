@@ -29,7 +29,6 @@ import CashBookReport from "./CashBookReport";
 import OpeningDebtList from "./OpeningDebtList";
 import Report from "./Report";
 import Pos from "./Pos";
-import AddFnb from "./AddFnb";
 import PriceTableForm from "./PriceTableForm";
 import UserRightDetail from "./UserRightDetail";
 
@@ -42,7 +41,6 @@ const AppRouter = () => {
       {/* home */}
 
       <Route path="/" element={<Fnb />}/>
-        <Route path="/new" element={<AddFnb />} />
       
 
 
