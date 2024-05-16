@@ -27,7 +27,7 @@ import DebtReceiptVoucher from "./DebtReceiptVoucher";
 import DebtPaymentVoucher from "./DebtPaymentVoucher";
 import CashBookReport from "./CashBookReport";
 import OpeningDebtList from "./OpeningDebtList";
-import Report from "./Report";
+import SalesReport from "./SalesReport";
 import Pos from "./Pos";
 import PriceTableForm from "./PriceTableForm";
 import UserRightDetail from "./UserRightDetail";
@@ -91,7 +91,7 @@ const AppRouter = () => {
       {/* finance */}
 
       {/* report */}
-      <Route path="/salereports" element={<Report />} />
+      <Route path="/salereports" element={<SalesReport />} />
       {/* report */}
 
       {/* pos */}

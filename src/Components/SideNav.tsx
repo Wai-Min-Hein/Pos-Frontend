@@ -16,7 +16,9 @@ import stockIn from "/images/iconsImage/stockIn.png";
 import stockOut from "/images/iconsImage/stockOut.png";
 import customer from "/images/iconsImage/customer.svg";
 import discount from "/images/iconsImage/discount.svg";
-import voucherPayment from "/images/iconsImage/voucherPayment.png";
+
+
+// import voucherPayment from "/images/iconsImage/voucherPayment.png";
 
 import cashBookList from "/images/iconsImage/cashBookList.svg";
 
@@ -182,11 +184,7 @@ const SideNav = () => {
           href: "/crm/discounts",
         },
 
-        {
-          name: "Voucher Payment",
-          icon: voucherPayment,
-          href: "/crm/voucherpayments",
-        },
+       
       ],
     },
 

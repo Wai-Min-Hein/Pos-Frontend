@@ -1,17 +1,18 @@
+import SalesReportComponent from "./Components/SalesReportComponent";
 import SideNav from "./Components/SideNav";
-import TopBar from "./Components/TopBar";
 
-const Report = () => {
+const SalesReport = () => {
 
   return (
     <div className=" w-screen h-screen flex justify-start items-start ">
       <SideNav />
 
-     <TopBar/>
+      <SalesReportComponent/>
+
 
 
     </div>
   );
 };
 
-export default Report;
+export default SalesReport;
