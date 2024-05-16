@@ -1,4 +1,3 @@
-import TopBar from "./TopBar";
 
 import excel from "../../public/images/iconsImage/excel.png";
 
@@ -185,8 +184,7 @@ const FnbComponent = () => {
 
   const [opened, { open, close }] = useDisclosure(false);
   return (
-    <div className="w-full h-full !overflow-hidden">
-      <TopBar />
+    <div className="w-full h-full !overflow-hidden flex-1">
 
       <Modal opened={opened} onClose={close} fullScreen>
         <AddFnbComponent/>

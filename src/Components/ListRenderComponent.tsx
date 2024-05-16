@@ -42,21 +42,19 @@ interface csaInterface {
 }
 
 interface priceTableInterface {
-  id: string,
-  code: string,
-  name: string,
-  dateFrom: string,
-  dateTo: string,
-  
-
+  id: string;
+  code: string;
+  name: string;
+  dateFrom: string;
+  dateTo: string;
 }
 
 interface userAccountInterface {
   id: string;
   code: string;
   name: string;
-  phone:string;
-  email?:string;
+  phone: string;
+  email?: string;
   role: string;
   status: string;
   created_on: string;
@@ -69,10 +67,10 @@ interface EmployeeListInterface {
   phone: string;
   email?: string;
   department?: string;
-  gender?:string,
-  dob?: string,
-  address?: string,
-  branch?: string,
+  gender?: string;
+  dob?: string;
+  address?: string;
+  branch?: string;
 }
 
 interface productInterface {
@@ -85,71 +83,61 @@ interface productInterface {
   unit: string;
 }
 
+interface productCategoryInterface {
+  id: string;
+  code: string;
+  name: string;
+  created_on: string;
+  status: string;
+}
 
-
-  interface productCategoryInterface {
-    id: string,
-    code: string,
-    name: string,
-    created_on: string,
-    status: string
-  }
-
-  
- interface stockInInterface {
-  id: string,
-  reference: string,
-  supplier: string,
-  date: string,
-  totalAmount:number,
-  totalQty: number
-
+interface stockInInterface {
+  id: string;
+  reference: string;
+  supplier: string;
+  date: string;
+  totalAmount: number;
+  totalQty: number;
 }
 interface stockOutInterface {
-  id: string,
-  reference: string,
-  supplier: string,
-  date: string,
-  totalAmount:number,
-  totalQty: number
-
+  id: string;
+  reference: string;
+  supplier: string;
+  date: string;
+  totalAmount: number;
+  totalQty: number;
 }
 
 interface cashBookDatasInterface {
-  id: string,
-  code: string,
-  name: string,
-  branch: string,
-  type?: string,
-
+  id: string;
+  code: string;
+  name: string;
+  branch: string;
+  type?: string;
 }
 
 interface incomeTypeInterface {
-  id: string,
-  code: string,
-  name: string,
-  description: string
-
+  id: string;
+  code: string;
+  name: string;
+  description: string;
 }
 
-
 interface ExpenseTypeInterface {
-  id: string,
-  code: string,
-  name: string,
-  description: string
-
+  id: string;
+  code: string;
+  name: string;
+  description: string;
 }
 
 interface CashPaymentVoucherDatasInterface {
-  id: string,
-  code: string,
-  name: string,
-  date: string
-  amount: number,
-  partner: string,
-  description: string,
-
+  id: string;
+  code: string;
+  name: string;
+  date: string;
+  amount: number;
+  partner: string;
+  description: string;
 }
 
 interface CashReceiptVoucherDatasInterface {
@@ -162,16 +150,14 @@ interface CashReceiptVoucherDatasInterface {
   description: string;
 }
 
-
 interface DebtPaymentVoucherDatasInterface {
-  id: string,
-  code: string,
-  name: string,
-  date: string
-  amount: number,
-  partner: string,
-  description: string,
-
+  id: string;
+  code: string;
+  name: string;
+  date: string;
+  amount: number;
+  partner: string;
+  description: string;
 }
 
 interface DebtReceiptVoucherDatasInterface {
@@ -190,22 +176,22 @@ interface CustomerInterface {
   name: string;
   phone: string;
   email?: string;
-  gender?:string,
-  dob?: string,
-  address?: string,
+  gender?: string;
+  dob?: string;
+  address?: string;
 }
 
 interface DiscountInterface {
   id: string;
-  code: string,
-  name: string,
-  status: string,
-  effectiveDate:string,
-  expiredDate: string,
-  limit: string | number,
-  branch: string,
-  rate?: number,
-  amount?: number
+  code: string;
+  name: string;
+  status: string;
+  effectiveDate: string;
+  expiredDate: string;
+  limit: string | number;
+  branch: string;
+  rate?: number;
+  amount?: number;
 }
 interface CashBookReportInterface {
   id: string;
@@ -228,11 +214,10 @@ interface OpeningDebtListInterface {
   description?: string;
   type: string;
   amount: number;
-  from: string,
+  from: string;
 
   partner: string;
 }
-
 
 interface SalesReportDatasInterface {
   id: string;
@@ -253,27 +238,27 @@ interface propsInterface {
   categoryDatas?: categoryInterface[];
   branchDatas?: branchInterface[];
   csaDatas?: csaInterface[];
-  priceTableDatas?: priceTableInterface[],
-  handleDetail?: (id: string) => void
-  open?: () => void
-  userAccount?: userAccountInterface[],
-  employeeList?: EmployeeListInterface[],
-  productDatas?: productInterface[],
-  productCategoryDatas?: productCategoryInterface[],
-  stockInDatas?: stockInInterface[],
-  stockOutDatas?: stockOutInterface[],
-  cashBookDatas?: cashBookDatasInterface[] ,
-  incomeTypeDatas?: incomeTypeInterface[] ,
-  expenseTypeDatas?: ExpenseTypeInterface[],
-  cashPaymentVoucherDatas?: CashPaymentVoucherDatasInterface[],
-  cashReceiptVoucherDatas?: CashReceiptVoucherDatasInterface[] ,
-  debtPaymentVoucherDatas?: DebtPaymentVoucherDatasInterface[],
-  debtReceiptVoucherDatas?: DebtReceiptVoucherDatasInterface[] ,
-  customerDatas?: CustomerInterface[],
-  discountDatas?: DiscountInterface[],
-  cashBookReportDatas?: CashBookReportInterface[],
-  openingDebtListDatas?: OpeningDebtListInterface[] ,
-  SalesReportDatas?: SalesReportDatasInterface[]
+  priceTableDatas?: priceTableInterface[];
+  handleDetail?: (id: string) => void;
+  open?: () => void;
+  userAccount?: userAccountInterface[];
+  employeeList?: EmployeeListInterface[];
+  productDatas?: productInterface[];
+  productCategoryDatas?: productCategoryInterface[];
+  stockInDatas?: stockInInterface[];
+  stockOutDatas?: stockOutInterface[];
+  cashBookDatas?: cashBookDatasInterface[];
+  incomeTypeDatas?: incomeTypeInterface[];
+  expenseTypeDatas?: ExpenseTypeInterface[];
+  cashPaymentVoucherDatas?: CashPaymentVoucherDatasInterface[];
+  cashReceiptVoucherDatas?: CashReceiptVoucherDatasInterface[];
+  debtPaymentVoucherDatas?: DebtPaymentVoucherDatasInterface[];
+  debtReceiptVoucherDatas?: DebtReceiptVoucherDatasInterface[];
+  customerDatas?: CustomerInterface[];
+  discountDatas?: DiscountInterface[];
+  cashBookReportDatas?: CashBookReportInterface[];
+  openingDebtListDatas?: OpeningDebtListInterface[];
+  SalesReportDatas?: SalesReportDatasInterface[];
 }
 
 const ListRenderComponent = ({
@@ -303,7 +288,7 @@ const ListRenderComponent = ({
   cashBookReportDatas,
 
   openingDebtListDatas,
-  SalesReportDatas
+  SalesReportDatas,
 }: propsInterface) => {
   const [value, setValue] = useState("");
 
@@ -380,512 +365,566 @@ const ListRenderComponent = ({
             </div>
           </Table.Td>
         </Table.Tr>
-      ))) || 
-      (csaDatas &&
-        csaDatas?.map((product) => (
-          <Table.Tr key={product.id}>
-            <Table.Td className="capitalize w-24">{product.code}</Table.Td>
-            <Table.Td className="capitalize w-24">{product.name}</Table.Td>
-            <Table.Td className="capitalize w-24">
-              <div className="flex items-center justify-start gap-x-2">
-                <div className="w-8 h-8 grid place-items-center rounded border-2  border-gray">
-                  <LuEye />
-                </div>
-                <div className="w-8 h-8 grid place-items-center rounded border-2 border-gray">
-                  <TbEdit />
-                </div>
-  
-                <div className="w-8 h-8 grid place-items-center rounded border-2 border-gray">
-                  <MdDeleteOutline />
-                </div>
+      ))) ||
+    (csaDatas &&
+      csaDatas?.map((product) => (
+        <Table.Tr key={product.id}>
+          <Table.Td className="capitalize w-24">{product.code}</Table.Td>
+          <Table.Td className="capitalize w-24">{product.name}</Table.Td>
+          <Table.Td className="capitalize w-24">
+            <div className="flex items-center justify-start gap-x-2">
+              <div className="w-8 h-8 grid place-items-center rounded border-2  border-gray">
+                <LuEye />
               </div>
-            </Table.Td>
-          </Table.Tr>
-        ))) || 
+              <div className="w-8 h-8 grid place-items-center rounded border-2 border-gray">
+                <TbEdit />
+              </div>
 
-        (priceTableDatas &&
-          priceTableDatas?.map((product) => (
-            <Table.Tr key={product.id}>
-              <Table.Td className="capitalize w-24">{product.code}</Table.Td>
-              <Table.Td className="capitalize w-24">{product.name}</Table.Td>
-              <Table.Td className="capitalize w-24">{product.dateFrom}</Table.Td>
-              <Table.Td className="capitalize w-24">{product.dateTo}</Table.Td>
-              <Table.Td className="capitalize w-24">
-                <div  className="flex items-center justify-start gap-x-2">
-                  <div onClick={() => handleDetail && handleDetail(product.id)} className="w-8 h-8 grid place-items-center rounded border-2  border-gray cursor-pointer">
-                    <LuEye />
-                  </div>
-                  <div className="w-8 h-8 grid place-items-center rounded border-2 border-gray cursor-pointer">
-                    <TbEdit />
-                  </div>
-    
-                  <div className="w-8 h-8 grid place-items-center rounded border-2 border-gray cursor-pointer">
-                    <MdDeleteOutline />
-                  </div>
-                </div>
-              </Table.Td>
-            </Table.Tr>
-          ))) ||
-          (userAccount &&
-            userAccount?.map((product) => (
-              <Table.Tr key={product.id}>
-                <Table.Td className="capitalize w-24">{product.code}</Table.Td>
-                <Table.Td className="capitalize w-24">{product.name}</Table.Td>
-                <Table.Td className="capitalize w-24">{product.phone}</Table.Td>
-                <Table.Td className="capitalize w-24">{product.email}</Table.Td>
-                <Table.Td className="capitalize w-24">{product.role}</Table.Td>
-                <Table.Td className="capitalize w-24">{product.created_on}</Table.Td>
-                <Table.Td className="capitalize w-24">{product.status}</Table.Td>
-                <Table.Td className="capitalize w-24">
-                  <div  className="flex items-center justify-start gap-x-2">
-                    <div onClick={open && open} className="w-8 h-8 grid place-items-center rounded border-2  border-gray cursor-pointer">
-                      <LuEye />
-                    </div>
-                    <div className="w-8 h-8 grid place-items-center rounded border-2 border-gray cursor-pointer">
-                      <TbEdit />
-                    </div>
-      
-                    <div className="w-8 h-8 grid place-items-center rounded border-2 border-gray cursor-pointer">
-                      <MdDeleteOutline />
-                    </div>
-                  </div>
-                </Table.Td>
-              </Table.Tr>
-            ))) ||
-            (employeeList &&
-              employeeList?.map((product) => (
-                <Table.Tr key={product.id}>
-                  <Table.Td className="capitalize w-24">{product.code}</Table.Td>
-                  <Table.Td className="capitalize w-24">{product.name}</Table.Td>
-                  <Table.Td className="capitalize w-24">{product.phone}</Table.Td>
-                  <Table.Td className="capitalize w-24">{product.email}</Table.Td>
-                  <Table.Td className="capitalize w-24">{product.department}</Table.Td>
-                  <Table.Td className="capitalize w-24">{product.gender}</Table.Td>
-                  <Table.Td className="capitalize w-24">{product.dob}</Table.Td>
-                  <Table.Td className="capitalize w-24">{product.address}</Table.Td>
-                  <Table.Td className="capitalize w-24">{product.branch}</Table.Td>
-                  <Table.Td className="capitalize w-24">
-                    <div  className="flex items-center justify-start gap-x-2">
-                      <div onClick={open && open} className="w-8 h-8 grid place-items-center rounded border-2  border-gray cursor-pointer">
-                        <LuEye />
-                      </div>
-                      <div className="w-8 h-8 grid place-items-center rounded border-2 border-gray cursor-pointer">
-                        <TbEdit />
-                      </div>
-        
-                      <div className="w-8 h-8 grid place-items-center rounded border-2 border-gray cursor-pointer">
-                        <MdDeleteOutline />
-                      </div>
-                    </div>
-                  </Table.Td>
-                </Table.Tr>
-              ))) || 
-              (productDatas &&
-                productDatas?.map((product) => (
-                  <Table.Tr key={product.id}>
-                    <Table.Td className="capitalize w-24">{product.name}</Table.Td>
-                    <Table.Td className="capitalize w-24">{product.category}</Table.Td>
-                    <Table.Td className="capitalize w-24">{product.sku}</Table.Td>
-                    <Table.Td className="capitalize w-24">{product.unit}</Table.Td>
-                    <Table.Td className="capitalize w-24">
-                      {product.createdByName}
-                    </Table.Td>
-                    <Table.Td className="capitalize w-24">
-                      <div className="flex items-center justify-start gap-x-2">
-                        <div className="w-8 h-8 grid place-items-center rounded border-2  border-gray">
-                          <LuEye />
-                        </div>
-                        <div className="w-8 h-8 grid place-items-center rounded border-2 border-gray">
-                          <TbEdit />
-                        </div>
-          
-                        <div className="w-8 h-8 grid place-items-center rounded border-2 border-gray">
-                          <MdDeleteOutline />
-                        </div>
-                      </div>
-                    </Table.Td>
-                  </Table.Tr>
-                )))||
-                (productCategoryDatas &&
-                  productCategoryDatas?.map((product) => (
-                    <Table.Tr key={product.id}>
-                      <Table.Td className="capitalize w-24">{product.code}</Table.Td>
-                      <Table.Td className="capitalize w-24">{product.name}</Table.Td>
-                      <Table.Td className="capitalize w-24">{product.created_on}</Table.Td>
-                      <Table.Td className="capitalize w-24">{product.status}</Table.Td>
-                      <Table.Td className="capitalize w-24">
-                        <div className="flex items-center justify-start gap-x-2">
-                          <div className="w-8 h-8 grid place-items-center rounded border-2  border-gray">
-                            <LuEye />
-                          </div>
-                          <div className="w-8 h-8 grid place-items-center rounded border-2 border-gray">
-                            <TbEdit />
-                          </div>
-            
-                          <div className="w-8 h-8 grid place-items-center rounded border-2 border-gray">
-                            <MdDeleteOutline />
-                          </div>
-                        </div>
-                      </Table.Td>
-                    </Table.Tr>
-                  ))) ||
-                  (stockInDatas &&
-                    stockInDatas?.map((product) => (
-                      <Table.Tr key={product.id}>
-                        <Table.Td className="capitalize w-24">{product.reference}</Table.Td>
-                        <Table.Td className="capitalize w-24">{product.supplier}</Table.Td>
-                        <Table.Td className="capitalize w-24">{product.date}</Table.Td>
-                        <Table.Td className="capitalize w-24">{product.totalAmount}</Table.Td>
-                        <Table.Td className="capitalize w-24">{product.totalQty}</Table.Td>
-                        <Table.Td className="capitalize w-24">
-                          <div className="flex items-center justify-start gap-x-2">
-                            <div className="w-8 h-8 grid place-items-center rounded border-2  border-gray">
-                              <LuEye />
-                            </div>
-                            <div className="w-8 h-8 grid place-items-center rounded border-2 border-gray">
-                              <TbEdit />
-                            </div>
-              
-                            <div className="w-8 h-8 grid place-items-center rounded border-2 border-gray">
-                              <MdDeleteOutline />
-                            </div>
-                          </div>
-                        </Table.Td>
-                      </Table.Tr>
-                    ))) ||
-                    (stockOutDatas &&
-                      stockOutDatas?.map((product) => (
-                        <Table.Tr key={product.id}>
-                          <Table.Td className="capitalize w-24">{product.reference}</Table.Td>
-                          <Table.Td className="capitalize w-24">{product.supplier}</Table.Td>
-                          <Table.Td className="capitalize w-24">{product.date}</Table.Td>
-                          <Table.Td className="capitalize w-24">{product.totalAmount}</Table.Td>
-                          <Table.Td className="capitalize w-24">{product.totalQty}</Table.Td>
-                          <Table.Td className="capitalize w-24">
-                            <div className="flex items-center justify-start gap-x-2">
-                              <div className="w-8 h-8 grid place-items-center rounded border-2  border-gray">
-                                <LuEye />
-                              </div>
-                              <div className="w-8 h-8 grid place-items-center rounded border-2 border-gray">
-                                <TbEdit />
-                              </div>
-                
-                              <div className="w-8 h-8 grid place-items-center rounded border-2 border-gray">
-                                <MdDeleteOutline />
-                              </div>
-                            </div>
-                          </Table.Td>
-                        </Table.Tr>
-                      ))) || 
-                      (cashBookDatas &&
-                        cashBookDatas?.map((product) => (
-                          <Table.Tr key={product.id}>
-                            <Table.Td className="capitalize w-24">{product.code}</Table.Td>
-                            <Table.Td className="capitalize w-24">{product.name}</Table.Td>
-                            <Table.Td className="capitalize w-24">{product.branch}</Table.Td>
-                            <Table.Td className="capitalize w-24">{product.type}</Table.Td>
-                            <Table.Td className="capitalize w-24">
-                              <div className="flex items-center justify-start gap-x-2">
-                                <div onClick={open && open} className="w-8 h-8 grid place-items-center rounded border-2  border-gray">
-                                  <LuEye />
-                                </div>
-                                <div className="w-8 h-8 grid place-items-center rounded border-2 border-gray">
-                                  <TbEdit />
-                                </div>
-                  
-                                <div className="w-8 h-8 grid place-items-center rounded border-2 border-gray">
-                                  <MdDeleteOutline />
-                                </div>
-                              </div>
-                            </Table.Td>
-                          </Table.Tr>
-                        ))) || 
-                        (incomeTypeDatas &&
-                          incomeTypeDatas?.map((product) => (
-                            <Table.Tr key={product.id}>
-                              <Table.Td className="capitalize w-24">{product.code}</Table.Td>
-                              <Table.Td className="capitalize w-24">{product.name}</Table.Td>
-                              <Table.Td className="capitalize w-24">{product.description}</Table.Td>
-                              <Table.Td className="capitalize w-24">
-                                <div className="flex items-center justify-start gap-x-2">
-                                  <div onClick={open && open} className="w-8 h-8 grid place-items-center rounded border-2  border-gray">
-                                    <LuEye />
-                                  </div>
-                                  <div className="w-8 h-8 grid place-items-center rounded border-2 border-gray">
-                                    <TbEdit />
-                                  </div>
-                    
-                                  <div className="w-8 h-8 grid place-items-center rounded border-2 border-gray">
-                                    <MdDeleteOutline />
-                                  </div>
-                                </div>
-                              </Table.Td>
-                            </Table.Tr>
-                          ))) || 
-                          (expenseTypeDatas &&
-                            expenseTypeDatas?.map((product) => (
-                              <Table.Tr key={product.id}>
-                                <Table.Td className="capitalize w-24">{product.code}</Table.Td>
-                                <Table.Td className="capitalize w-24">{product.name}</Table.Td>
-                                <Table.Td className="capitalize w-24">{product.description}</Table.Td>
-                                <Table.Td className="capitalize w-24">
-                                  <div className="flex items-center justify-start gap-x-2">
-                                    <div onClick={open && open} className="w-8 h-8 grid place-items-center rounded border-2  border-gray">
-                                      <LuEye />
-                                    </div>
-                                    <div className="w-8 h-8 grid place-items-center rounded border-2 border-gray">
-                                      <TbEdit />
-                                    </div>
-                      
-                                    <div className="w-8 h-8 grid place-items-center rounded border-2 border-gray">
-                                      <MdDeleteOutline />
-                                    </div>
-                                  </div>
-                                </Table.Td>
-                              </Table.Tr>
-                            ))) || 
-                            (cashPaymentVoucherDatas &&
-                              cashPaymentVoucherDatas?.map((product) => (
-                                <Table.Tr key={product.id}>
-                                  <Table.Td className="capitalize w-24">{product.code}</Table.Td>
-                                  <Table.Td className="capitalize w-24">{product.name}</Table.Td>
-                                  <Table.Td className="capitalize w-24">{product.date}</Table.Td>
-                                  <Table.Td className="capitalize w-24">{product.amount}</Table.Td>
-                                  <Table.Td className="capitalize w-24">{product.partner}</Table.Td>
-                                  <Table.Td className="capitalize w-24">{product.description}</Table.Td>
-                                  <Table.Td className="capitalize w-24">
-                                    <div className="flex items-center justify-start gap-x-2">
-                                      <div onClick={open && open} className="w-8 h-8 grid place-items-center rounded border-2  border-gray">
-                                        <LuEye />
-                                      </div>
-                                      <div className="w-8 h-8 grid place-items-center rounded border-2 border-gray">
-                                        <TbEdit />
-                                      </div>
-                        
-                                      <div className="w-8 h-8 grid place-items-center rounded border-2 border-gray">
-                                        <MdDeleteOutline />
-                                      </div>
-                                    </div>
-                                  </Table.Td>
-                                </Table.Tr>
-                              )))|| 
-                              (cashReceiptVoucherDatas &&
-                                cashReceiptVoucherDatas?.map((product) => (
-                                  <Table.Tr key={product.id}>
-                                    <Table.Td className="capitalize w-24">{product.code}</Table.Td>
-                                    <Table.Td className="capitalize w-24">{product.name}</Table.Td>
-                                    <Table.Td className="capitalize w-24">{product.date}</Table.Td>
-                                    <Table.Td className="capitalize w-24">{product.amount}</Table.Td>
-                                    <Table.Td className="capitalize w-24">{product.partner}</Table.Td>
-                                    <Table.Td className="capitalize w-24">{product.description}</Table.Td>
-                                    <Table.Td className="capitalize w-24">
-                                      <div className="flex items-center justify-start gap-x-2">
-                                        <div onClick={open && open} className="w-8 h-8 grid place-items-center rounded border-2  border-gray">
-                                          <LuEye />
-                                        </div>
-                                        <div className="w-8 h-8 grid place-items-center rounded border-2 border-gray">
-                                          <TbEdit />
-                                        </div>
-                          
-                                        <div className="w-8 h-8 grid place-items-center rounded border-2 border-gray">
-                                          <MdDeleteOutline />
-                                        </div>
-                                      </div>
-                                    </Table.Td>
-                                  </Table.Tr>
-                                )))|| 
-                                (debtPaymentVoucherDatas &&
-                                  debtPaymentVoucherDatas?.map((product) => (
-                                    <Table.Tr key={product.id}>
-                                      <Table.Td className="capitalize w-24">{product.code}</Table.Td>
-                                      <Table.Td className="capitalize w-24">{product.name}</Table.Td>
-                                      <Table.Td className="capitalize w-24">{product.date}</Table.Td>
-                                      <Table.Td className="capitalize w-24">{product.amount}</Table.Td>
-                                      <Table.Td className="capitalize w-24">{product.partner}</Table.Td>
-                                      <Table.Td className="capitalize w-24">{product.description}</Table.Td>
-                                      <Table.Td className="capitalize w-24">
-                                        <div className="flex items-center justify-start gap-x-2">
-                                          <div onClick={open && open} className="w-8 h-8 grid place-items-center rounded border-2  border-gray">
-                                            <LuEye />
-                                          </div>
-                                          <div className="w-8 h-8 grid place-items-center rounded border-2 border-gray">
-                                            <TbEdit />
-                                          </div>
-                            
-                                          <div className="w-8 h-8 grid place-items-center rounded border-2 border-gray">
-                                            <MdDeleteOutline />
-                                          </div>
-                                        </div>
-                                      </Table.Td>
-                                    </Table.Tr>
-                                  )))|| 
-                                  (debtReceiptVoucherDatas &&
-                                    debtReceiptVoucherDatas?.map((product) => (
-                                      <Table.Tr key={product.id}>
-                                        <Table.Td className="capitalize w-24">{product.code}</Table.Td>
-                                        <Table.Td className="capitalize w-24">{product.name}</Table.Td>
-                                        <Table.Td className="capitalize w-24">{product.date}</Table.Td>
-                                        <Table.Td className="capitalize w-24">{product.amount}</Table.Td>
-                                        <Table.Td className="capitalize w-24">{product.partner}</Table.Td>
-                                        <Table.Td className="capitalize w-24">{product.description}</Table.Td>
-                                        <Table.Td className="capitalize w-24">
-                                          <div className="flex items-center justify-start gap-x-2">
-                                            <div onClick={open && open} className="w-8 h-8 grid place-items-center rounded border-2  border-gray">
-                                              <LuEye />
-                                            </div>
-                                            <div className="w-8 h-8 grid place-items-center rounded border-2 border-gray">
-                                              <TbEdit />
-                                            </div>
-                              
-                                            <div className="w-8 h-8 grid place-items-center rounded border-2 border-gray">
-                                              <MdDeleteOutline />
-                                            </div>
-                                          </div>
-                                        </Table.Td>
-                                      </Table.Tr>
-                                    )))  ||
-                                    (customerDatas &&
-                                      customerDatas?.map((product) => (
-                                        <Table.Tr key={product.id}>
-                                          <Table.Td className="capitalize w-24">{product.code}</Table.Td>
-                                          <Table.Td className="capitalize w-24">{product.name}</Table.Td>
-                                          <Table.Td className="capitalize w-24">{product.phone}</Table.Td>
-                                          <Table.Td className="capitalize w-24">{product.email}</Table.Td>
-                                          <Table.Td className="capitalize w-24">{product.gender}</Table.Td>
-                                          <Table.Td className="capitalize w-24">{product.dob}</Table.Td>
-                                          <Table.Td className="capitalize w-24">{product.address}</Table.Td>
-                                          <Table.Td className="capitalize w-24">
-                                            <div  className="flex items-center justify-start gap-x-2">
-                                              <div onClick={open && open} className="w-8 h-8 grid place-items-center rounded border-2  border-gray cursor-pointer">
-                                                <LuEye />
-                                              </div>
-                                              <div className="w-8 h-8 grid place-items-center rounded border-2 border-gray cursor-pointer">
-                                                <TbEdit />
-                                              </div>
-                                
-                                              <div className="w-8 h-8 grid place-items-center rounded border-2 border-gray cursor-pointer">
-                                                <MdDeleteOutline />
-                                              </div>
-                                            </div>
-                                          </Table.Td>
-                                        </Table.Tr>
-                                      ))) ||
-                                      (discountDatas &&
-                                        discountDatas?.map((product) => (
-                                          <Table.Tr key={product.id}>
-                                            <Table.Td className="capitalize w-24">{product.code}</Table.Td>
-                                            <Table.Td className="capitalize w-24">{product.name}</Table.Td>
-                                            <Table.Td className="capitalize w-24">{product.status}</Table.Td>
-                                            <Table.Td className="capitalize w-24">{product.effectiveDate}</Table.Td>
-                                            <Table.Td className="capitalize w-24">{product.expiredDate}</Table.Td>
-                                            <Table.Td className="capitalize w-24">{product.limit}</Table.Td>
-                                            <Table.Td className="capitalize w-24">{product.branch}</Table.Td>
-                                            <Table.Td className="capitalize w-24">{product.rate}</Table.Td>
-                                            <Table.Td className="capitalize w-24">{product.amount}</Table.Td>
-                                            
-                                            <Table.Td className="capitalize w-24">
-                                              <div  className="flex items-center justify-start gap-x-2">
-                                                <div onClick={open && open} className="w-8 h-8 grid place-items-center rounded border-2  border-gray cursor-pointer">
-                                                  <LuEye />
-                                                </div>
-                                                <div className="w-8 h-8 grid place-items-center rounded border-2 border-gray cursor-pointer">
-                                                  <TbEdit />
-                                                </div>
-                                  
-                                                <div className="w-8 h-8 grid place-items-center rounded border-2 border-gray cursor-pointer">
-                                                  <MdDeleteOutline />
-                                                </div>
-                                              </div>
-                                            </Table.Td>
-                                          </Table.Tr>
-                                        ))) ||
-                                        (cashBookReportDatas &&
-                                          cashBookReportDatas?.map((product) => (
-                                            <Table.Tr key={product.id}>
-                                              <Table.Td className="capitalize w-24">{product.code}</Table.Td>
-                                              <Table.Td className="capitalize w-24">{product.name}</Table.Td>
-                                              <Table.Td className="capitalize w-24">{product.date}</Table.Td>
-                                              <Table.Td className="capitalize w-24">{product.receiptVoucher}</Table.Td>
-                                              <Table.Td className="capitalize w-24">{product.paymentVoucher}</Table.Td>
-                                              <Table.Td className="capitalize w-24">{product.partner}</Table.Td>
-                                              <Table.Td className="capitalize w-24">{product.description}</Table.Td>
-                                              <Table.Td className="capitalize w-24">{product.openingBalance}</Table.Td>
-                                              <Table.Td className="capitalize w-24">{product.receipt}</Table.Td>
-                                              <Table.Td className="capitalize w-24">{product.payment}</Table.Td>
-                                              <Table.Td className="capitalize w-24">{product.closingBalance}</Table.Td>
-                                              
-                                              <Table.Td className="capitalize w-24">
-                                                <div  className="flex items-center justify-start gap-x-2">
-                                                  <div onClick={open && open} className="w-8 h-8 grid place-items-center rounded border-2  border-gray cursor-pointer">
-                                                    <LuEye />
-                                                  </div>
-                                                  <div className="w-8 h-8 grid place-items-center rounded border-2 border-gray cursor-pointer">
-                                                    <TbEdit />
-                                                  </div>
-                                    
-                                                  <div className="w-8 h-8 grid place-items-center rounded border-2 border-gray cursor-pointer">
-                                                    <MdDeleteOutline />
-                                                  </div>
-                                                </div>
-                                              </Table.Td>
-                                            </Table.Tr>
-                                          ))) ||
-                                          (openingDebtListDatas &&
-                                            openingDebtListDatas?.map((product) => (
-                                              <Table.Tr key={product.id}>
-                                                <Table.Td className="capitalize w-24">{product.from}</Table.Td>
-                                                <Table.Td className="capitalize w-24">{product.partner}</Table.Td>
-                                                <Table.Td className="capitalize w-24">{product.type}</Table.Td>
-                                                <Table.Td className="capitalize w-24">{product.amount}</Table.Td>
-                                                <Table.Td className="capitalize w-24">{product.description}</Table.Td>
-                                                
-                                                <Table.Td className="capitalize w-24">
-                                                  <div  className="flex items-center justify-start gap-x-2">
-                                                    <div onClick={open && open} className="w-8 h-8 grid place-items-center rounded border-2  border-gray cursor-pointer">
-                                                      <LuEye />
-                                                    </div>
-                                                    <div className="w-8 h-8 grid place-items-center rounded border-2 border-gray cursor-pointer">
-                                                      <TbEdit />
-                                                    </div>
-                                      
-                                                    <div className="w-8 h-8 grid place-items-center rounded border-2 border-gray cursor-pointer">
-                                                      <MdDeleteOutline />
-                                                    </div>
-                                                  </div>
-                                                </Table.Td>
-                                              </Table.Tr>
-                                            ))) || 
-                                            (SalesReportDatas &&
-                                              SalesReportDatas?.map((product) => (
-                                                <Table.Tr key={product.id}>
-                                                  <Table.Td className="capitalize w-24">{product.branchCode}</Table.Td>
-                                                  <Table.Td className="capitalize w-24">{product.branchName}</Table.Td>
-                                                  <Table.Td className="capitalize w-24">{product.date}</Table.Td>
-                                                  <Table.Td className="capitalize w-24">{product.billNo}</Table.Td>
-                                                  <Table.Td className="capitalize w-24">{product.area}</Table.Td>
-                                                  <Table.Td className="capitalize w-24">{product.table}</Table.Td>
-                                                  <Table.Td className="capitalize w-24">{product.productAmount}</Table.Td>
-                                                  <Table.Td className="capitalize w-24">{product.discount}</Table.Td>
-                                                  <Table.Td className="capitalize w-24">{product.revenue}</Table.Td>
-                                                  
-                                                  <Table.Td className="capitalize w-24">
-                                                    <div  className="flex items-center justify-start gap-x-2">
-                                                      <div onClick={open && open} className="w-8 h-8 grid place-items-center rounded border-2  border-gray cursor-pointer">
-                                                        <LuEye />
-                                                      </div>
-                                                      <div className="w-8 h-8 grid place-items-center rounded border-2 border-gray cursor-pointer">
-                                                        <TbEdit />
-                                                      </div>
-                                        
-                                                      <div className="w-8 h-8 grid place-items-center rounded border-2 border-gray cursor-pointer">
-                                                        <MdDeleteOutline />
-                                                      </div>
-                                                    </div>
-                                                  </Table.Td>
-                                                </Table.Tr>
-                                              )))
+              <div className="w-8 h-8 grid place-items-center rounded border-2 border-gray">
+                <MdDeleteOutline />
+              </div>
+            </div>
+          </Table.Td>
+        </Table.Tr>
+      ))) ||
+    (priceTableDatas &&
+      priceTableDatas?.map((product) => (
+        <Table.Tr key={product.id}>
+          <Table.Td className="capitalize w-24">{product.code}</Table.Td>
+          <Table.Td className="capitalize w-24">{product.name}</Table.Td>
+          <Table.Td className="capitalize w-24">{product.dateFrom}</Table.Td>
+          <Table.Td className="capitalize w-24">{product.dateTo}</Table.Td>
+          <Table.Td className="capitalize w-24">
+            <div className="flex items-center justify-start gap-x-2">
+              <div
+                onClick={() => handleDetail && handleDetail(product.id)}
+                className="w-8 h-8 grid place-items-center rounded border-2  border-gray cursor-pointer"
+              >
+                <LuEye />
+              </div>
+              <div className="w-8 h-8 grid place-items-center rounded border-2 border-gray cursor-pointer">
+                <TbEdit />
+              </div>
 
+              <div className="w-8 h-8 grid place-items-center rounded border-2 border-gray cursor-pointer">
+                <MdDeleteOutline />
+              </div>
+            </div>
+          </Table.Td>
+        </Table.Tr>
+      ))) ||
+    (userAccount &&
+      userAccount?.map((product) => (
+        <Table.Tr key={product.id}>
+          <Table.Td className="capitalize w-24">{product.code}</Table.Td>
+          <Table.Td className="capitalize w-24">{product.name}</Table.Td>
+          <Table.Td className="capitalize w-24">{product.phone}</Table.Td>
+          <Table.Td className="capitalize w-24">{product.email}</Table.Td>
+          <Table.Td className="capitalize w-24">{product.role}</Table.Td>
+          <Table.Td className="capitalize w-24">{product.created_on}</Table.Td>
+          <Table.Td className="capitalize w-24">{product.status}</Table.Td>
+          <Table.Td className="capitalize w-24">
+            <div className="flex items-center justify-start gap-x-2">
+              <div
+                onClick={open && open}
+                className="w-8 h-8 grid place-items-center rounded border-2  border-gray cursor-pointer"
+              >
+                <LuEye />
+              </div>
+              <div className="w-8 h-8 grid place-items-center rounded border-2 border-gray cursor-pointer">
+                <TbEdit />
+              </div>
 
+              <div className="w-8 h-8 grid place-items-center rounded border-2 border-gray cursor-pointer">
+                <MdDeleteOutline />
+              </div>
+            </div>
+          </Table.Td>
+        </Table.Tr>
+      ))) ||
+    (employeeList &&
+      employeeList?.map((product) => (
+        <Table.Tr key={product.id}>
+          <Table.Td className="capitalize w-24">{product.code}</Table.Td>
+          <Table.Td className="capitalize w-24">{product.name}</Table.Td>
+          <Table.Td className="capitalize w-24">{product.phone}</Table.Td>
+          <Table.Td className="capitalize w-24">{product.email}</Table.Td>
+          <Table.Td className="capitalize w-24">{product.department}</Table.Td>
+          <Table.Td className="capitalize w-24">{product.gender}</Table.Td>
+          <Table.Td className="capitalize w-24">{product.dob}</Table.Td>
+          <Table.Td className="capitalize w-24">{product.address}</Table.Td>
+          <Table.Td className="capitalize w-24">{product.branch}</Table.Td>
+          <Table.Td className="capitalize w-24">
+            <div className="flex items-center justify-start gap-x-2">
+              <div
+                onClick={open && open}
+                className="w-8 h-8 grid place-items-center rounded border-2  border-gray cursor-pointer"
+              >
+                <LuEye />
+              </div>
+              <div className="w-8 h-8 grid place-items-center rounded border-2 border-gray cursor-pointer">
+                <TbEdit />
+              </div>
+
+              <div className="w-8 h-8 grid place-items-center rounded border-2 border-gray cursor-pointer">
+                <MdDeleteOutline />
+              </div>
+            </div>
+          </Table.Td>
+        </Table.Tr>
+      ))) ||
+    (productDatas &&
+      productDatas?.map((product) => (
+        <Table.Tr key={product.id}>
+          <Table.Td className="capitalize w-24">{product.name}</Table.Td>
+          <Table.Td className="capitalize w-24">{product.category}</Table.Td>
+          <Table.Td className="capitalize w-24">{product.sku}</Table.Td>
+          <Table.Td className="capitalize w-24">{product.unit}</Table.Td>
+          <Table.Td className="capitalize w-24">
+            {product.createdByName}
+          </Table.Td>
+          <Table.Td className="capitalize w-24">
+            <div className="flex items-center justify-start gap-x-2">
+              <div className="w-8 h-8 grid place-items-center rounded border-2  border-gray">
+                <LuEye />
+              </div>
+              <div className="w-8 h-8 grid place-items-center rounded border-2 border-gray">
+                <TbEdit />
+              </div>
+
+              <div className="w-8 h-8 grid place-items-center rounded border-2 border-gray">
+                <MdDeleteOutline />
+              </div>
+            </div>
+          </Table.Td>
+        </Table.Tr>
+      ))) ||
+    (productCategoryDatas &&
+      productCategoryDatas?.map((product) => (
+        <Table.Tr key={product.id}>
+          <Table.Td className="capitalize w-24">{product.code}</Table.Td>
+          <Table.Td className="capitalize w-24">{product.name}</Table.Td>
+          <Table.Td className="capitalize w-24">{product.created_on}</Table.Td>
+          <Table.Td className="capitalize w-24">{product.status}</Table.Td>
+          <Table.Td className="capitalize w-24">
+            <div className="flex items-center justify-start gap-x-2">
+              <div className="w-8 h-8 grid place-items-center rounded border-2  border-gray">
+                <LuEye />
+              </div>
+              <div className="w-8 h-8 grid place-items-center rounded border-2 border-gray">
+                <TbEdit />
+              </div>
+
+              <div className="w-8 h-8 grid place-items-center rounded border-2 border-gray">
+                <MdDeleteOutline />
+              </div>
+            </div>
+          </Table.Td>
+        </Table.Tr>
+      ))) ||
+    (stockInDatas &&
+      stockInDatas?.map((product) => (
+        <Table.Tr key={product.id}>
+          <Table.Td className="capitalize w-24">{product.reference}</Table.Td>
+          <Table.Td className="capitalize w-24">{product.supplier}</Table.Td>
+          <Table.Td className="capitalize w-24">{product.date}</Table.Td>
+          <Table.Td className="capitalize w-24">{product.totalAmount}</Table.Td>
+          <Table.Td className="capitalize w-24">{product.totalQty}</Table.Td>
+          <Table.Td className="capitalize w-24">
+            <div className="flex items-center justify-start gap-x-2">
+              <div className="w-8 h-8 grid place-items-center rounded border-2  border-gray">
+                <LuEye />
+              </div>
+              <div className="w-8 h-8 grid place-items-center rounded border-2 border-gray">
+                <TbEdit />
+              </div>
+
+              <div className="w-8 h-8 grid place-items-center rounded border-2 border-gray">
+                <MdDeleteOutline />
+              </div>
+            </div>
+          </Table.Td>
+        </Table.Tr>
+      ))) ||
+    (stockOutDatas &&
+      stockOutDatas?.map((product) => (
+        <Table.Tr key={product.id}>
+          <Table.Td className="capitalize w-24">{product.reference}</Table.Td>
+          <Table.Td className="capitalize w-24">{product.supplier}</Table.Td>
+          <Table.Td className="capitalize w-24">{product.date}</Table.Td>
+          <Table.Td className="capitalize w-24">{product.totalAmount}</Table.Td>
+          <Table.Td className="capitalize w-24">{product.totalQty}</Table.Td>
+          <Table.Td className="capitalize w-24">
+            <div className="flex items-center justify-start gap-x-2">
+              <div className="w-8 h-8 grid place-items-center rounded border-2  border-gray">
+                <LuEye />
+              </div>
+              <div className="w-8 h-8 grid place-items-center rounded border-2 border-gray">
+                <TbEdit />
+              </div>
+
+              <div className="w-8 h-8 grid place-items-center rounded border-2 border-gray">
+                <MdDeleteOutline />
+              </div>
+            </div>
+          </Table.Td>
+        </Table.Tr>
+      ))) ||
+    (cashBookDatas &&
+      cashBookDatas?.map((product) => (
+        <Table.Tr key={product.id}>
+          <Table.Td className="capitalize w-24">{product.code}</Table.Td>
+          <Table.Td className="capitalize w-24">{product.name}</Table.Td>
+          <Table.Td className="capitalize w-24">{product.branch}</Table.Td>
+          <Table.Td className="capitalize w-24">{product.type}</Table.Td>
+          <Table.Td className="capitalize w-24">
+            <div className="flex items-center justify-start gap-x-2">
+              <div
+                onClick={open && open}
+                className="w-8 h-8 grid place-items-center rounded border-2  border-gray"
+              >
+                <LuEye />
+              </div>
+              <div className="w-8 h-8 grid place-items-center rounded border-2 border-gray">
+                <TbEdit />
+              </div>
+
+              <div className="w-8 h-8 grid place-items-center rounded border-2 border-gray">
+                <MdDeleteOutline />
+              </div>
+            </div>
+          </Table.Td>
+        </Table.Tr>
+      ))) ||
+    (incomeTypeDatas &&
+      incomeTypeDatas?.map((product) => (
+        <Table.Tr key={product.id}>
+          <Table.Td className="capitalize w-24">{product.code}</Table.Td>
+          <Table.Td className="capitalize w-24">{product.name}</Table.Td>
+          <Table.Td className="capitalize w-24">{product.description}</Table.Td>
+          <Table.Td className="capitalize w-24">
+            <div className="flex items-center justify-start gap-x-2">
+              <div
+                onClick={open && open}
+                className="w-8 h-8 grid place-items-center rounded border-2  border-gray"
+              >
+                <LuEye />
+              </div>
+              <div className="w-8 h-8 grid place-items-center rounded border-2 border-gray">
+                <TbEdit />
+              </div>
+
+              <div className="w-8 h-8 grid place-items-center rounded border-2 border-gray">
+                <MdDeleteOutline />
+              </div>
+            </div>
+          </Table.Td>
+        </Table.Tr>
+      ))) ||
+    (expenseTypeDatas &&
+      expenseTypeDatas?.map((product) => (
+        <Table.Tr key={product.id}>
+          <Table.Td className="capitalize w-24">{product.code}</Table.Td>
+          <Table.Td className="capitalize w-24">{product.name}</Table.Td>
+          <Table.Td className="capitalize w-24">{product.description}</Table.Td>
+          <Table.Td className="capitalize w-24">
+            <div className="flex items-center justify-start gap-x-2">
+              <div
+                onClick={open && open}
+                className="w-8 h-8 grid place-items-center rounded border-2  border-gray"
+              >
+                <LuEye />
+              </div>
+              <div className="w-8 h-8 grid place-items-center rounded border-2 border-gray">
+                <TbEdit />
+              </div>
+
+              <div className="w-8 h-8 grid place-items-center rounded border-2 border-gray">
+                <MdDeleteOutline />
+              </div>
+            </div>
+          </Table.Td>
+        </Table.Tr>
+      ))) ||
+    (cashPaymentVoucherDatas &&
+      cashPaymentVoucherDatas?.map((product) => (
+        <Table.Tr key={product.id}>
+          <Table.Td className="capitalize w-24">{product.code}</Table.Td>
+          <Table.Td className="capitalize w-24">{product.name}</Table.Td>
+          <Table.Td className="capitalize w-24">{product.date}</Table.Td>
+          <Table.Td className="capitalize w-24">{product.amount}</Table.Td>
+          <Table.Td className="capitalize w-24">{product.partner}</Table.Td>
+          <Table.Td className="capitalize w-24">{product.description}</Table.Td>
+          <Table.Td className="capitalize w-24">
+            <div className="flex items-center justify-start gap-x-2">
+              <div
+                onClick={open && open}
+                className="w-8 h-8 grid place-items-center rounded border-2  border-gray"
+              >
+                <LuEye />
+              </div>
+              <div className="w-8 h-8 grid place-items-center rounded border-2 border-gray">
+                <TbEdit />
+              </div>
+
+              <div className="w-8 h-8 grid place-items-center rounded border-2 border-gray">
+                <MdDeleteOutline />
+              </div>
+            </div>
+          </Table.Td>
+        </Table.Tr>
+      ))) ||
+    (cashReceiptVoucherDatas &&
+      cashReceiptVoucherDatas?.map((product) => (
+        <Table.Tr key={product.id}>
+          <Table.Td className="capitalize w-24">{product.code}</Table.Td>
+          <Table.Td className="capitalize w-24">{product.name}</Table.Td>
+          <Table.Td className="capitalize w-24">{product.date}</Table.Td>
+          <Table.Td className="capitalize w-24">{product.amount}</Table.Td>
+          <Table.Td className="capitalize w-24">{product.partner}</Table.Td>
+          <Table.Td className="capitalize w-24">{product.description}</Table.Td>
+          <Table.Td className="capitalize w-24">
+            <div className="flex items-center justify-start gap-x-2">
+              <div
+                onClick={open && open}
+                className="w-8 h-8 grid place-items-center rounded border-2  border-gray"
+              >
+                <LuEye />
+              </div>
+              <div className="w-8 h-8 grid place-items-center rounded border-2 border-gray">
+                <TbEdit />
+              </div>
+
+              <div className="w-8 h-8 grid place-items-center rounded border-2 border-gray">
+                <MdDeleteOutline />
+              </div>
+            </div>
+          </Table.Td>
+        </Table.Tr>
+      ))) ||
+    (debtPaymentVoucherDatas &&
+      debtPaymentVoucherDatas?.map((product) => (
+        <Table.Tr key={product.id}>
+          <Table.Td className="capitalize w-24">{product.code}</Table.Td>
+          <Table.Td className="capitalize w-24">{product.name}</Table.Td>
+          <Table.Td className="capitalize w-24">{product.date}</Table.Td>
+          <Table.Td className="capitalize w-24">{product.amount}</Table.Td>
+          <Table.Td className="capitalize w-24">{product.partner}</Table.Td>
+          <Table.Td className="capitalize w-24">{product.description}</Table.Td>
+          <Table.Td className="capitalize w-24">
+            <div className="flex items-center justify-start gap-x-2">
+              <div
+                onClick={open && open}
+                className="w-8 h-8 grid place-items-center rounded border-2  border-gray"
+              >
+                <LuEye />
+              </div>
+              <div className="w-8 h-8 grid place-items-center rounded border-2 border-gray">
+                <TbEdit />
+              </div>
+
+              <div className="w-8 h-8 grid place-items-center rounded border-2 border-gray">
+                <MdDeleteOutline />
+              </div>
+            </div>
+          </Table.Td>
+        </Table.Tr>
+      ))) ||
+    (debtReceiptVoucherDatas &&
+      debtReceiptVoucherDatas?.map((product) => (
+        <Table.Tr key={product.id}>
+          <Table.Td className="capitalize w-24">{product.code}</Table.Td>
+          <Table.Td className="capitalize w-24">{product.name}</Table.Td>
+          <Table.Td className="capitalize w-24">{product.date}</Table.Td>
+          <Table.Td className="capitalize w-24">{product.amount}</Table.Td>
+          <Table.Td className="capitalize w-24">{product.partner}</Table.Td>
+          <Table.Td className="capitalize w-24">{product.description}</Table.Td>
+          <Table.Td className="capitalize w-24">
+            <div className="flex items-center justify-start gap-x-2">
+              <div
+                onClick={open && open}
+                className="w-8 h-8 grid place-items-center rounded border-2  border-gray"
+              >
+                <LuEye />
+              </div>
+              <div className="w-8 h-8 grid place-items-center rounded border-2 border-gray">
+                <TbEdit />
+              </div>
+
+              <div className="w-8 h-8 grid place-items-center rounded border-2 border-gray">
+                <MdDeleteOutline />
+              </div>
+            </div>
+          </Table.Td>
+        </Table.Tr>
+      ))) ||
+    (customerDatas &&
+      customerDatas?.map((product) => (
+        <Table.Tr key={product.id}>
+          <Table.Td className="capitalize w-24">{product.code}</Table.Td>
+          <Table.Td className="capitalize w-24">{product.name}</Table.Td>
+          <Table.Td className="capitalize w-24">{product.phone}</Table.Td>
+          <Table.Td className="capitalize w-24">{product.email}</Table.Td>
+          <Table.Td className="capitalize w-24">{product.gender}</Table.Td>
+          <Table.Td className="capitalize w-24">{product.dob}</Table.Td>
+          <Table.Td className="capitalize w-24">{product.address}</Table.Td>
+          <Table.Td className="capitalize w-24">
+            <div className="flex items-center justify-start gap-x-2">
+              <div
+                onClick={open && open}
+                className="w-8 h-8 grid place-items-center rounded border-2  border-gray cursor-pointer"
+              >
+                <LuEye />
+              </div>
+              <div className="w-8 h-8 grid place-items-center rounded border-2 border-gray cursor-pointer">
+                <TbEdit />
+              </div>
+
+              <div className="w-8 h-8 grid place-items-center rounded border-2 border-gray cursor-pointer">
+                <MdDeleteOutline />
+              </div>
+            </div>
+          </Table.Td>
+        </Table.Tr>
+      ))) ||
+    (discountDatas &&
+      discountDatas?.map((product) => (
+        <Table.Tr key={product.id}>
+          <Table.Td className="capitalize w-24">{product.code}</Table.Td>
+          <Table.Td className="capitalize w-24">{product.name}</Table.Td>
+          <Table.Td className="capitalize w-24">{product.status}</Table.Td>
+          <Table.Td className="capitalize w-24">
+            {product.effectiveDate}
+          </Table.Td>
+          <Table.Td className="capitalize w-24">{product.expiredDate}</Table.Td>
+          <Table.Td className="capitalize w-24">{product.limit}</Table.Td>
+          <Table.Td className="capitalize w-24">{product.branch}</Table.Td>
+          <Table.Td className="capitalize w-24">{product.rate}</Table.Td>
+          <Table.Td className="capitalize w-24">{product.amount}</Table.Td>
+
+          <Table.Td className="capitalize w-24">
+            <div className="flex items-center justify-start gap-x-2">
+              <div
+                onClick={open && open}
+                className="w-8 h-8 grid place-items-center rounded border-2  border-gray cursor-pointer"
+              >
+                <LuEye />
+              </div>
+              <div className="w-8 h-8 grid place-items-center rounded border-2 border-gray cursor-pointer">
+                <TbEdit />
+              </div>
+
+              <div className="w-8 h-8 grid place-items-center rounded border-2 border-gray cursor-pointer">
+                <MdDeleteOutline />
+              </div>
+            </div>
+          </Table.Td>
+        </Table.Tr>
+      ))) ||
+    (cashBookReportDatas &&
+      cashBookReportDatas?.map((product) => (
+        <Table.Tr key={product.id}>
+          <Table.Td className="capitalize w-24">{product.code}</Table.Td>
+          <Table.Td className="capitalize w-24">{product.name}</Table.Td>
+          <Table.Td className="capitalize w-24">{product.date}</Table.Td>
+          <Table.Td className="capitalize w-24">
+            {product.receiptVoucher}
+          </Table.Td>
+          <Table.Td className="capitalize w-24">
+            {product.paymentVoucher}
+          </Table.Td>
+          <Table.Td className="capitalize w-24">{product.partner}</Table.Td>
+          <Table.Td className="capitalize w-24">{product.description}</Table.Td>
+          <Table.Td className="capitalize w-24">
+            {product.openingBalance}
+          </Table.Td>
+          <Table.Td className="capitalize w-24">{product.receipt}</Table.Td>
+          <Table.Td className="capitalize w-24">{product.payment}</Table.Td>
+          <Table.Td className="capitalize w-24">
+            {product.closingBalance}
+          </Table.Td>
+
+          <Table.Td className="capitalize w-24">
+            <div className="flex items-center justify-start gap-x-2">
+              <div
+                onClick={open && open}
+                className="w-8 h-8 grid place-items-center rounded border-2  border-gray cursor-pointer"
+              >
+                <LuEye />
+              </div>
+              <div className="w-8 h-8 grid place-items-center rounded border-2 border-gray cursor-pointer">
+                <TbEdit />
+              </div>
+
+              <div className="w-8 h-8 grid place-items-center rounded border-2 border-gray cursor-pointer">
+                <MdDeleteOutline />
+              </div>
+            </div>
+          </Table.Td>
+        </Table.Tr>
+      ))) ||
+    (openingDebtListDatas &&
+      openingDebtListDatas?.map((product) => (
+        <Table.Tr key={product.id}>
+          <Table.Td className="capitalize w-24">{product.from}</Table.Td>
+          <Table.Td className="capitalize w-24">{product.partner}</Table.Td>
+          <Table.Td className="capitalize w-24">{product.type}</Table.Td>
+          <Table.Td className="capitalize w-24">{product.amount}</Table.Td>
+          <Table.Td className="capitalize w-24">{product.description}</Table.Td>
+
+          <Table.Td className="capitalize w-24">
+            <div className="flex items-center justify-start gap-x-2">
+              <div
+                onClick={open && open}
+                className="w-8 h-8 grid place-items-center rounded border-2  border-gray cursor-pointer"
+              >
+                <LuEye />
+              </div>
+              <div className="w-8 h-8 grid place-items-center rounded border-2 border-gray cursor-pointer">
+                <TbEdit />
+              </div>
+
+              <div className="w-8 h-8 grid place-items-center rounded border-2 border-gray cursor-pointer">
+                <MdDeleteOutline />
+              </div>
+            </div>
+          </Table.Td>
+        </Table.Tr>
+      ))) ||
+    (SalesReportDatas &&
+      SalesReportDatas?.map((product) => (
+        <Table.Tr key={product.id}>
+          <Table.Td className="capitalize w-24">{product.branchCode}</Table.Td>
+          <Table.Td className="capitalize w-24">{product.branchName}</Table.Td>
+          <Table.Td className="capitalize w-24">{product.date}</Table.Td>
+          <Table.Td className="capitalize w-24">{product.billNo}</Table.Td>
+          <Table.Td className="capitalize w-24">{product.area}</Table.Td>
+          <Table.Td className="capitalize w-24">{product.table}</Table.Td>
+          <Table.Td className="capitalize w-24">
+            {product.productAmount}
+          </Table.Td>
+          <Table.Td className="capitalize w-24">{product.discount}</Table.Td>
+          <Table.Td className="capitalize w-24">{product.revenue}</Table.Td>
+
+          <Table.Td className="capitalize w-24">
+            <div className="flex items-center justify-start gap-x-2">
+              <div
+                onClick={open && open}
+                className="w-8 h-8 grid place-items-center rounded border-2  border-gray cursor-pointer"
+              >
+                <LuEye />
+              </div>
+              <div className="w-8 h-8 grid place-items-center rounded border-2 border-gray cursor-pointer">
+                <TbEdit />
+              </div>
+
+              <div className="w-8 h-8 grid place-items-center rounded border-2 border-gray cursor-pointer">
+                <MdDeleteOutline />
+              </div>
+            </div>
+          </Table.Td>
+        </Table.Tr>
+      )));
 
   return (
     <div className="border border-gray p-4  rounded-md my-6">
@@ -943,21 +982,21 @@ const ListRenderComponent = ({
       </div>
 
       <div className=" overflow-auto border-b-2 border-gray pb-2">
-      <Table.ScrollContainer minWidth={500}>
-        <Table>
-          <Table.Thead>
-            <Table.Tr>
-              {tableTitle.map((title, index) => (
-                <Table.Th className="capitalize" key={index}>
-                  {title}
-                </Table.Th>
-              ))}
+        <Table.ScrollContainer minWidth={500}>
+          <Table>
+            <Table.Thead>
+              <Table.Tr>
+                {tableTitle.map((title, index) => (
+                  <Table.Th className="capitalize" key={index}>
+                    {title}
+                  </Table.Th>
+                ))}
 
-              <Table.Th>Actions</Table.Th>
-            </Table.Tr>
-          </Table.Thead>
-          <Table.Tbody>{rows}</Table.Tbody>
-        </Table>
+                <Table.Th>Actions</Table.Th>
+              </Table.Tr>
+            </Table.Thead>
+            <Table.Tbody>{rows}</Table.Tbody>
+          </Table>
         </Table.ScrollContainer>
       </div>
 

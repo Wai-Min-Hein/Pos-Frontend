@@ -1,9 +1,12 @@
-import SideNav from './Components/SideNav'
+import PosComponent from './Components/PosComponent'
+import TopBar from './Components/TopBar'
 
 const Pos = () => {
   return (
-    <div className=" w-screen h-screen flex justify-start items-start ">
-    <SideNav/>
+    <div className=" w-full min-h-screen overflow-auto ">
+    <TopBar/>
+
+    <PosComponent/>
 
 
 </div>

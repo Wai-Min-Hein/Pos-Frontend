@@ -3,7 +3,6 @@ import ListRenderComponent from "./ListRenderComponent";
 import { IoMdAddCircleOutline } from "react-icons/io";
 
 import excel from "../../public/images/iconsImage/excel.png";
-import TopBar from "./TopBar";
 import { HiOutlinePrinter } from "react-icons/hi2";
 import { useDisclosure } from "@mantine/hooks";
 
@@ -48,8 +47,7 @@ const MenuCategoryComponent = () => {
 
 
   return (
-    <div className="w-full h-full !overflow-hidden">
-      <TopBar />
+    <div className="w-full h-full !overflow-hidden flex-1">
 
       <Modal opened={opened} onClose={close} title="Add New Category" centered>
         <TextInput

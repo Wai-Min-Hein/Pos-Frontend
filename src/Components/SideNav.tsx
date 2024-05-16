@@ -1,5 +1,4 @@
 import { Accordion, Button } from "@mantine/core";
-import fav from "/images/logo.png";
 import csArea from "/images/iconsImage/csArea.png";
 import branchList from "/images/iconsImage/branch.png";
 import menuCategory from "/images/iconsImage/menu.png";
@@ -307,19 +306,14 @@ const SideNav = () => {
     </Accordion.Item>
   ));
   return (
-    <div className="basis-[25%] h-screen py-3 px-6 bg-white rounded-r-2xl text-gray-500 flex flex-col sticky top-0">
-      <div className="flex justify-start items-center gap-2">
-        <div className="">
-          <img src={fav} className="w-24 h-12 object-contain" alt="" />
-        </div>
-        <h4 className="capitalize text-2xl font-[500]">ALI Pos</h4>
-      </div>
+    <div className="basis-1/5 max-h-screen h-[90vh] overflow-auto  bg-white rounded-r-2xl text-gray-500 flex flex-col sticky top-0">
+     
 
       <Accordion
         chevronPosition="right"
         defaultValue={activeNav}
         variant="contained"
-        className="flex-1 mt-6 overflow-auto"
+        className="flex-1 overflow-auto"
       >
         {menuItems}
       </Accordion>

@@ -40,9 +40,7 @@ const AppRouter = () => {
 
       {/* home */}
 
-      <Route path="/" element={<Fnb />}/>
-      
-
+      <Route path="/" element={<Fnb />} />
 
       <Route path="/system/menucategory" element={<MenuCategory />} />
       <Route path="/system/customerservice" element={<Csa />} />

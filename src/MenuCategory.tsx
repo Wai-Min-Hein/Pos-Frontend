@@ -1,14 +1,18 @@
-import MenuCategoryComponent from "./Components/MenuCategoryComponent"
-import SideNav from "./Components/SideNav"
+import MenuCategoryComponent from "./Components/MenuCategoryComponent";
+import SideNav from "./Components/SideNav";
+import TopBar from "./Components/TopBar";
 
 const MenuCategory = () => {
   return (
-    <div className="w-screen h-screen flex justify-start items-start ">
-        <SideNav/>
+    <div className="w-full h-screen">
+      <TopBar />
+      <div className=" flex justify-start items-start ">
+        <SideNav />
 
-        <MenuCategoryComponent/>
+        <MenuCategoryComponent />
+      </div>
     </div>
-  )
-}
+  );
+};
 
-export default MenuCategory
+export default MenuCategory;
