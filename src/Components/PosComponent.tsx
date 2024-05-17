@@ -1,7 +1,11 @@
-import { Button } from "@mantine/core";
+import { Button, Select } from "@mantine/core";
 import { HiOutlineShoppingCart } from "react-icons/hi";
-import { LuRefreshCcw } from "react-icons/lu";
-import { MdOutlineChevronLeft, MdOutlineChevronRight } from "react-icons/md";
+import { LuMinusCircle, LuPlusCircle, LuRefreshCcw } from "react-icons/lu";
+import {
+  MdDeleteOutline,
+  MdOutlineChevronLeft,
+  MdOutlineChevronRight,
+} from "react-icons/md";
 
 import category from "../../public/images/iconsImage/category.png";
 
@@ -11,19 +15,34 @@ import { Swiper, SwiperSlide } from "swiper/react";
 // Import Swiper styles
 import "swiper/css";
 import { Navigation } from "swiper/modules";
-import { useState } from "react";
+import { useRef, useState } from "react";
+import { TbUserPlus } from "react-icons/tb";
+import { FaRegEdit } from "react-icons/fa";
+import { useReactToPrint } from "react-to-print";
 const PosComponent = () => {
-    interface menusInterface {
-        id: string;
-        category: string;
-        name: string;
-        price:number;
-        image: string;
-    }
+  interface menusInterface {
+    id: string;
+    code: string;
+    category: string;
+    name: string;
+    price: number;
+    image: string;
+  }
+
+  interface orderedMenusInterface {
+    id: string;
+    code: string;
+    category: string;
+    name: string;
+    price: number;
+    image: string;
+    quantity: number;
+  }
   const menus: menusInterface[] = [
     {
       id: "1",
       category: "phone",
+      code: "6646",
       name: "i phone 15",
       price: 3000,
       image:
@@ -32,6 +51,7 @@ const PosComponent = () => {
     {
       id: "2",
       category: "laptop",
+      code: "6646",
       name: "i phone 15",
       price: 3000,
       image:
@@ -40,6 +60,7 @@ const PosComponent = () => {
     {
       id: "3",
       category: "shoe",
+      code: "6646",
       name: "i phone 15",
       price: 3000,
       image:
@@ -48,6 +69,7 @@ const PosComponent = () => {
     {
       id: "4",
       category: "airpod",
+      code: "6646",
       name: "i phone 15",
       price: 3000,
       image:
@@ -56,6 +78,7 @@ const PosComponent = () => {
     {
       id: "5",
       category: "chair",
+      code: "6646",
       name: "i phone 15",
       price: 3000,
       image:
@@ -63,9 +86,42 @@ const PosComponent = () => {
     },
   ];
 
+  const orderedmenus: orderedMenusInterface[] = [
+    {
+      id: "3",
+      category: "shoe",
+      code: "6646",
+      name: "i phone 15",
+      price: 3000,
+      quantity: 1,
+      image:
+        "https://i.pinimg.com/564x/57/45/7f/57457fa82ffd936e5229d2f710405e0d.jpg",
+    },
+    {
+      id: "4",
+      category: "airpod",
+      code: "6646",
+      name: "i phone 15",
+      price: 3000,
+      quantity: 1,
+      image:
+        "https://i.pinimg.com/564x/57/45/7f/57457fa82ffd936e5229d2f710405e0d.jpg",
+    },
+    {
+      id: "5",
+      category: "chair",
+      code: "6646",
+      name: "i phone 15",
+      price: 3000,
+      quantity: 1,
+      image:
+        "https://i.pinimg.com/564x/57/45/7f/57457fa82ffd936e5229d2f710405e0d.jpg",
+    },
+  ];
+
   const [menuCategory, setMenuCategory] = useState<menusInterface[]>(menus);
 
-  const filterCategory  = (category: string) => {
+  const filterCategory = (category: string) => {
     if (category == "all") setMenuCategory(menus);
     else {
       const filterDatas = menus.filter((menu) => menu.category === category);
@@ -73,6 +129,34 @@ const PosComponent = () => {
     }
   };
 
+  const increaseQty = (id: string) => {
+    orderedmenus.forEach((menu) => {
+      if (menu.id == id) {
+        menu.quantity += 1;
+
+        console.log(menu);
+      }
+      console.log(orderedmenus);
+    });
+  };
+
+  const decreaseQty = (id: string) => {
+    orderedmenus.forEach((menu) => {
+      if (menu.id == id && menu.quantity > 1) {
+        menu.quantity -= 1;
+
+        console.log(menu);
+      }
+
+      console.log(orderedmenus);
+    });
+  };
+
+  const printRef= useRef<HTMLDivElement>(null)
+
+  const handlePrint = useReactToPrint({
+    content: () => printRef.current,
+  });
   return (
     <div className="p-4 w-full">
       <div className="flex flex-row gap-4">
@@ -87,7 +171,7 @@ const PosComponent = () => {
         </Button>
       </div>
 
-      <div className="flex items-center justify-between gap-2 mt-6">
+      <div className="flex items-start justify-between gap-4 mt-6">
         <div className="basis-2/3 w-2/3 bg-transparentBgGreen p-6 rounded-md">
           <div className="mt-6 flex items-center justify-between ">
             <div className="">
@@ -116,7 +200,10 @@ const PosComponent = () => {
               loop={true}
             >
               <SwiperSlide>
-                <div onClick={() => filterCategory('all')} className="bg-white w-full h-36 rounded-md p-4 cursor-pointer">
+                <div
+                  onClick={() => filterCategory("all")}
+                  className="bg-white w-full h-36 rounded-md p-4 cursor-pointer"
+                >
                   <div className="grid place-items-center w-full">
                     <img
                       src={category}
@@ -129,7 +216,10 @@ const PosComponent = () => {
                 </div>
               </SwiperSlide>
               <SwiperSlide>
-                <div  onClick={() => filterCategory('shoe')} className="bg-white w-full h-36 rounded-md p-4 cursor-pointer">
+                <div
+                  onClick={() => filterCategory("shoe")}
+                  className="bg-white w-full h-36 rounded-md p-4 cursor-pointer"
+                >
                   <div className="grid place-items-center w-full">
                     <img
                       src="https://i.pinimg.com/564x/57/45/7f/57457fa82ffd936e5229d2f710405e0d.jpg"
@@ -141,7 +231,7 @@ const PosComponent = () => {
                   <p className="text-center">8 items</p>
                 </div>
               </SwiperSlide>
-              <SwiperSlide  onClick={() => filterCategory('phone')}>
+              <SwiperSlide onClick={() => filterCategory("phone")}>
                 <div className="bg-white w-full h-36 rounded-md p-4 cursor-pointer">
                   <div className="grid place-items-center w-full">
                     <img
@@ -155,7 +245,10 @@ const PosComponent = () => {
                 </div>
               </SwiperSlide>
               <SwiperSlide>
-                <div  onClick={() => filterCategory('laptop')} className="bg-white w-full h-36 rounded-md p-4 cursor-pointer">
+                <div
+                  onClick={() => filterCategory("laptop")}
+                  className="bg-white w-full h-36 rounded-md p-4 cursor-pointer"
+                >
                   <div className="grid place-items-center w-full">
                     <img
                       src="https://i.pinimg.com/236x/67/73/29/677329a6828e967aed71eb2e67c90e6d.jpg"
@@ -167,8 +260,11 @@ const PosComponent = () => {
                   <p className="text-center">5 items</p>
                 </div>
               </SwiperSlide>
-              <SwiperSlide >
-                <div  onClick={() => filterCategory('airpod')} className="bg-white w-full h-36 rounded-md p-4 cursor-pointer">
+              <SwiperSlide>
+                <div
+                  onClick={() => filterCategory("airpod")}
+                  className="bg-white w-full h-36 rounded-md p-4 cursor-pointer"
+                >
                   <div className="grid place-items-center w-full">
                     <img
                       src="https://i.pinimg.com/474x/bf/41/0d/bf410d8e66283bb6351b240407be5e87.jpg"
@@ -181,7 +277,10 @@ const PosComponent = () => {
                 </div>
               </SwiperSlide>
               <SwiperSlide>
-                <div  onClick={() => filterCategory('chair')} className="bg-white w-full h-36 rounded-md p-4 cursor-pointer flex flex-col justify-center items-center">
+                <div
+                  onClick={() => filterCategory("chair")}
+                  className="bg-white w-full h-36 rounded-md p-4 cursor-pointer flex flex-col justify-center items-center"
+                >
                   <img
                     src="https://i.pinimg.com/236x/b4/dd/b3/b4ddb37ed259d813e6626809da7c3e57.jpg"
                     alt=""
@@ -218,8 +317,150 @@ const PosComponent = () => {
           </div>
         </div>
 
-        <div className=" basis-1/3">
-          <h1>test</h1>
+        <div className=" basis-1/3  px-4">
+          <div className="">
+            <h6>Order List</h6>
+            <p>Order id : 333</p>
+          </div>
+
+          <div className="">
+            <h6>Customer Informations</h6>
+            <div className="">
+              <div className="flex items-center justify-start gap-4">
+                <Select
+                  className="flex-1"
+                  defaultValue={"Walkin Customer"}
+                  data={[
+                    "Walkin Customer",
+                    "React",
+                    "Angular",
+                    "Vue",
+                    "Svelte",
+                  ]}
+                />
+                <div className="w-8 h-8 grid place-items-center cursor-pointer rounded-sm bg-btn">
+                  <TbUserPlus className="text-white" />
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div className="addedMenus">
+            <div className="flex items-start justify-start gap-2 my-4">
+              <h6>Product Added</h6>
+              <span className="w-5 h-5 bg-btn rounded-full grid place-items-center text-sm">
+                2
+              </span>
+            </div>
+
+            <div className="flex flex-col gap-y-6">
+              {orderedmenus.map((menu) => (
+                <div
+                  key={menu.id}
+                  className="flex items-center justify-between gap-3 px-4"
+                >
+                  <div className="flex items-center justify-start gap-2">
+                    <div className="w-12 h-12 rounded-sm">
+                      <img
+                        src={menu.image}
+                        className="w-full h-full object-cover"
+                        alt=""
+                      />
+                    </div>
+                    <div className="">
+                      <span>{menu.code}</span>
+                      <main>{menu.name}</main>
+                      <span>{menu.price}</span>
+                    </div>
+                  </div>
+
+                  <div className="flex items-center justify-start gap-2 border border-gray px-2 rounded-md">
+                    <LuMinusCircle
+                      onClick={() => decreaseQty(menu.id)}
+                      className="cursor-pointer"
+                    />
+                    <span>{menu.quantity}</span>
+                    <LuPlusCircle
+                      onClick={() => increaseQty(menu.id)}
+                      className="cursor-pointer"
+                    />
+                  </div>
+
+                  <div className="flex">
+                    <Button className="!w-8 !h-8 !p-0  !bg-transparent">
+                      <FaRegEdit className=" !text-btn" size={16} />
+                    </Button>
+                    <Button className="!w-8 !h-8 !p-0 !bg-transparent ">
+                      <MdDeleteOutline className=" !text-red-500" size={16} />
+                    </Button>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+
+          <div className="flex items-center justify-start gap-4">
+            <Select
+              label="Tax"
+              className=""
+              defaultValue={"5%"}
+              data={["5%", "React", "Angular", "Vue", "Svelte"]}
+            />
+            <Select
+              label="Discount"
+              className=""
+              defaultValue={"5%"}
+              data={["5%", "React", "Angular", "Vue", "Svelte"]}
+            />
+          </div>
+
+          <div ref={printRef} className=" bg-transparentBgGreen px-4 mt-6 flex flex-col gap-y-4">
+            <div className="flex  items-center justify-between">
+              <h6>Product amount  </h6>
+              <p>10000 ks</p>
+            </div>
+
+            <div className="flex  items-center justify-between">
+              <h6>Tax(5%)  </h6>
+              <p>200 ks</p>
+            </div>
+
+            <div className="flex  items-center justify-between text-red-500">
+              <h6 className="text-inherit">Discount  </h6>
+              <p className="text-inherit">200 ks</p>
+            </div>
+
+
+
+            <div className="flex  items-center justify-between mt-6">
+              <h6 className="text-inherit">Total  </h6>
+              <p className="text-inherit">10000 ks</p>
+            </div>
+
+
+          </div>
+
+          <div className="mt-6">
+            <h6>Payment Methods</h6>
+
+            <div className="mt-4 flex items-center justify-start gap-4 cursor-pointer">
+              <div className="border border-gray rounded-md w-16 h-16 grid place-items-center">
+                <h6>Cash</h6>
+              </div>
+              <div className="border border-gray rounded-md w-16 h-16 grid place-items-center  cursor-pointer">
+                <h6>Kpay</h6>
+              </div>
+            </div>
+          </div>
+
+          <div className=" mt-6">
+            <p className="bg-btnDark text-white px-4 py-2 rounded-md grid place-items-center">Grand Total : 10000ks</p>
+          </div>
+
+          <div className="flex items-center justify-between gap-4 mt-6">
+            <Button className='basis-1/2'>Confirm Order</Button>
+            <Button onClick={handlePrint} className='basis-1/2 !bg-btn'>Payment</Button>
+          </div>
         </div>
       </div>
     </div>
