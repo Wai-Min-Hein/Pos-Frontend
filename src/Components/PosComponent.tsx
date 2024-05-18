@@ -19,6 +19,8 @@ import { useRef, useState } from "react";
 import { TbUserPlus } from "react-icons/tb";
 import { FaRegEdit } from "react-icons/fa";
 import { useReactToPrint } from "react-to-print";
+import {  useAppSelector, useAppDispatch } from "../hooks/hooks";
+import { addMenus,increaseMenuQty,decreaseMenuQty } from "../slice/posOrderSlice";
 const PosComponent = () => {
   interface menusInterface {
     id: string;
@@ -29,15 +31,7 @@ const PosComponent = () => {
     image: string;
   }
 
-  interface orderedMenusInterface {
-    id: string;
-    code: string;
-    category: string;
-    name: string;
-    price: number;
-    image: string;
-    quantity: number;
-  }
+ 
   const menus: menusInterface[] = [
     {
       id: "1",
@@ -86,77 +80,31 @@ const PosComponent = () => {
     },
   ];
 
-  const orderedmenus: orderedMenusInterface[] = [
-    {
-      id: "3",
-      category: "shoe",
-      code: "6646",
-      name: "i phone 15",
-      price: 3000,
-      quantity: 1,
-      image:
-        "https://i.pinimg.com/564x/57/45/7f/57457fa82ffd936e5229d2f710405e0d.jpg",
-    },
-    {
-      id: "4",
-      category: "airpod",
-      code: "6646",
-      name: "i phone 15",
-      price: 3000,
-      quantity: 1,
-      image:
-        "https://i.pinimg.com/564x/57/45/7f/57457fa82ffd936e5229d2f710405e0d.jpg",
-    },
-    {
-      id: "5",
-      category: "chair",
-      code: "6646",
-      name: "i phone 15",
-      price: 3000,
-      quantity: 1,
-      image:
-        "https://i.pinimg.com/564x/57/45/7f/57457fa82ffd936e5229d2f710405e0d.jpg",
-    },
-  ];
+  
+  const orderedmenus = useAppSelector((state) => state.order.orders)
+const dispatch = useAppDispatch()
+  
 
   const [menuCategory, setMenuCategory] = useState<menusInterface[]>(menus);
 
   const filterCategory = (category: string) => {
     if (category == "all") setMenuCategory(menus);
     else {
-      const filterDatas = menus.filter((menu) => menu.category === category);
+      const filterDatas = menuCategory.filter((menu) => menu.category === category);
       setMenuCategory(filterDatas);
     }
   };
 
-  const increaseQty = (id: string) => {
-    orderedmenus.forEach((menu) => {
-      if (menu.id == id) {
-        menu.quantity += 1;
-
-        console.log(menu);
-      }
-      console.log(orderedmenus);
-    });
-  };
-
-  const decreaseQty = (id: string) => {
-    orderedmenus.forEach((menu) => {
-      if (menu.id == id && menu.quantity > 1) {
-        menu.quantity -= 1;
-
-        console.log(menu);
-      }
-
-      console.log(orderedmenus);
-    });
-  };
+  
 
   const printRef= useRef<HTMLDivElement>(null)
 
   const handlePrint = useReactToPrint({
     content: () => printRef.current,
   });
+
+ 
+
   return (
     <div className="p-4 w-full">
       <div className="flex flex-row gap-4">
@@ -296,9 +244,10 @@ const PosComponent = () => {
             <h6>Menus</h6>
 
             <div className="flex items-center justify-start flex-wrap gap-4 mt-4">
-              {menuCategory.map((menu) => (
+              {menus?.map((menu) => (
                 <div
                   key={menu.id}
+                  onClick={() => dispatch(addMenus({...menu, quantity: 1}))}
                   className="bg-white basis-[31%] h-48 rounded-md p-4 cursor-pointer"
                 >
                   <div className="grid place-items-center w-full">
@@ -354,7 +303,7 @@ const PosComponent = () => {
             </div>
 
             <div className="flex flex-col gap-y-6">
-              {orderedmenus.map((menu) => (
+              {orderedmenus?.map((menu) => (
                 <div
                   key={menu.id}
                   className="flex items-center justify-between gap-3 px-4"
@@ -376,12 +325,12 @@ const PosComponent = () => {
 
                   <div className="flex items-center justify-start gap-2 border border-gray px-2 rounded-md">
                     <LuMinusCircle
-                      onClick={() => decreaseQty(menu.id)}
+                       onClick={() => dispatch(decreaseMenuQty(menu))}
                       className="cursor-pointer"
                     />
                     <span>{menu.quantity}</span>
                     <LuPlusCircle
-                      onClick={() => increaseQty(menu.id)}
+                      onClick={() => dispatch(increaseMenuQty(menu))}
                       className="cursor-pointer"
                     />
                   </div>
