@@ -27,38 +27,27 @@ export const posOrderSlice = createSlice({
   initialState,
   reducers: {
     addMenus: (state, action: PayloadAction<orderedMenusInterface>) => {
+      const currentMenu = action.payload;
+      const menuExisted = state.orders?.filter(
+        (order) => order.id == currentMenu.id
+      );
 
+      if (menuExisted && menuExisted.length > 0) {
+        const filteredMenus = state.orders?.filter(
+          (order) => order.id != currentMenu.id
+        );
 
+        const addQtyMenu = {
+          ...currentMenu,
+          quantity: menuExisted[0].quantity + 1,
+        };
 
-      
-      const currentMenu =  action.payload;
-        const menuExisted = state.orders?.filter(order => order.id == currentMenu.id)
-
-
-        if(menuExisted && menuExisted.length >0 ){
-          const filteredMenus = state.orders?.filter(
-            (order) => order.id != currentMenu.id
-          );
-    
-          const addQtyMenu = { ...currentMenu, quantity: menuExisted[0].quantity+1 };
-    
-          state.orders = filteredMenus
-            ? [addQtyMenu, ...filteredMenus]
-            : [addQtyMenu];
-
-
-
-        }
-        else{
-
-          state.orders?.push(currentMenu);
-
-        }
-
-
-
-
-
+        state.orders = filteredMenus
+          ? [addQtyMenu, ...filteredMenus]
+          : [addQtyMenu];
+      } else {
+        state.orders?.push(currentMenu);
+      }
     },
     increaseMenuQty: (state, action: PayloadAction<orderedMenusInterface>) => {
       const currentMenu = action.payload;
@@ -76,37 +65,33 @@ export const posOrderSlice = createSlice({
     decreaseMenuQty: (state, action: PayloadAction<orderedMenusInterface>) => {
       const currentMenu = action.payload;
 
-    
-
-      state.orders = state.orders
+      if(currentMenu.quantity >1){
+        state.orders = state.orders
         ? state.orders.map((order) =>
             order.id === currentMenu.id
-              ? { ...order, quantity: order.quantity + 1 }
+              ? { ...order, quantity: order.quantity - 1 }
               : order
           )
         : state.orders;
+      }
 
-      console.log(state.orders);
+      
+
     },
-    
+
     deleteMenu: (state, action: PayloadAction<orderedMenusInterface>) => {
       const currentMenu = action.payload;
 
-    
-
       const filteredMenus = state.orders?.filter(
         (order) => order.id != currentMenu.id
-
-        
       );
 
-      state.orders = filteredMenus? filteredMenus: state.orders;
-
+      state.orders = filteredMenus ? filteredMenus : state.orders;
     },
   },
 });
 
-export const { addMenus, increaseMenuQty, decreaseMenuQty,deleteMenu } =
+export const { addMenus, increaseMenuQty, decreaseMenuQty, deleteMenu } =
   posOrderSlice.actions;
 
 // Other code such as selectors can use the imported `RootState` type
