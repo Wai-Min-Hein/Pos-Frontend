@@ -19,8 +19,13 @@ import { useRef, useState } from "react";
 import { TbUserPlus } from "react-icons/tb";
 import { FaRegEdit } from "react-icons/fa";
 import { useReactToPrint } from "react-to-print";
-import {  useAppSelector, useAppDispatch } from "../hooks/hooks";
-import { addMenus,increaseMenuQty,decreaseMenuQty } from "../slice/posOrderSlice";
+import { useAppSelector, useAppDispatch } from "../hooks/hooks";
+import {
+  addMenus,
+  increaseMenuQty,
+  decreaseMenuQty,
+  deleteMenu,
+} from "../slice/posOrderSlice";
 const PosComponent = () => {
   interface menusInterface {
     id: string;
@@ -31,79 +36,88 @@ const PosComponent = () => {
     image: string;
   }
 
- 
   const menus: menusInterface[] = [
     {
       id: "1",
       category: "phone",
-      code: "6646",
+      code: "22",
       name: "i phone 15",
       price: 3000,
       image:
-        "https://i.pinimg.com/564x/57/45/7f/57457fa82ffd936e5229d2f710405e0d.jpg",
+        "https://i.pinimg.com/236x/be/a3/12/bea31296162a1c6d82f7cfa90a14d60b.jpg",
     },
     {
       id: "2",
       category: "laptop",
-      code: "6646",
-      name: "i phone 15",
+      code: "333",
+      name: "M3 Pro",
       price: 3000,
       image:
-        "https://i.pinimg.com/564x/57/45/7f/57457fa82ffd936e5229d2f710405e0d.jpg",
+        "https://i.pinimg.com/474x/20/97/aa/2097aad744c834823dc24666b428b561.jpg",
     },
     {
       id: "3",
       category: "shoe",
-      code: "6646",
-      name: "i phone 15",
+      code: "777",
+      name: "Air jordan",
       price: 3000,
       image:
-        "https://i.pinimg.com/564x/57/45/7f/57457fa82ffd936e5229d2f710405e0d.jpg",
+        "https://i.pinimg.com/236x/5f/d1/8e/5fd18eb206cd9aff58b6bc707b776c81.jpg",
     },
     {
       id: "4",
       category: "airpod",
-      code: "6646",
-      name: "i phone 15",
+      code: "008",
+      name: "air pod",
       price: 3000,
       image:
-        "https://i.pinimg.com/564x/57/45/7f/57457fa82ffd936e5229d2f710405e0d.jpg",
+        "https://i.pinimg.com/236x/5a/e0/c2/5ae0c2a598c1b18ea3cffaa84b0f09c3.jpg",
     },
     {
       id: "5",
       category: "chair",
-      code: "6646",
-      name: "i phone 15",
+      code: "9990",
+      name: "Gaming chair",
       price: 3000,
       image:
-        "https://i.pinimg.com/564x/57/45/7f/57457fa82ffd936e5229d2f710405e0d.jpg",
+        "https://i.pinimg.com/236x/aa/ca/12/aaca12f1d01952d39ebcfbacc7dbb116.jpg",
     },
   ];
 
-  
-  const orderedmenus = useAppSelector((state) => state.order.orders)
-const dispatch = useAppDispatch()
-  
+  const orderedmenus = useAppSelector((state) => state.order.orders);
+
+  const totalMenuQty = orderedmenus?.reduce((pv, cv) => pv + cv.quantity, 0);
+  const totalMenuAmount = orderedmenus?.reduce(
+    (pv, cv) => pv + cv.price * cv.quantity,
+    0
+  );
+
+  const tax = totalMenuAmount ? totalMenuAmount * 0.05 : 0;
+  const discount = totalMenuAmount ? totalMenuAmount * 0.05 : 0;
+
+  const grandTotal = totalMenuAmount ? totalMenuAmount + tax - discount : 0;
+
+  const dispatch = useAppDispatch();
 
   const [menuCategory, setMenuCategory] = useState<menusInterface[]>(menus);
 
   const filterCategory = (category: string) => {
     if (category == "all") setMenuCategory(menus);
     else {
-      const filterDatas = menuCategory.filter((menu) => menu.category === category);
+      const filterDatas = menuCategory.filter(
+        (menu) => menu.category === category
+      );
       setMenuCategory(filterDatas);
     }
   };
 
-  
+  const printRef = useRef<HTMLDivElement>(null);
 
-  const printRef= useRef<HTMLDivElement>(null)
+  const [showPrintTemplate, setShowPrintTemplate] = useState(false);
 
   const handlePrint = useReactToPrint({
     content: () => printRef.current,
   });
-
- 
 
   return (
     <div className="p-4 w-full">
@@ -217,7 +231,7 @@ const dispatch = useAppDispatch()
                     <img
                       src="https://i.pinimg.com/474x/bf/41/0d/bf410d8e66283bb6351b240407be5e87.jpg"
                       alt=""
-                      className="w-2/5 object-cover "
+                      className="w-2/5 h-full object-contain "
                     />
                   </div>
                   <h6 className="text-center">Airpods</h6>
@@ -232,7 +246,7 @@ const dispatch = useAppDispatch()
                   <img
                     src="https://i.pinimg.com/236x/b4/dd/b3/b4ddb37ed259d813e6626809da7c3e57.jpg"
                     alt=""
-                    className="w-2/5 h-2/3 object-contain "
+                    className="w-2/5 h-1/2 object-contain "
                   />
                   <h6 className="text-center">Gaming Chairs</h6>
                   <p className="text-center">5 items</p>
@@ -247,14 +261,14 @@ const dispatch = useAppDispatch()
               {menus?.map((menu) => (
                 <div
                   key={menu.id}
-                  onClick={() => dispatch(addMenus({...menu, quantity: 1}))}
+                  onClick={() => dispatch(addMenus({ ...menu, quantity: 1 }))}
                   className="bg-white basis-[31%] h-48 rounded-md p-4 cursor-pointer"
                 >
                   <div className="grid place-items-center w-full">
                     <img
                       src={menu?.image}
                       alt=""
-                      className="w-2/5 object-cover "
+                      className="w-1/5  h-full object-contain "
                     />
                   </div>
                   <p className="text-center">{menu.category}</p>
@@ -298,7 +312,7 @@ const dispatch = useAppDispatch()
             <div className="flex items-start justify-start gap-2 my-4">
               <h6>Product Added</h6>
               <span className="w-5 h-5 bg-btn rounded-full grid place-items-center text-sm">
-                2
+                {orderedmenus?.length}
               </span>
             </div>
 
@@ -312,7 +326,7 @@ const dispatch = useAppDispatch()
                     <div className="w-12 h-12 rounded-sm">
                       <img
                         src={menu.image}
-                        className="w-full h-full object-cover"
+                        className="w-full h-full object-contain"
                         alt=""
                       />
                     </div>
@@ -325,7 +339,7 @@ const dispatch = useAppDispatch()
 
                   <div className="flex items-center justify-start gap-2 border border-gray px-2 rounded-md">
                     <LuMinusCircle
-                       onClick={() => dispatch(decreaseMenuQty(menu))}
+                      onClick={() => dispatch(decreaseMenuQty(menu))}
                       className="cursor-pointer"
                     />
                     <span>{menu.quantity}</span>
@@ -339,7 +353,10 @@ const dispatch = useAppDispatch()
                     <Button className="!w-8 !h-8 !p-0  !bg-transparent">
                       <FaRegEdit className=" !text-btn" size={16} />
                     </Button>
-                    <Button className="!w-8 !h-8 !p-0 !bg-transparent ">
+                    <Button
+                      onClick={() => dispatch(deleteMenu(menu))}
+                      className="!w-8 !h-8 !p-0 !bg-transparent "
+                    >
                       <MdDeleteOutline className=" !text-red-500" size={16} />
                     </Button>
                   </div>
@@ -363,30 +380,31 @@ const dispatch = useAppDispatch()
             />
           </div>
 
-          <div ref={printRef} className=" bg-transparentBgGreen px-4 mt-6 flex flex-col gap-y-4">
+          <div className=" bg-transparentBgGreen px-4 mt-6 flex flex-col gap-y-4">
             <div className="flex  items-center justify-between">
-              <h6>Product amount  </h6>
-              <p>10000 ks</p>
+              <h6>Product amount </h6>
+              <p>{totalMenuAmount} ks</p>
             </div>
 
             <div className="flex  items-center justify-between">
-              <h6>Tax(5%)  </h6>
-              <p>200 ks</p>
+              <h6>Total Quantity </h6>
+              <p>{totalMenuQty}</p>
+            </div>
+
+            <div className="flex  items-center justify-between">
+              <h6>Tax(5%) </h6>
+              <p>{tax} ks</p>
             </div>
 
             <div className="flex  items-center justify-between text-red-500">
-              <h6 className="text-inherit">Discount  </h6>
-              <p className="text-inherit">200 ks</p>
+              <h6 className="text-inherit">Discount </h6>
+              <p className="text-inherit">{discount} ks</p>
             </div>
-
-
 
             <div className="flex  items-center justify-between mt-6">
-              <h6 className="text-inherit">Total  </h6>
-              <p className="text-inherit">10000 ks</p>
+              <h6 className="text-inherit">Total </h6>
+              <p className="text-inherit">{grandTotal} ks</p>
             </div>
-
-
           </div>
 
           <div className="mt-6">
@@ -403,13 +421,60 @@ const dispatch = useAppDispatch()
           </div>
 
           <div className=" mt-6">
-            <p className="bg-btnDark text-white px-4 py-2 rounded-md grid place-items-center">Grand Total : 10000ks</p>
+            <p className="bg-btnDark text-white px-4 py-2 rounded-md grid place-items-center">
+              Grand Total : {grandTotal} ks
+            </p>
           </div>
 
           <div className="flex items-center justify-between gap-4 mt-6">
-            <Button className='basis-1/2'>Confirm Order</Button>
-            <Button onClick={handlePrint} className='basis-1/2 !bg-btn'>Payment</Button>
+            <Button className="basis-1/2">Confirm Order</Button>
+            <Button
+              onClick={() => (handlePrint(), setShowPrintTemplate(true))}
+              className="basis-1/2 !bg-btn"
+            >
+              Payment
+            </Button>
           </div>
+        </div>
+      </div>
+
+      <div
+        ref={printRef}
+        className={`bg-transparentBgGreen mt-6 flex flex-col gap-y-4  px-12 py-8 ${
+          showPrintTemplate ? "" : "hidden"
+        }`}
+      >
+        <h1 className="text-center text-2xl font-semibold">Ali Pos</h1>
+
+        <div className="flex  items-center justify-between">
+          <h6>Address : </h6>
+          <p>
+            39/22, 2d Floor, Yan Shin Road, Yankin Township, Yangon, Myanmar
+          </p>
+        </div>
+        <div className="flex  items-center justify-between">
+          <h6>Product amount </h6>
+          <p>{totalMenuAmount} ks</p>
+        </div>
+
+        <div className="flex  items-center justify-between">
+          <h6>Total Quantity </h6>
+          <p>{totalMenuQty}</p>
+        </div>
+
+        <div className="flex  items-center justify-between">
+          <h6>Tax(5%) </h6>
+          <p>{tax} ks</p>
+        </div>
+
+        <div className="flex  items-center justify-between text-red-500">
+          <h6 className="text-inherit">Discount </h6>
+          <p className="text-inherit">{discount} ks</p>
+        </div>
+
+        <div className="flex  items-center justify-between mt-6">
+          <h6 className="text-inherit">Total </h6>
+          <p className="text-inherit">{grandTotal} ks</p>
         </div>
       </div>
     </div>
