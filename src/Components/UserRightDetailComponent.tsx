@@ -19,64 +19,73 @@ const UserRightDetailComponent = () => {
   interface rightDataInterface {
     id: string;
     module: string;
-    create: boolean;
-    edit: boolean;
-    delete: boolean;
-    view: boolean;
-    all: boolean;
+
+    permissions: string[];
   }
 
   const rightData: rightDataInterface[] = [
     {
-        id: '1',
-        module: 'statusbar',
-        create: true,
-        edit: true,
-        delete: true,
-        view: true,
-        all: true,
-      },
+      id: "1",
+      module: "Fnb",
 
-      {
-        id: '2',
-        module: 'statusbar',
+      permissions: ["create", "edit", "delete", "view"],
+    },
 
-        create: true,
-        edit: false,
-        delete: true,
-        view: false,
-        all: true,
-      },
+    {
+      id: "2",
+      module: "Fnb Category",
 
-    
-    
+      permissions: ["create", "edit", "delete", "view"],
+    },
+
+    {
+      id: "3",
+      module: "Retail Price table",
+
+      permissions: ["view"],
+    },
+    {
+      id: "4",
+      module: "Sale Report",
+
+      permissions: ["view"],
+    },
   ];
 
-  const rows = rightData.map((data) => (
+  const [rights, setRights] = useState<rightDataInterface[]>(rightData);
+
+  const handlePermissionChange = (
+    permission: string,
+    data: rightDataInterface
+  ) => {
+    const isExisted = data.permissions.includes(permission);
+
+    if (isExisted) {
+      data.permissions.splice(data.permissions.indexOf(permission), 1);
+
+      setRights([...rights]);
+    } else {
+      data.permissions.push(permission);
+
+      setRights([...rights]);
+    }
+  };
+
+  const rows = rights.map((data) => (
     <Table.Tr key={data.id}>
       <Table.Td>
         <Checkbox />
       </Table.Td>
-      <Table.Td className="capitalize">
-        {data.module}
-      </Table.Td>
-      <Table.Td>
-        <Checkbox checked={data.create}/>
-      </Table.Td>
-      <Table.Td>
-        <Checkbox checked={data.edit}/>
-      </Table.Td>
-      <Table.Td>
-        <Checkbox checked={data.delete}/>
-      </Table.Td>
-      <Table.Td>
-        <Checkbox checked={data.view}/>
-      </Table.Td>
-      <Table.Td>
-        <Checkbox checked={data.all}/>
-      </Table.Td>
-
-     
+      <Table.Td className="capitalize">{data.module}</Table.Td>
+      {["view", "create", "edit", "delete"].map((perm) => (
+        <Table.Td key={`${perm} + ${data.module} + ""+ ${data.id}`}>
+          <Checkbox
+            label={perm}
+            checked={data.permissions.includes(perm)}
+            onChange={() => handlePermissionChange(perm, data)}
+          />
+        </Table.Td>
+      ))}
     </Table.Tr>
   ));
   const [value, setValue] = useState("");
@@ -168,11 +177,10 @@ const UserRightDetailComponent = () => {
                     <Checkbox />
                   </Table.Td>
                   <Table.Th>Module</Table.Th>
+                  <Table.Th>View</Table.Th>
                   <Table.Th>Create</Table.Th>
                   <Table.Th>Edit</Table.Th>
                   <Table.Th>Delete</Table.Th>
-                  <Table.Th>View</Table.Th>
-                  <Table.Th>Allow All</Table.Th>
                 </Table.Tr>
               </Table.Thead>
               <Table.Tbody>{rows}</Table.Tbody>

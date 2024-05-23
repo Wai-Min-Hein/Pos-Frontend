@@ -58,14 +58,14 @@ const UserRightComponent = () => {
 
       <Table.Td className="capitalize w-24">
         <div className="flex items-center justify-start gap-x-2">
-          <div onClick={() => handleDetail(data.roleName)} className="w-8 h-8 grid place-items-center rounded border-2  border-gray">
+          <div  onClick={() => handleDetail(data.roleName)} className="w-8 h-8 grid place-items-center rounded border-2 border-gray cursor-pointer">
             <LuEye />
           </div>
-          <div className="w-8 h-8 grid place-items-center rounded border-2 border-gray">
+          <div className="w-8 h-8 grid place-items-center rounded border-2 border-gray cursor-pointer">
             <TbEdit />
           </div>
 
-          <div className="w-8 h-8 grid place-items-center rounded border-2 border-gray">
+          <div className="w-8 h-8 grid place-items-center rounded border-2 border-gray cursor-pointer">
             <MdDeleteOutline />
           </div>
         </div>
