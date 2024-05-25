@@ -8,7 +8,12 @@ import AlertContext from './AlertContext';
 
 const Fnb = () => {
 
-  const { alert, clearAlert } = useContext(AlertContext);
+  const context = useContext(AlertContext)
+  if(!context) {
+    throw new Error("No context provided")
+  }
+
+  const { alert, clearAlert } = context;
 
   useEffect(() => {
     if (alert) {
