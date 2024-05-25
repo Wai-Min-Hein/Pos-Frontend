@@ -171,18 +171,30 @@
 
 
 import { useState, useContext } from "react";
-import { Button, FileInput, Group } from "@mantine/core";
+import { Button, Group } from "@mantine/core";
 import { useNavigate } from "react-router-dom";
 import * as XLSX from "xlsx";
 import AlertContext from './AlertContext';
 
 const ExcelImport = () => {
-  const [excelFile, setExcelFile] = useState(null);
-  const [typeError, setTypeError] = useState(null);
-  const { showAlert } = useContext(AlertContext);
+
+
+  
+  const [excelFile, setExcelFile] = useState<File | null>(null);
+  const [typeError, setTypeError] = useState<string | null>(null);
+  const context = useContext(AlertContext);
+  if (!context) {
+    throw new Error('useContext must be used within an AlertProvider');
+  }
+
+  const { showAlert } = context;
+  
   const navigate = useNavigate();
 
-  const handleFile = (file) => {
+  const handleFile = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const file =event.target.files?.[0];
+
+
     if (file) {
       const fileType = ["application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"];
       if (fileType.includes(file.type)) {
@@ -201,8 +213,8 @@ const ExcelImport = () => {
     if (excelFile) {
       const reader = new FileReader();
       reader.readAsBinaryString(excelFile);
-      reader.onload = (e) => {
-        const data = e.target.result;
+      reader.onload = (e ) => {
+        const data = e.target?.result;
         const workbook = XLSX.read(data, { type: "binary" });
         const worksheetName = workbook.SheetNames[0];
         const worksheet = workbook.Sheets[worksheetName];
@@ -234,14 +246,15 @@ const ExcelImport = () => {
       </div>
       <div className="flex justify-center">
         <div className="block border border-gray rounded-md p-3 w-1/2">
-          <FileInput
+          {/* <FileInput
             label="Upload files"
             mt="md"
             placeholder="Upload Excel files"
             required
             accept=".xlsx"
             onChange={handleFile}
-          />
+          /> */}
+          <input type="file" onChange={handleFile}/>
           {typeError && <div className="text-red-500">{typeError}</div>}
           <Group mt="md">
             <Button onClick={handleFileProcessing}>Upload</Button>

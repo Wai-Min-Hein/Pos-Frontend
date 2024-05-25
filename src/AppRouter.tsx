@@ -1,4 +1,4 @@
-import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+import {  Route, Routes } from 'react-router-dom';
 
 import Login from "./Login";
 import Fnb from "./Fnb";
@@ -32,11 +32,11 @@ import Pos from "./Pos";
 import PriceTableForm from "./PriceTableForm";
 import UserRightDetail from "./UserRightDetail";
 import ExcelImport from "./ExcelImport";
-import { AlertProvider } from './AlertContext';
+
 
 const AppRouter = () => {
   return (
-    <AlertProvider>
+    
       <Routes>
         <Route path="/login" element={<Login />} />
         <Route path="/branches" element={<BranchList />} />
@@ -100,7 +100,7 @@ const AppRouter = () => {
         <Route path="/pos" element={<Pos />} />
         {/* pos */}
       </Routes>
-    </AlertProvider>
+    
   );
 };
 
