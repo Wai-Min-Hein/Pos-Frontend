@@ -11,8 +11,11 @@ import { Button, Modal } from "@mantine/core";
 import ListRenderComponent from "./ListRenderComponent";
 import { useDisclosure } from "@mantine/hooks";
 import AddFnbComponent from "./AddFnbComponent";
+import * as XLSX from 'xlsx';
+import { useNavigate } from "react-router-dom";
 
 const FnbComponent = () => {
+  const nav = useNavigate();
   interface fnbInterface {
     id: string;
     name: string;
@@ -181,6 +184,20 @@ const FnbComponent = () => {
       unit: "pc",
     },
   ];
+   
+  const HandelonExport = () => { 
+    
+    const workbook = XLSX.utils.book_new();
+    const worksheet = XLSX.utils.json_to_sheet(fnbDatas);
+
+    XLSX.utils.book_append_sheet(workbook, worksheet, "Mysheet1");
+
+    XLSX.writeFile(workbook, "F&BList.xlsx");
+
+    // console.log(fnbDatas);
+
+  };
+
 
   const [opened, { open, close }] = useDisclosure(false);
   return (
@@ -191,7 +208,7 @@ const FnbComponent = () => {
       </Modal>
 
       <div className="">
-        <div className="flex justify-between items-center">
+        <div className="flex mx-2 justify-between items-center">
           <div className="">
             <h1>FnB Menus List</h1>
             <p>Manage FnB Menus</p>
@@ -199,20 +216,21 @@ const FnbComponent = () => {
 
           <div className="flex justify-start items-center gap-4">
             <div className="">
-              <img src={excel} alt="" />
+              <img src={excel} alt="" onClick={HandelonExport} />
             </div>
-            <HiOutlinePrinter size={24} />
+            <HiOutlinePrinter className=" cursor-pointer" size={24} />
             <Button
               onClick={open}
-              className="!bg-btn !text-white"
+              className="!bg-btn !text-white cursor-pointer"
               leftSection={<IoMdAddCircleOutline size={18} />}
             >
               Add New
             </Button>
 
             <Button
-              className="!bg-btnDark !text-white"
+              className="!bg-btnDark cursor-pointer !text-white"
               leftSection={<CiImport size={18} />}
+              onClick={() => nav('/upload')}
             >
               Import Product
             </Button>
