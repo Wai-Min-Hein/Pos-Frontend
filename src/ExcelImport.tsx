@@ -184,7 +184,7 @@ const ExcelImport = () => {
   const [typeError, setTypeError] = useState<string | null>(null);
   const context = useContext(AlertContext);
   if (!context) {
-    throw new Error('useContext must be used within an AlertProvider');
+    throw new Error('No context provided');
   }
 
   const { showAlert } = context;
