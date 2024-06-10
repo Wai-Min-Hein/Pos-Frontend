@@ -32,74 +32,81 @@ import Pos from "./Pos";
 import PriceTableForm from "./PriceTableForm";
 import UserRightDetail from "./UserRightDetail";
 import ExcelImport from "./ExcelImport";
+import AppPrivateRouter from './AppPrivateRouter'
+
 
 
 const AppRouter = () => {
   return (
     
       <Routes>
-        <Route path="/login" element={<Login />} />
-        <Route path="/branches" element={<BranchList />} />
+          <Route path="/login" element={<Login />} />
 
-        {/* home */}
 
-        <Route path="/" element={<Fnb />} />
-        <Route path="/upload" element={<ExcelImport/>} />
+        <Route element={<AppPrivateRouter />}>
+          <Route path="/branches" element={<BranchList />} />
 
-        <Route path="/system/menucategory" element={<MenuCategory />} />
-        <Route path="/system/customerservice" element={<Csa />} />
-        <Route path="/system/pricetable" element={<PriceTable />} />
-        <Route path="/system/pricetable/:id" element={<PriceTableForm />} />
-        <Route path="/system/pricetable/new" element={<PriceTableForm />} />
-        <Route path="/system/ingredients" element={<IngredientList />} />
-        <Route path="/system/branchlists" element={<BranchList />} />
-        <Route path="/system/rights" element={<UserRight />} />
-        <Route path="/system/rights/:name" element={<UserRightDetail />} />
-        <Route path="/system/accounts" element={<UserAccount />} />
-        <Route path="/system/employees" element={<EmployeeList />} />
-        <Route path="/system/mobileaccounts" element={<MobileAccount />} />
+          {/* home */}
 
-        {/* home */}
+          <Route path="/" element={<Fnb />} />
+          <Route path="/upload" element={<ExcelImport/>} />
 
-        {/* inventory */}
+          <Route path="/system/menucategory" element={<MenuCategory />} />
+          <Route path="/system/customerservice" element={<Csa />} />
+          <Route path="/system/pricetable" element={<PriceTable />} />
+          <Route path="/system/pricetable/:id" element={<PriceTableForm />} />
+          <Route path="/system/ingredients" element={<IngredientList />} />
+          <Route path="/system/branchlists" element={<BranchList />} />
+          <Route path="/system/rights" element={<UserRight />} />
+          <Route path="/system/rights/:name" element={<UserRightDetail />} />
+          <Route path="/system/accounts" element={<UserAccount />} />
+          <Route path="/system/employees" element={<EmployeeList />} />
+          <Route path="/system/mobileaccounts" element={<MobileAccount />} />
 
-        <Route
-          path="/inventory/productcategories"
-          element={<ProductCategory />}
-        />
-        <Route path="/inventory/products" element={<ProductList />} />
-        <Route path="/inventory/stockin" element={<StockIn />} />
-        <Route path="/inventory/stockout" element={<StockOut />} />
+          {/* home */}
 
-        {/* inventory */}
+          {/* inventory */}
 
-        {/* crm */}
+          <Route
+            path="/inventory/productcategories"
+            element={<ProductCategory />}
+          />
+          <Route path="/inventory/products" element={<ProductList />} />
+          <Route path="/inventory/stockin" element={<StockIn />} />
+          <Route path="/inventory/stockout" element={<StockOut />} />
 
-        <Route path="/crm/customers" element={<Customer />} />
-        <Route path="/crm/discounts" element={<Discount />} />
-        <Route path="/crm/voucherpayments" element={<VoucherPayment />} />
+          {/* inventory */}
 
-        {/* crm */}
+          {/* crm */}
 
-        {/* finance */}
-        <Route path="/finance/cashbooks" element={<CashBookList />} />
-        <Route path="/finance/income" element={<IncomeType />} />
-        <Route path="/finance/expense" element={<ExpenseType />} />
-        <Route path="/finance/cashreceipt" element={<CashReceiptVoucher />} />
-        <Route path="/finance/cashpayment" element={<CashPaymetVoucher />} />
-        <Route path="/finance/debtreceipt" element={<DebtReceiptVoucher />} />
-        <Route path="/finance/debtpayment" element={<DebtPaymentVoucher />} />
-        <Route path="/finance/cashbookreport" element={<CashBookReport />} />
-        <Route path="/finance/openingdebtlists" element={<OpeningDebtList />} />
-        {/* finance */}
+          <Route path="/crm/customers" element={<Customer />} />
+          <Route path="/crm/discounts" element={<Discount />} />
+          <Route path="/crm/voucherpayments" element={<VoucherPayment />} />
 
-        {/* report */}
-        <Route path="/salereports" element={<SalesReport />} />
-        {/* report */}
+          {/* crm */}
 
-        {/* pos */}
-        <Route path="/pos" element={<Pos />} />
-        {/* pos */}
+          {/* finance */}
+          <Route path="/finance/cashbooks" element={<CashBookList />} />
+          <Route path="/finance/income" element={<IncomeType />} />
+          <Route path="/finance/expense" element={<ExpenseType />} />
+          <Route path="/finance/cashreceipt" element={<CashReceiptVoucher />} />
+          <Route path="/finance/cashpayment" element={<CashPaymetVoucher />} />
+          <Route path="/finance/debtreceipt" element={<DebtReceiptVoucher />} />
+          <Route path="/finance/debtpayment" element={<DebtPaymentVoucher />} />
+          <Route path="/finance/cashbookreport" element={<CashBookReport />} />
+          <Route path="/finance/openingdebtlists" element={<OpeningDebtList />} />
+          {/* finance */}
+
+          {/* report */}
+          <Route path="/salereports" element={<SalesReport />} />
+          {/* report */}
+
+          {/* pos */}
+          <Route path="/pos" element={<Pos />} />
+          {/* pos */}
+        </Route>
+        
+
       </Routes>
     
   );

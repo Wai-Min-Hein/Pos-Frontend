@@ -6,8 +6,12 @@ import excel from "../../public/images/iconsImage/excel.png";
 import TopBar from "./TopBar";
 import { HiOutlinePrinter } from "react-icons/hi2";
 import { useNavigate } from "react-router-dom";
+<<<<<<< waimin
 import axios from "axios";
 import { useEffect, useState } from "react";
+=======
+import * as XLSX from 'xlsx';
+>>>>>>> main
 
 
 const PriceTableComponent = () => {
@@ -76,6 +80,19 @@ const PriceTableComponent = () => {
     nav(`/system/pricetable/${id}`)
   }
 
+  const HandelonExport = () => { 
+    
+    const workbook = XLSX.utils.book_new();
+    const worksheet = XLSX.utils.json_to_sheet(priceTableDatas);
+
+    XLSX.utils.book_append_sheet(workbook, worksheet, "Mysheet1");
+
+    XLSX.writeFile(workbook, "PriceList.xlsx");
+
+    // console.log(priceTableDatas);
+
+  };
+
 
   return (
     <div className="w-full h-full !overflow-hidden ">
@@ -91,10 +108,10 @@ const PriceTableComponent = () => {
           </div>
 
           <div className="flex justify-start items-center gap-4">
-            <div className="">
-              <img src={excel} alt="" />
+            <div className=" cursor-pointer">
+              <img src={excel} alt="" onClick={HandelonExport} />
             </div>
-            <HiOutlinePrinter size={24} />
+            <HiOutlinePrinter className=" cursor-pointer" size={24} />
             <Button
               className="!bg-btn !text-white"
               onClick={() => nav('/system/pricetable/new')}

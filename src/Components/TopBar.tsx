@@ -3,6 +3,7 @@ import { useState } from "react";
 import { BiSearch } from "react-icons/bi";
 import fav from "/images/logo.png";
 import { useNavigate } from "react-router-dom";
+import { RxCross2 } from "react-icons/rx";
 
 const TopBar = () => {
   const [value, setValue] = useState("");
@@ -24,7 +25,13 @@ const TopBar = () => {
         rightSectionPointerEvents="all"
         mt="md"
         rightSection={
+          <div className="flex gap-1 pr-2">
+            {value && (
+                <RxCross2 onClick={() => setValue("")} 
+                className=" cursor-pointer text-red-600"/>
+              )}
           <BiSearch aria-label="Sesrch" onClick={() => setValue("")} />
+          </div>
         }
       />
 
