@@ -13,7 +13,7 @@ import { useDisclosure } from "@mantine/hooks";
 import AddFnbComponent from "./AddFnbComponent";
 import * as XLSX from 'xlsx';
 import { useNavigate } from "react-router-dom";
-<<<<<<< waimin
+
 import axios from "axios";
 import { useEffect, useState } from "react";
 
@@ -21,7 +21,6 @@ import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
 
-=======
 import { User } from "../utils/User";
 
 interface FnbComponentProps {
@@ -33,7 +32,7 @@ const FnbComponent:React.FC<FnbComponentProps> = ({ user }) => {
   const nav = useNavigate(); 
 
   console.log("Welcome",user?.name);
->>>>>>> main
+  
 
   interface fnbInterface {
     _id: string;
@@ -245,12 +244,7 @@ useEffect(() => {
 
 
   const [opened, { open, close }] = useDisclosure(false);
-
-<<<<<<< waimin
-  
-=======
-
->>>>>>> main
+ 
   return (
     <div className="w-full h-full !overflow-hidden flex-1">
 
