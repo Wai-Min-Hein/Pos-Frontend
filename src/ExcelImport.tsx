@@ -177,9 +177,6 @@ import * as XLSX from "xlsx";
 import AlertContext from './AlertContext';
 
 const ExcelImport = () => {
-
-
-  
   const [excelFile, setExcelFile] = useState<File | null>(null);
   const [typeError, setTypeError] = useState<string | null>(null);
   const context = useContext(AlertContext);
@@ -188,12 +185,10 @@ const ExcelImport = () => {
   }
 
   const { showAlert } = context;
-  
   const navigate = useNavigate();
 
   const handleFile = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const file =event.target.files?.[0];
-
+    const file = event.target.files?.[0];
 
     if (file) {
       const fileType = ["application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"];
@@ -202,7 +197,7 @@ const ExcelImport = () => {
         setTypeError(null);
       } else {
         setExcelFile(null);
-        // setTypeError("Please select only Excel files.");
+        setTypeError("Please select only Excel files.");
       }
     } else {
       setTypeError("Please select your file");
@@ -213,7 +208,7 @@ const ExcelImport = () => {
     if (excelFile) {
       const reader = new FileReader();
       reader.readAsBinaryString(excelFile);
-      reader.onload = (e ) => {
+      reader.onload = (e) => {
         const data = e.target?.result;
         const workbook = XLSX.read(data, { type: "binary" });
         const worksheetName = workbook.SheetNames[0];
@@ -223,20 +218,20 @@ const ExcelImport = () => {
         console.log(jsonData);
         showAlert("Data successfully added!", "green"); // Set success alert
         setTimeout(() => {
-          navigate("/"); // Navigate back to home page after 2 seconds
-        }, 1000);
+          navigate(-1); // Navigate back to the previous page after 1 second
+        }, 500);
       };
       reader.onerror = (error) => {
         console.error("Error reading file:", error);
-        // setTypeError("Error reading file. Please try again.");
+        setTypeError("Error reading file. Please try again.");
       };
     } else {
-      setTypeError("Please upload a valid Excel file.");
+      setTypeError("Please upload a valid Excel file ['.xlsx'].");
     }
   };
 
   const handleCancel = () => {
-    navigate("/");
+    navigate(-1); // Navigate back to the previous page
   };
 
   return (
@@ -246,15 +241,7 @@ const ExcelImport = () => {
       </div>
       <div className="flex justify-center">
         <div className="block border border-gray rounded-md p-3 w-1/2">
-          {/* <FileInput
-            label="Upload files"
-            mt="md"
-            placeholder="Upload Excel files"
-            required
-            accept=".xlsx"
-            onChange={handleFile}
-          /> */}
-          <input type="file" onChange={handleFile}/>
+          <input type="file" className="mb-5 mt-2" onChange={handleFile} />
           {typeError && <div className="text-red-500">{typeError}</div>}
           <Group mt="md">
             <Button onClick={handleFileProcessing}>Upload</Button>

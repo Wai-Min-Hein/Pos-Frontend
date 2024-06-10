@@ -15,30 +15,19 @@ import stockIn from "/images/iconsImage/stockIn.png";
 import stockOut from "/images/iconsImage/stockOut.png";
 import customer from "/images/iconsImage/customer.svg";
 import discount from "/images/iconsImage/discount.svg";
-
-
-// import voucherPayment from "/images/iconsImage/voucherPayment.png";
-
 import cashBookList from "/images/iconsImage/cashBookList.svg";
-
 import income from "/images/iconsImage/income.svg";
 import expense from "/images/iconsImage/expense.svg";
-
 import cashReceipt from "/images/iconsImage/cashReceipt.svg";
 import cashPayment from "/images/iconsImage/cashPayment.svg";
-
 import debt from "/images/iconsImage/debt.svg";
-
 import cashBookReport from "/images/iconsImage/cashReport.svg";
 import openingDebtList from "/images/iconsImage/openingDebtList.png";
-
 import analysisReport from "/images/iconsImage/analysisReport.svg";
-
 import pos from "/images/iconsImage/posRestaurant.svg";
 import { useLocation, useNavigate } from "react-router-dom";
 
 const SideNav = () => {
-
   interface menuListInterface {
     id: string;
     name: string;
@@ -50,10 +39,11 @@ const SideNav = () => {
       baseRoute?: boolean;
     }[];
   }
+  
   const menuList : menuListInterface[] = [
     {
       id: "system",
-
+  
       name: "System",
       lists: [
         {
@@ -62,113 +52,113 @@ const SideNav = () => {
           href: "/",
           baseRoute: true
         },
-
+  
         {
           name: "Menu Category",
           icon: menuCategory,
           href: "/system/menucategory",
-
+  
         },
         {
           name: "Branch List",
           icon: branchList,
           href: "/system/branchlists",
-
+  
         },
-
+  
         {
           name: "Customer Service area",
           icon: csArea,
           href: "/system/customerservice",
-
+  
         },
-
+  
         {
           name: "Price Table ",
           icon: priceTable,
-
+  
           href: "/system/pricetable",
-
+  
         },
-
+  
        
-
+  
         {
           name: "Ingredient List",
           icon: ingredients,
-
+  
           href: "/system/ingredients",
         },
-
+  
         {
           name: "User Rights ",
           icon: userRight,
-
+  
           href: "/system/rights",
         },
-
+  
         {
           name: "User Account ",
           icon: userAccount,
-
+  
           href: "/system/accounts",
         },
-
+  
         {
           name: "Employee List",
           icon: employee,
-
+  
           href: "/system/employees",
         },
-
+  
         {
           name: "Mobile Account",
           icon: mobile,
-
+  
           href: "/system/mobileaccounts",
         },
       ],
     },
-
+  
     {
       id: "inventory",
-
+  
       name: "Inventory",
       link: "/inventory",
       lists: [
         
-
+  
         {
           name: "Product List",
           icon: product,
-
+  
           href: "/inventory/products",
         },
         {
           name: "Product Category",
           icon: productCategory,
-
+  
           href: "/inventory/productcategories",
         },
         {
           name: "Stock In",
           icon: stockIn,
           href: "/inventory/stockin",
-
+  
         },
-
+  
         {
           name: "Stock Out",
           icon: stockOut,
           href: "/inventory/stockout",
-
+  
         },
       ],
     },
-
+  
     {
       id: "crm",
-
+  
       name: "CRM",
       link: "/crm",
       lists: [
@@ -182,14 +172,14 @@ const SideNav = () => {
           icon: discount,
           href: "/crm/discounts",
         },
-
+  
        
       ],
     },
-
+  
     {
       id: "finance",
-
+  
       name: "Finance",
       link: "/finance",
       lists: [
@@ -198,7 +188,7 @@ const SideNav = () => {
           icon: cashBookList,
           href: "/finance/cashbooks",
         },
-
+  
         {
           name: "Income Type",
           icon: income,
@@ -209,31 +199,31 @@ const SideNav = () => {
           icon: expense,
           href: "/finance/expense",
         },
-
+  
         {
           name: "Cash Receipt Voucher",
           icon: cashReceipt,
           href: "/finance/cashreceipt",
         },
-
+  
         {
           name: "Cash Payment Voucher",
           icon: cashPayment,
           href: "/finance/cashpayment",
         },
-
+  
         {
           name: "Debt Receipt Voucher",
           icon: debt,
           href: "/finance/debtreceipt",
         },
-
+  
         {
           name: "Debt Payment Voucher",
           icon: debt,
           href: "/finance/debtpayment",
         },
-
+  
         {
           name: "Cash Book Report",
           icon: cashBookReport,
@@ -246,10 +236,10 @@ const SideNav = () => {
         },
       ],
     },
-
+  
     {
       id: "analysisReport",
-
+  
       name: "Analysis Report",
       link: "/report",
       lists: [
@@ -260,10 +250,10 @@ const SideNav = () => {
         },
       ],
     },
-
+  
     {
       id: "pos",
-
+  
       name: "Point of Sale",
       link: "/pos",
       lists: [
@@ -274,17 +264,28 @@ const SideNav = () => {
         },
       ],
     },
-
+  
     
   ];
 
-  const location = useLocation()
+  const location = useLocation();
+  const activeNav: string =
+    (location.pathname.includes("system") && 'system') ||
+    (location.pathname.includes("crm") && 'crm') ||
+    (location.pathname.includes("inventory") && 'inventory') ||
+    (location.pathname.includes("finance") && 'finance') ||
+    (location.pathname.includes("salereports") && 'analysisReport') ||
+    (location.pathname.includes("pos") && 'pos') ||
+    'system';
 
-  const activeNav: string = (location.pathname.includes("system") && 'system') ||  (location.pathname.includes("crm") && 'crm') ||  (location.pathname.includes("inventory") && 'inventory') ||  (location.pathname.includes("finance") && 'finance') ||  (location.pathname.includes("salereports") && 'analysisReport') ||  (location.pathname.includes("pos") && 'pos') || 'system'
+    const navigate = useNavigate();
 
-  
-
-  const router = useNavigate();
+    const handleLogout = () => { 
+      localStorage.removeItem('token'); 
+      setTimeout(() => {
+        navigate('/login');
+      }, 500);
+    }
 
   const menuItems = menuList.map((menu, index) => (
     <Accordion.Item value={menu.id} key={index} className="!border-none !bg-transparent">
@@ -293,8 +294,15 @@ const SideNav = () => {
         <div className="text-sm flex flex-col gap-y-2">
           {menu.lists.map((list, index) => (
             <div
-              onClick={() => list.href && router(list.href)}
-              className={ list.href &&( location.pathname.includes(list.href) && (!list.baseRoute || location.pathname=='/')?'bg-transparentBgGreen flex items-center justify-start gap-2 basis-[31%] cursor-pointer hover:bg-transparentBgGreen px-2 py-3 rounded-sm' :'flex items-center justify-start gap-2 basis-[31%] cursor-pointer hover:bg-transparentBgGreen px-2 py-3 rounded-sm')  }
+              onClick={() => list.href && navigate(list.href)}
+              className={
+                list.href && (
+                  location.pathname.includes(list.href) && 
+                  (!list.baseRoute || location.pathname === '/') 
+                  ? 'bg-transparentBgGreen flex items-center justify-start gap-2 basis-[31%] cursor-pointer hover:bg-transparentBgGreen px-2 py-3 rounded-sm' 
+                  : 'flex items-center justify-start gap-2 basis-[31%] cursor-pointer hover:bg-transparentBgGreen px-2 py-3 rounded-sm'
+                )
+              }
               key={index}
             >
               <img src={list.icon} className="w-6 h-6" alt="" />
@@ -305,10 +313,9 @@ const SideNav = () => {
       </Accordion.Panel>
     </Accordion.Item>
   ));
-  return (
-    <div className="basis-1/5 max-h-screen h-[90vh] overflow-auto  bg-white rounded-r-2xl text-gray-500 flex flex-col sticky top-0">
-     
 
+  return (
+    <div className="basis-1/5 max-h-screen h-[90vh] overflow-auto bg-white rounded-r-2xl text-gray-500 flex flex-col sticky top-0">
       <Accordion
         chevronPosition="right"
         defaultValue={activeNav}
@@ -318,10 +325,15 @@ const SideNav = () => {
         {menuItems}
       </Accordion>
       <div className="basis-10 w-full mt-6">
-        <Button className="!w-full h-6 !bg-btn !text-[#000]">Logout</Button>
+        <Button className="!w-full h-6 !bg-btn !text-[#000]" onClick={handleLogout}>
+          Logout
+        </Button>
       </div>
     </div>
   );
 };
 
 export default SideNav;
+
+
+

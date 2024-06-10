@@ -7,14 +7,20 @@ import { IoMdAddCircleOutline } from "react-icons/io";
 import {  CiImport } from "react-icons/ci";
 
 import {  HiOutlinePrinter } from "react-icons/hi2";
-import {  Button,  Modal } from "@mantine/core";
+import {  Button,  Modal, Notification } from "@mantine/core";
 
 import ListRenderComponent from "./ListRenderComponent";
 import { useDisclosure } from "@mantine/hooks";
 import AddProductComponent from "./AddProductComponent";
+import * as XLSX from 'xlsx';
+import { useNavigate } from "react-router-dom";
+import { useContext, useEffect } from "react";
+import AlertContext from "../AlertContext";
 
 
 const ProductListComponent = () => {
+
+  const nav = useNavigate();
   interface productInterface {
     id: string;
     name: string;
@@ -170,9 +176,43 @@ const ProductListComponent = () => {
   ];
   const [opened, { open, close }] = useDisclosure(false);
 
+  const handelToExport = () => {
+    const workbook = XLSX.utils.book_new();
+    const worksheet = XLSX.utils.json_to_sheet(productDatas);
+  
+    XLSX.utils.book_append_sheet(workbook, worksheet, "Mysheet1");
+  
+    XLSX.writeFile(workbook, "ProductList.xlsx");
+  
+    // console.log(productDatas);
+  };
+
+  const context = useContext(AlertContext);
+  if (!context) {
+    throw new Error("No context provided");
+  }
+
+  const { alert, clearAlert } = context;
+
+  useEffect(() => {
+    if (alert) {
+      const timer = setTimeout(() => {
+        clearAlert();
+      }, 2000);
+
+      return () => clearTimeout(timer);
+    }
+  }, [alert, clearAlert]);
+
+
   return (
     <div className="w-full h-full !overflow-hidden">
       <TopBar />
+      {alert && (
+        <Notification title="Success" color={alert.color} onClose={clearAlert}>
+          {alert.message}
+        </Notification>
+      )}
 
       <div className="">
         <div className="flex justify-between items-center">
@@ -182,10 +222,10 @@ const ProductListComponent = () => {
           </div>
 
           <div className="flex justify-start items-center gap-4">
-            <div className="">
-              <img src={excel} alt="" />
+            <div className=" cursor-pointer">
+              <img src={excel} alt="" onClick={handelToExport} />
             </div>
-            <HiOutlinePrinter size={24} />
+            <HiOutlinePrinter className=" cursor-pointer" size={24} />
             <Button
               onClick={open}
               className="!bg-btn !text-white"
@@ -197,6 +237,7 @@ const ProductListComponent = () => {
             <Button
               className="!bg-btnDark !text-white"
               leftSection={<CiImport size={18} />}
+              onClick={() => nav('/upload')}
             >
               Import Product
             </Button>

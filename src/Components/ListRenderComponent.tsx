@@ -7,6 +7,8 @@ import { IoSearchSharp } from "react-icons/io5";
 import { LuEye } from "react-icons/lu";
 import { TbEdit } from "react-icons/tb";
 import { MdDeleteOutline } from "react-icons/md";
+import { RxCross2 } from "react-icons/rx";
+// import { FaCross } from "react-icons/fa";
 
 interface fnbInterface {
   id: string;
@@ -290,7 +292,37 @@ const ListRenderComponent = ({
   openingDebtListDatas,
   SalesReportDatas,
 }: propsInterface) => {
+  
   const [value, setValue] = useState("");
+  // const [filter, setFilter] = useState(""); // Filter state
+  // const [searchTerm, setSearchTerm] = useState(""); // Search term state
+  // const [currentPage, setCurrentPage] = useState(1); // Current page state
+  // const itemsPerPage = 10;
+
+  // // Filtered and paginated data
+  // const filteredData = data.filter((item) =>
+  //   item.category.toLowerCase().includes(filter.toLowerCase()) &&
+  //   (item.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+  //     item.price.toString().includes(searchTerm))
+  // );
+  // const totalPages = Math.ceil(filteredData.length / itemsPerPage);
+  // const displayedData = filteredData.slice(
+  //   (currentPage - 1) * itemsPerPage,
+  //   currentPage * itemsPerPage
+  // );
+
+  // // Handle search input change
+  // const handleSearchChange = (event) => {
+  //   setSearchTerm(event.target.value);
+  //   setCurrentPage(1); // Reset to first page on search
+  // };
+
+  // // Handle filter change
+  // const handleFilterChange = (value) => {
+  //   setFilter(value);
+  //   setCurrentPage(1); // Reset to first page on filter change
+  // };
+  
 
   const rows =
     (fnbDatas &&
@@ -937,8 +969,15 @@ const ListRenderComponent = ({
           rightSectionPointerEvents="all"
           mt="md"
           rightSection={
-            <BiSearch aria-label="Sesrch" onClick={() => setValue("")} />
+            <div className=" flex gap-1 pr-2">
+              {value && (
+                <RxCross2 onClick={() => setValue("")} 
+                className=" cursor-pointer text-red-600"/>
+              )}
+              <BiSearch aria-label="Search" />
+            </div>
           }
+          
         />
         <Accordion className="!border-none filter">
           <Accordion.Item className="!border-none" value="filter">
@@ -1008,3 +1047,5 @@ const ListRenderComponent = ({
 };
 
 export default ListRenderComponent;
+
+ 
