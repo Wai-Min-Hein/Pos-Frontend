@@ -13,9 +13,18 @@ import { useDisclosure } from "@mantine/hooks";
 import AddFnbComponent from "./AddFnbComponent";
 import * as XLSX from 'xlsx';
 import { useNavigate } from "react-router-dom";
+import { User } from "../utils/User";
 
-const FnbComponent = () => {
-  const nav = useNavigate();
+interface FnbComponentProps {
+  user: User | null;
+}
+
+const FnbComponent:React.FC<FnbComponentProps> = ({ user }) => {
+
+  const nav = useNavigate(); 
+
+  console.log("Welcome",user?.name);
+
   interface fnbInterface {
     id: string;
     name: string;
@@ -200,6 +209,8 @@ const FnbComponent = () => {
 
 
   const [opened, { open, close }] = useDisclosure(false);
+
+
   return (
     <div className="w-full h-full !overflow-hidden flex-1">
 
@@ -215,7 +226,7 @@ const FnbComponent = () => {
           </div>
 
           <div className="flex justify-start items-center gap-4">
-            <div className="">
+            <div className=" cursor-pointer">
               <img src={excel} alt="" onClick={HandelonExport} />
             </div>
             <HiOutlinePrinter className=" cursor-pointer" size={24} />
