@@ -13,6 +13,15 @@ import { useDisclosure } from "@mantine/hooks";
 import AddFnbComponent from "./AddFnbComponent";
 import * as XLSX from 'xlsx';
 import { useNavigate } from "react-router-dom";
+<<<<<<< waimin
+import axios from "axios";
+import { useEffect, useState } from "react";
+
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+
+
+=======
 import { User } from "../utils/User";
 
 interface FnbComponentProps {
@@ -24,9 +33,10 @@ const FnbComponent:React.FC<FnbComponentProps> = ({ user }) => {
   const nav = useNavigate(); 
 
   console.log("Welcome",user?.name);
+>>>>>>> main
 
   interface fnbInterface {
-    id: string;
+    _id: string;
     name: string;
     price: number;
     category: string;
@@ -45,154 +55,180 @@ const FnbComponent:React.FC<FnbComponentProps> = ({ user }) => {
     "created by",
   ];
 
-  const fnbDatas: fnbInterface[] = [
-    {
-      id: "1",
-      name: "Product 1",
-      price: 100,
-      category: "laptop",
-      sku: "p001",
-      createdByName: "John",
-      createdByImage:
-        "https://i.pinimg.com/474x/8b/f2/1c/8bf21c33efbc925593a022e0147ad4f2.jpg",
-      unit: "pc",
-    },
-    {
-      id: "2",
-      name: "Product 2",
-      price: 101,
-      category: "laptop",
-      sku: "p002",
-      createdByName: "John",
-      createdByImage:
-        "https://i.pinimg.com/474x/8b/f2/1c/8bf21c33efbc925593a022e0147ad4f2.jpg",
-      unit: "pc",
-    },
-    {
-      id: "3",
-      name: "Product 3",
-      price: 102,
-      category: "laptop",
-      sku: "p003",
-      createdByName: "John",
-      createdByImage:
-        "https://i.pinimg.com/474x/8b/f2/1c/8bf21c33efbc925593a022e0147ad4f2.jpg",
-      unit: "pc",
-    },
-    {
-      id: "4",
-      name: "Product 4",
-      price: 103,
-      category: "laptop",
-      sku: "p004",
-      createdByName: "John",
-      createdByImage:
-        "https://i.pinimg.com/474x/8b/f2/1c/8bf21c33efbc925593a022e0147ad4f2.jpg",
-      unit: "pc",
-    },
-    {
-      id: "5",
-      name: "Product 5",
-      price: 104,
-      category: "laptop",
-      sku: "p005",
-      createdByName: "John",
-      createdByImage:
-        "https://i.pinimg.com/474x/8b/f2/1c/8bf21c33efbc925593a022e0147ad4f2.jpg",
-      unit: "pc",
-    },
-    {
-      id: "6",
-      name: "Product 6",
-      price: 105,
-      category: "laptop",
-      sku: "p006",
-      createdByName: "John",
-      createdByImage:
-        "https://i.pinimg.com/474x/8b/f2/1c/8bf21c33efbc925593a022e0147ad4f2.jpg",
-      unit: "pc",
-    },
-    {
-      id: "7",
-      name: "Product 7",
-      price: 106,
-      category: "laptop",
-      sku: "p007",
-      createdByName: "John",
-      createdByImage:
-        "https://i.pinimg.com/474x/8b/f2/1c/8bf21c33efbc925593a022e0147ad4f2.jpg",
-      unit: "pc",
-    },
-    {
-      id: "8",
-      name: "Product 8",
-      price: 107,
-      category: "laptop",
-      sku: "p008",
-      createdByName: "John",
-      createdByImage:
-        "https://i.pinimg.com/474x/8b/f2/1c/8bf21c33efbc925593a022e0147ad4f2.jpg",
-      unit: "pc",
-    },
-    {
-      id: "9",
-      name: "Product 9",
-      price: 108,
-      category: "laptop",
-      sku: "p009",
-      createdByName: "John",
-      createdByImage:
-        "https://i.pinimg.com/474x/8b/f2/1c/8bf21c33efbc925593a022e0147ad4f2.jpg",
-      unit: "pc",
-    },
-    {
-      id: "10",
-      name: "Product 10",
-      price: 109,
-      category: "laptop",
-      sku: "p010",
-      createdByName: "John",
-      createdByImage:
-        "https://i.pinimg.com/474x/8b/f2/1c/8bf21c33efbc925593a022e0147ad4f2.jpg",
-      unit: "pc",
-    },
+  const [fnbDatas, setFnbDatas] = useState<fnbInterface[]>([])
 
-    {
-      id: "11",
-      name: "Product 10",
-      price: 109,
-      category: "laptop",
-      sku: "p010",
-      createdByName: "John",
-      createdByImage:
-        "https://i.pinimg.com/474x/8b/f2/1c/8bf21c33efbc925593a022e0147ad4f2.jpg",
-      unit: "pc",
-    },
 
-    {
-      id: "12",
-      name: "Product 10",
-      price: 109,
-      category: "laptop ",
-      sku: "p010",
-      createdByName: "John",
-      createdByImage:
-        "https://i.pinimg.com/474x/8b/f2/1c/8bf21c33efbc925593a022e0147ad4f2.jpg",
-      unit: "pc",
-    },
 
-    {
-      id: "13",
-      name: "Product 10",
-      price: 109,
-      category: "laptop",
-      sku: "p010",
-      createdByName: "John",
-      createdByImage:
-        "https://i.pinimg.com/474x/8b/f2/1c/8bf21c33efbc925593a022e0147ad4f2.jpg",
-      unit: "pc",
-    },
-  ];
+
+  const getDatas = async () => {
+
+    try {
+
+      const datas = await axios.get('http://localhost:3000/fnb')
+
+    setFnbDatas(datas.data.datas);
+      
+    } catch (error) {
+
+      console.log(error);
+      
+    }
+    
+  }
+
+useEffect(() => {
+  getDatas();
+}, [])
+
+
+  // const fnbDatas: fnbInterface[] = [
+  //   {
+  //     id: "1",
+  //     name: "Product 1",
+  //     price: 100,
+  //     category: "laptop",
+  //     sku: "p001",
+  //     createdByName: "John",
+  //     createdByImage:
+  //       "https://i.pinimg.com/474x/8b/f2/1c/8bf21c33efbc925593a022e0147ad4f2.jpg",
+  //     unit: "pc",
+  //   },
+  //   {
+  //     id: "2",
+  //     name: "Product 2",
+  //     price: 101,
+  //     category: "laptop",
+  //     sku: "p002",
+  //     createdByName: "John",
+  //     createdByImage:
+  //       "https://i.pinimg.com/474x/8b/f2/1c/8bf21c33efbc925593a022e0147ad4f2.jpg",
+  //     unit: "pc",
+  //   },
+  //   {
+  //     id: "3",
+  //     name: "Product 3",
+  //     price: 102,
+  //     category: "laptop",
+  //     sku: "p003",
+  //     createdByName: "John",
+  //     createdByImage:
+  //       "https://i.pinimg.com/474x/8b/f2/1c/8bf21c33efbc925593a022e0147ad4f2.jpg",
+  //     unit: "pc",
+  //   },
+  //   {
+  //     id: "4",
+  //     name: "Product 4",
+  //     price: 103,
+  //     category: "laptop",
+  //     sku: "p004",
+  //     createdByName: "John",
+  //     createdByImage:
+  //       "https://i.pinimg.com/474x/8b/f2/1c/8bf21c33efbc925593a022e0147ad4f2.jpg",
+  //     unit: "pc",
+  //   },
+  //   {
+  //     id: "5",
+  //     name: "Product 5",
+  //     price: 104,
+  //     category: "laptop",
+  //     sku: "p005",
+  //     createdByName: "John",
+  //     createdByImage:
+  //       "https://i.pinimg.com/474x/8b/f2/1c/8bf21c33efbc925593a022e0147ad4f2.jpg",
+  //     unit: "pc",
+  //   },
+  //   {
+  //     id: "6",
+  //     name: "Product 6",
+  //     price: 105,
+  //     category: "laptop",
+  //     sku: "p006",
+  //     createdByName: "John",
+  //     createdByImage:
+  //       "https://i.pinimg.com/474x/8b/f2/1c/8bf21c33efbc925593a022e0147ad4f2.jpg",
+  //     unit: "pc",
+  //   },
+  //   {
+  //     id: "7",
+  //     name: "Product 7",
+  //     price: 106,
+  //     category: "laptop",
+  //     sku: "p007",
+  //     createdByName: "John",
+  //     createdByImage:
+  //       "https://i.pinimg.com/474x/8b/f2/1c/8bf21c33efbc925593a022e0147ad4f2.jpg",
+  //     unit: "pc",
+  //   },
+  //   {
+  //     id: "8",
+  //     name: "Product 8",
+  //     price: 107,
+  //     category: "laptop",
+  //     sku: "p008",
+  //     createdByName: "John",
+  //     createdByImage:
+  //       "https://i.pinimg.com/474x/8b/f2/1c/8bf21c33efbc925593a022e0147ad4f2.jpg",
+  //     unit: "pc",
+  //   },
+  //   {
+  //     id: "9",
+  //     name: "Product 9",
+  //     price: 108,
+  //     category: "laptop",
+  //     sku: "p009",
+  //     createdByName: "John",
+  //     createdByImage:
+  //       "https://i.pinimg.com/474x/8b/f2/1c/8bf21c33efbc925593a022e0147ad4f2.jpg",
+  //     unit: "pc",
+  //   },
+  //   {
+  //     id: "10",
+  //     name: "Product 10",
+  //     price: 109,
+  //     category: "laptop",
+  //     sku: "p010",
+  //     createdByName: "John",
+  //     createdByImage:
+  //       "https://i.pinimg.com/474x/8b/f2/1c/8bf21c33efbc925593a022e0147ad4f2.jpg",
+  //     unit: "pc",
+  //   },
+
+  //   {
+  //     id: "11",
+  //     name: "Product 10",
+  //     price: 109,
+  //     category: "laptop",
+  //     sku: "p010",
+  //     createdByName: "John",
+  //     createdByImage:
+  //       "https://i.pinimg.com/474x/8b/f2/1c/8bf21c33efbc925593a022e0147ad4f2.jpg",
+  //     unit: "pc",
+  //   },
+
+  //   {
+  //     id: "12",
+  //     name: "Product 10",
+  //     price: 109,
+  //     category: "laptop ",
+  //     sku: "p010",
+  //     createdByName: "John",
+  //     createdByImage:
+  //       "https://i.pinimg.com/474x/8b/f2/1c/8bf21c33efbc925593a022e0147ad4f2.jpg",
+  //     unit: "pc",
+  //   },
+
+  //   {
+  //     id: "13",
+  //     name: "Product 10",
+  //     price: 109,
+  //     category: "laptop",
+  //     sku: "p010",
+  //     createdByName: "John",
+  //     createdByImage:
+  //       "https://i.pinimg.com/474x/8b/f2/1c/8bf21c33efbc925593a022e0147ad4f2.jpg",
+  //     unit: "pc",
+  //   },
+  // ];
    
   const HandelonExport = () => { 
     
@@ -210,9 +246,15 @@ const FnbComponent:React.FC<FnbComponentProps> = ({ user }) => {
 
   const [opened, { open, close }] = useDisclosure(false);
 
+<<<<<<< waimin
+  
+=======
 
+>>>>>>> main
   return (
     <div className="w-full h-full !overflow-hidden flex-1">
+
+<ToastContainer  />
 
       <Modal opened={opened} onClose={close} fullScreen>
         <AddFnbComponent/>
@@ -245,6 +287,8 @@ const FnbComponent:React.FC<FnbComponentProps> = ({ user }) => {
             >
               Import Product
             </Button>
+
+          
           </div>
         </div>
 

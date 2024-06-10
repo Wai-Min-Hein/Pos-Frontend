@@ -235,7 +235,7 @@ const ExcelImport = () => {
   };
 
   return (
-    <div>
+    <div className="h-screen">
       <div className="mb-3 text-center items-center">
         <h1 className="text-2xl">Upload Excel Sheets</h1>
       </div>
