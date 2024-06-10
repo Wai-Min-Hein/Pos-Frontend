@@ -6,12 +6,14 @@ import excel from "../../public/images/iconsImage/excel.png";
 import TopBar from "./TopBar";
 import { HiOutlinePrinter } from "react-icons/hi2";
 import { useNavigate } from "react-router-dom";
-<<<<<<< waimin
+
+
 import axios from "axios";
 import { useEffect, useState } from "react";
-=======
+
+  
 import * as XLSX from 'xlsx';
->>>>>>> main
+  
 
 
 const PriceTableComponent = () => {
