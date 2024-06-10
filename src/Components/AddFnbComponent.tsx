@@ -2,9 +2,7 @@ import {
   Accordion,
   Box,
   Button,
-  Input,
   Modal,
-  NumberInput,
   Select,
   TextInput,
   Textarea,
@@ -19,8 +17,49 @@ import { RxCross2 } from "react-icons/rx";
 import { DateTimePicker } from "@mantine/dates";
 import { useNavigate } from "react-router-dom";
 import { useDisclosure } from "@mantine/hooks";
+import React from "react";
+import axios from "axios";
+
+import {  toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const AddFnbComponent = () => {
+  interface formInterface {
+    name: string;
+    img?: string;
+    category: string;
+    description?: string;
+    sku: string;
+    createdByName?: string;
+    createByImage?: string;
+    unit: string;
+  }
+
+  const [form, setForm] = React.useState<formInterface>({
+    name: "",
+    sku: "",
+    category: "",
+    img: "",
+    description: "",
+    createdByName: "",
+    createByImage: "",
+    unit: "",
+  });
+
+  const handleSubmit = async () => {
+    try {
+      const { data } = await axios.post("http://localhost:3000/fnb", form);
+
+      toast(data.message);
+    } catch (error) {
+      if (axios.isAxiosError(error)) {
+        toast(error.message);
+      } else {
+        console.log(error);
+      }
+    }
+  };
+
   const nav = useNavigate();
   const [opened, { open, close }] = useDisclosure(false);
 
@@ -72,24 +111,31 @@ const AddFnbComponent = () => {
               <Box mx="">
                 <form className=" add-fnb-form flex flex-col gap-6">
                   <div className=" flex items-center justify-start gap-x-8 w-full">
-                    <Input.Wrapper
+                    <TextInput
+                      onChange={(e) =>
+                        setForm({ ...form, name: e.target.value })
+                      }
+                      className="basis-1/3 !bg-transparent"
+                      placeholder="Product Name"
                       label="Product Name"
-                      className="basis-1/3 !bg-transparent"
-                    >
-                      <Input placeholder="Product Name" />
-                    </Input.Wrapper>
+                    />
 
-                    <Input.Wrapper
-                      label="SKU"
+                    <TextInput
+                      onChange={(e) =>
+                        setForm({ ...form, sku: e.target.value })
+                      }
                       className="basis-1/3 !bg-transparent"
-                    >
-                      <Input placeholder="SKU Code" />
-                    </Input.Wrapper>
+                      placeholder="SKU"
+                      label="SKU"
+                    />
                   </div>
 
                   <div className=" flex items-center justify-start gap-x-8 w-full">
                     <div className="relative">
                       <Select
+                        onChange={(e) =>
+                          setForm({ ...form, category: e ? e : "" })
+                        }
                         className="basis-1/3"
                         label="Category"
                         placeholder="Choose"
@@ -115,20 +161,23 @@ const AddFnbComponent = () => {
                   </div>
 
                   <div className=" flex items-center justify-start gap-x-8 w-full">
-                    <Input.Wrapper
+                    <TextInput
+                      onChange={(e) =>
+                        setForm({ ...form, unit: e.target.value })
+                      }
                       label={"Unit"}
                       className="basis-1/3 !bg-transparent"
-                    >
-                      <Input placeholder="Unit" />
-                    </Input.Wrapper>
-
-                    <NumberInput
-                      label="Price"
-                      className="basis-1/3 !bg-transparent"
-                      placeholder="Price"
+                      placeholder="Unit"
                     />
                   </div>
-                  <Textarea label="Description" autosize minRows={6} />
+                  <Textarea
+                    onChange={(e) =>
+                      setForm({ ...form, description: e.target.value })
+                    }
+                    label="Description"
+                    autosize
+                    minRows={6}
+                  />
                 </form>
               </Box>
             </Accordion.Panel>
@@ -203,7 +252,9 @@ const AddFnbComponent = () => {
 
         <div className="flex items-center justify-end my-6 gap-4">
           <Button className="!bg-btnDark !text-white">Cancle</Button>
-          <Button className="!bg-btn !text-white">Save product</Button>
+          <Button onClick={handleSubmit} className="!bg-btn !text-white">
+            Save product
+          </Button>
         </div>
       </div>
     </div>
@@ -211,4 +262,3 @@ const AddFnbComponent = () => {
 };
 
 export default AddFnbComponent;
-

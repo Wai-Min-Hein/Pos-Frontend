@@ -50,6 +50,7 @@ const AppRouter = () => {
         <Route path="/system/customerservice" element={<Csa />} />
         <Route path="/system/pricetable" element={<PriceTable />} />
         <Route path="/system/pricetable/:id" element={<PriceTableForm />} />
+        <Route path="/system/pricetable/new" element={<PriceTableForm />} />
         <Route path="/system/ingredients" element={<IngredientList />} />
         <Route path="/system/branchlists" element={<BranchList />} />
         <Route path="/system/rights" element={<UserRight />} />

@@ -8,8 +8,11 @@ import { LuEye } from "react-icons/lu";
 import { TbEdit } from "react-icons/tb";
 import { MdDeleteOutline } from "react-icons/md";
 
+
+
+
 interface fnbInterface {
-  id: string;
+  _id: string;
   name: string;
   price: number;
   category: string;
@@ -36,17 +39,30 @@ interface branchInterface {
 }
 
 interface csaInterface {
-  id: string;
+  _id: string;
   code: string;
   name: string;
 }
 
+interface menuInterface {
+  name: string;
+  price: number | string;
+  vat: number | string;
+  disPercent: number | string;
+  disAmount: number | string;
+  adjust: boolean;
+}
+
 interface priceTableInterface {
-  id: string;
+  _id: string;
+
   code: string;
   name: string;
-  dateFrom: string;
-  dateTo: string;
+  branch: string;
+  area: string;
+  startDate: Date | null;
+  endDate: Date | null;
+  menus: menuInterface[];
 }
 
 interface userAccountInterface {
@@ -240,6 +256,7 @@ interface propsInterface {
   csaDatas?: csaInterface[];
   priceTableDatas?: priceTableInterface[];
   handleDetail?: (id: string) => void;
+  handleDelete?: (id: string) => void;
   open?: () => void;
   userAccount?: userAccountInterface[];
   employeeList?: EmployeeListInterface[];
@@ -269,6 +286,7 @@ const ListRenderComponent = ({
   csaDatas,
   priceTableDatas,
   handleDetail,
+  handleDelete,
   open,
   userAccount,
   employeeList,
@@ -295,7 +313,7 @@ const ListRenderComponent = ({
   const rows =
     (fnbDatas &&
       fnbDatas?.map((product) => (
-        <Table.Tr key={product.id}>
+        <Table.Tr key={product._id}>
           <Table.Td className="capitalize w-24">{product.name}</Table.Td>
           <Table.Td className="capitalize w-24">{product.category}</Table.Td>
           <Table.Td className="capitalize w-24">{product.sku}</Table.Td>
@@ -368,20 +386,18 @@ const ListRenderComponent = ({
       ))) ||
     (csaDatas &&
       csaDatas?.map((product) => (
-        <Table.Tr key={product.id}>
+        <Table.Tr key={product._id}>
           <Table.Td className="capitalize w-24">{product.code}</Table.Td>
-          <Table.Td className="capitalize w-24">{product.name}</Table.Td>
-          <Table.Td className="capitalize w-24">
+          <Table.Td className="capitalize w-24 mr-auto">{product.name}</Table.Td>
+          <Table.Td className="capitalize w-24 ml-auto">
             <div className="flex items-center justify-start gap-x-2">
-              <div className="w-8 h-8 grid place-items-center rounded border-2  border-gray">
-                <LuEye />
-              </div>
-              <div className="w-8 h-8 grid place-items-center rounded border-2 border-gray">
+             
+              <div className="w-8 h-8 grid place-items-center rounded border-2 border-gray cursor-pointer">
                 <TbEdit />
               </div>
 
-              <div className="w-8 h-8 grid place-items-center rounded border-2 border-gray">
-                <MdDeleteOutline />
+              <div className="w-8 h-8 grid place-items-center rounded border-2 border-gray cursor-pointer">
+                <MdDeleteOutline onClick={() =>handleDelete && handleDelete(product._id)} />
               </div>
             </div>
           </Table.Td>
@@ -389,15 +405,19 @@ const ListRenderComponent = ({
       ))) ||
     (priceTableDatas &&
       priceTableDatas?.map((product) => (
-        <Table.Tr key={product.id}>
+        <Table.Tr key={product._id}>
           <Table.Td className="capitalize w-24">{product.code}</Table.Td>
           <Table.Td className="capitalize w-24">{product.name}</Table.Td>
-          <Table.Td className="capitalize w-24">{product.dateFrom}</Table.Td>
-          <Table.Td className="capitalize w-24">{product.dateTo}</Table.Td>
+          <Table.Td className="capitalize w-24">{product.branch}</Table.Td>
+          <Table.Td className="capitalize w-24">{product.area}</Table.Td>
+          <Table.Td className="capitalize w-24">
+          {product.startDate && new Date(product.startDate).toLocaleDateString() }
+          </Table.Td>
+          <Table.Td className="capitalize w-24">{product.endDate && new Date(product.endDate).toLocaleDateString() }</Table.Td>
           <Table.Td className="capitalize w-24">
             <div className="flex items-center justify-start gap-x-2">
               <div
-                onClick={() => handleDetail && handleDetail(product.id)}
+                onClick={() => handleDetail && handleDetail(product._id)}
                 className="w-8 h-8 grid place-items-center rounded border-2  border-gray cursor-pointer"
               >
                 <LuEye />

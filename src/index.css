@@ -47,7 +47,7 @@ span .mantine-Button-label, span{
   font-family: "Poppins", 'sans-serif';
 color: inherit;
 }
-
+/* 
 button {
   border-radius: 8px;
   border: 1px solid transparent;
@@ -67,7 +67,7 @@ button:hover {
 button:focus,
 button:focus-visible {
   outline: none;
-}
+} */
 
 .add-fnb-form .mantine-Input-input  {
   border: 2px solid #e7e7e5 !important;
@@ -101,4 +101,13 @@ button:focus-visible {
   button {
     background-color: #f9f9f9;
   }
+}
+
+.price-table-form .mantine-TextInput-input{
+  background-color: transparent !important;
+  border: 1px solid #213547;
+}
+
+.mantine-NumberInput-controls, .mantine-ComboboxChevron-chevron{
+  display: none !important;
 }
