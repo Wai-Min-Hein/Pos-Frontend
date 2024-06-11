@@ -1,6 +1,5 @@
 import { Button, Select } from "@mantine/core";
-import { HiOutlineShoppingCart } from "react-icons/hi";
-import { LuMinusCircle, LuPlusCircle, LuRefreshCcw } from "react-icons/lu";
+import { LuMinusCircle, LuPlusCircle } from "react-icons/lu";
 import {
   MdDeleteOutline,
   MdOutlineChevronLeft,
@@ -15,7 +14,7 @@ import { Swiper, SwiperSlide } from "swiper/react";
 // Import Swiper styles
 import "swiper/css";
 import { Navigation } from "swiper/modules";
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { TbUserPlus } from "react-icons/tb";
 import { FaRegEdit } from "react-icons/fa";
 import { useReactToPrint } from "react-to-print";
@@ -25,7 +24,14 @@ import {
   increaseMenuQty,
   decreaseMenuQty,
   deleteMenu,
+  setPaymentMethod,
+  setOrderId,
+  setCustomerInfo,
+  onOrderConfirm,
 } from "../slice/posOrderSlice";
+import {  useNavigate, useParams } from "react-router-dom";
+import { addOrder } from "../slice/OrderListSlice";
+
 const PosComponent = () => {
   interface menusInterface {
     id: string;
@@ -84,7 +90,21 @@ const PosComponent = () => {
     },
   ];
 
+
+const nav = useNavigate()
+
+
+  const { tableId } = useParams();
+
+  const [taxPercent, setTaxPercent] = useState<string>("0");
+  const [disPercent, setDisPercent] = useState<string>("0");
+
+  const orderList = useAppSelector((state) => state.order);
+
+
   const orderedmenus = useAppSelector((state) => state.order.orders);
+  const paymentMethod = useAppSelector((state) => state.order.paymentMethod);
+  const customer = useAppSelector((state) => state.order.customerInfo);
 
   const totalMenuQty = orderedmenus?.reduce((pv, cv) => pv + cv.quantity, 0);
   const totalMenuAmount = orderedmenus?.reduce(
@@ -92,8 +112,12 @@ const PosComponent = () => {
     0
   );
 
-  const tax = totalMenuAmount ? totalMenuAmount * 0.05 : 0;
-  const discount = totalMenuAmount ? totalMenuAmount * 0.05 : 0;
+  const tax = totalMenuAmount
+    ? totalMenuAmount * (Number(taxPercent) / 100)
+    : 0;
+  const discount = totalMenuAmount
+    ? totalMenuAmount * (Number(disPercent) / 100)
+    : 0;
 
   const grandTotal = totalMenuAmount ? totalMenuAmount + tax - discount : 0;
 
@@ -119,20 +143,14 @@ const PosComponent = () => {
     content: () => printRef.current,
   });
 
+  useEffect(() => {
+    dispatch(setOrderId(Number(tableId)));
+
+    dispatch(setCustomerInfo("Walkin Customer"));
+  }, []);
+
   return (
     <div className="p-4 w-full">
-      <div className="flex flex-row gap-4">
-        <Button
-          className="!bg-btnDark"
-          leftSection={<HiOutlineShoppingCart size={24} />}
-        >
-          View Order
-        </Button>
-        <Button className="!bg-btn" leftSection={<LuRefreshCcw size={24} />}>
-          Transcation
-        </Button>
-      </div>
-
       <div className="flex items-start justify-between gap-4 mt-6">
         <div className="basis-2/3 w-2/3 bg-transparentBgGreen p-6 rounded-md">
           <div className="mt-6 flex items-center justify-between ">
@@ -283,7 +301,7 @@ const PosComponent = () => {
         <div className=" basis-1/3  px-4">
           <div className="">
             <h6>Order List</h6>
-            <p>Order id : 333</p>
+            <p>Order id : {tableId}</p>
           </div>
 
           <div className="">
@@ -292,7 +310,8 @@ const PosComponent = () => {
               <div className="flex items-center justify-start gap-4">
                 <Select
                   className="flex-1"
-                  defaultValue={"Walkin Customer"}
+                  defaultValue={customer}
+                  onChange={(e) => e && dispatch(setCustomerInfo(e))}
                   data={[
                     "Walkin Customer",
                     "React",
@@ -340,12 +359,13 @@ const PosComponent = () => {
                   <div className="flex items-center justify-start gap-2 border border-gray px-2 rounded-md">
                     <LuMinusCircle
                       onClick={() => dispatch(decreaseMenuQty(menu))}
-                      className="cursor-pointer"
+                      className="cursor-pointer select-none"
                     />
+
                     <span>{menu.quantity}</span>
                     <LuPlusCircle
                       onClick={() => dispatch(increaseMenuQty(menu))}
-                      className="cursor-pointer"
+                      className="cursor-pointer  select-none"
                     />
                   </div>
 
@@ -369,14 +389,16 @@ const PosComponent = () => {
             <Select
               label="Tax"
               className=""
-              defaultValue={"5%"}
-              data={["5%", "React", "Angular", "Vue", "Svelte"]}
+              defaultValue={taxPercent}
+              onChange={(e) => e && setTaxPercent(e)}
+              data={["0", "5", "10"]}
             />
             <Select
               label="Discount"
               className=""
-              defaultValue={"5%"}
-              data={["5%", "React", "Angular", "Vue", "Svelte"]}
+              defaultValue={disPercent}
+              onChange={(e) => e && setDisPercent(e)}
+              data={["0", "5", "10", "15"]}
             />
           </div>
 
@@ -410,11 +432,23 @@ const PosComponent = () => {
           <div className="mt-6">
             <h6>Payment Methods</h6>
 
-            <div className="mt-4 flex items-center justify-start gap-4 cursor-pointer">
-              <div className="border border-gray rounded-md w-16 h-16 grid place-items-center">
+            <div
+              className={`mt-4 flex items-center justify-start gap-4 cursor-pointer`}
+            >
+              <div
+                onClick={() => dispatch(setPaymentMethod("cash"))}
+                className={`border border-gray rounded-md w-16 h-16 grid place-items-center cursor-pointer  ${
+                  paymentMethod == "cash" ? "bg-btn" : ""
+                }`}
+              >
                 <h6>Cash</h6>
               </div>
-              <div className="border border-gray rounded-md w-16 h-16 grid place-items-center  cursor-pointer">
+              <div
+                onClick={() => dispatch(setPaymentMethod("kpay"))}
+                className={`border border-gray rounded-md w-16 h-16 grid place-items-center cursor-pointer  ${
+                  paymentMethod == "kpay" ? "bg-btn" : ""
+                }`}
+              >
                 <h6>Kpay</h6>
               </div>
             </div>
@@ -427,7 +461,14 @@ const PosComponent = () => {
           </div>
 
           <div className="flex items-center justify-between gap-4 mt-6">
-            <Button className="basis-1/2">Confirm Order</Button>
+            <Button
+                onClick={() => dispatch(onOrderConfirm(), dispatch(addOrder(orderList)), nav('/pos'))}
+              
+
+              className="basis-1/2"
+            >
+              Confirm Order
+            </Button>
             <Button
               onClick={() => (handlePrint(), setShowPrintTemplate(true))}
               className="basis-1/2 !bg-btn"

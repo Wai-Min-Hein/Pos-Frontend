@@ -33,10 +33,13 @@ import PriceTableForm from "./PriceTableForm";
 import UserRightDetail from "./UserRightDetail";
 import ExcelImport from "./ExcelImport";
 import AppPrivateRouter from './AppPrivateRouter'
+import PosSingleTable from './PosSingleTable';
 
 
 
 const AppRouter = () => {
+
+
   return (
     
       <Routes>
@@ -103,6 +106,7 @@ const AppRouter = () => {
 
           {/* pos */}
           <Route path="/pos" element={<Pos />} />
+          <Route path="/pos/:area/:tableId" element={<PosSingleTable />} />
           {/* pos */}
         </Route>
         

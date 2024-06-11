@@ -14,15 +14,28 @@ interface orderedMenusInterface {
 
 interface initialStateInterface {
   orders: orderedMenusInterface[] | null;
+  orderId: number;
+  customerInfo: string;
+  discount: number;
+  tax:number;
+  paymentMethod: string,
+
 }
 
 // Define the initial state using that type
 const initialState: initialStateInterface = {
   orders: [],
+  orderId: 0,
+  customerInfo: '',
+  discount: 0,
+  tax: 0,
+  paymentMethod: '',
+
+
 };
 
 export const posOrderSlice = createSlice({
-  name: "order",
+  name: "orderList",
   // `createSlice` will infer the state type from the `initialState` argument
   initialState,
   reducers: {
@@ -88,10 +101,34 @@ export const posOrderSlice = createSlice({
 
       state.orders = filteredMenus ? filteredMenus : state.orders;
     },
+
+
+    setPaymentMethod : (state,  action: PayloadAction<string>) =>{
+
+
+      state.paymentMethod = action.payload
+    },
+
+    setOrderId : (state,  action: PayloadAction<number>) =>{
+      state.orderId = action.payload
+
+    },
+    setCustomerInfo : (state,  action: PayloadAction<string>) =>{
+      state.customerInfo = action.payload
+
+    },
+    onOrderConfirm : (state) => {
+      state.orders =  [];
+      state.customerInfo = '';
+      state.discount = 0;
+      state.tax = 0;
+      state.paymentMethod = '';
+
+    }
   },
 });
 
-export const { addMenus, increaseMenuQty, decreaseMenuQty, deleteMenu } =
+export const { addMenus, increaseMenuQty, decreaseMenuQty, deleteMenu, setPaymentMethod,setOrderId,setCustomerInfo, onOrderConfirm } =
   posOrderSlice.actions;
 
 // Other code such as selectors can use the imported `RootState` type

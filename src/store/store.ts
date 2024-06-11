@@ -7,12 +7,14 @@ import {
   persistStore,
 } from 'redux-persist';
 import storage from 'redux-persist/lib/storage';
+import OrderListSlice from '../slice/OrderListSlice';
 
 // Combine reducers into a single root reducer
 const rootReducer = combineReducers({
   counter: counterSlice,
   order: posOrderSlice,
   user: userSlice,
+  orderList: OrderListSlice
 });
 
 
