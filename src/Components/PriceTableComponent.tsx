@@ -85,9 +85,9 @@ const PriceTableComponent = () => {
   const HandelonExport = () => { 
     
     const workbook = XLSX.utils.book_new();
-    const worksheet = XLSX.utils.json_to_sheet(priceTableDatas);
+    const worksheet =priceTableDatas && XLSX.utils.json_to_sheet(priceTableDatas );
 
-    XLSX.utils.book_append_sheet(workbook, worksheet, "Mysheet1");
+    worksheet && XLSX.utils.book_append_sheet(workbook, worksheet, "Mysheet1");
 
     XLSX.writeFile(workbook, "PriceList.xlsx");
 
