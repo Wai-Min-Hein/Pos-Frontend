@@ -21,6 +21,7 @@ interface orderedMenusInterface {
     discount: number;
     tax:number;
     paymentMethod: string,
+    area?: string 
   
   }
 
@@ -42,7 +43,6 @@ const orderListSlice = createSlice({
     reducers: {
         addOrder: (state, action: PayloadAction<orderListInterface>) => {
             state.orderList.push(action.payload);
-
         },
         
     }

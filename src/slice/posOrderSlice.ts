@@ -35,7 +35,7 @@ const initialState: initialStateInterface = {
 };
 
 export const posOrderSlice = createSlice({
-  name: "orderList",
+  name: "order",
   // `createSlice` will infer the state type from the `initialState` argument
   initialState,
   reducers: {
@@ -117,6 +117,14 @@ export const posOrderSlice = createSlice({
       state.customerInfo = action.payload
 
     },
+    setDis: (state, action: PayloadAction<string>) =>{
+      state.discount =Number( action.payload)
+
+    },
+    setTax: (state, action: PayloadAction<string>) =>{
+      state.tax =Number( action.payload)
+
+    },
     onOrderConfirm : (state) => {
       state.orders =  [];
       state.customerInfo = '';
@@ -128,7 +136,7 @@ export const posOrderSlice = createSlice({
   },
 });
 
-export const { addMenus, increaseMenuQty, decreaseMenuQty, deleteMenu, setPaymentMethod,setOrderId,setCustomerInfo, onOrderConfirm } =
+export const { addMenus, increaseMenuQty, decreaseMenuQty, deleteMenu, setPaymentMethod,setOrderId,setCustomerInfo,setDis, setTax, onOrderConfirm } =
   posOrderSlice.actions;
 
 // Other code such as selectors can use the imported `RootState` type

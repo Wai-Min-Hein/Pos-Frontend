@@ -28,6 +28,8 @@ import {
   setOrderId,
   setCustomerInfo,
   onOrderConfirm,
+  setDis,
+  setTax,
 } from "../slice/posOrderSlice";
 import {  useNavigate, useParams } from "react-router-dom";
 import { addOrder } from "../slice/OrderListSlice";
@@ -95,6 +97,18 @@ const nav = useNavigate()
 
 
   const { tableId } = useParams();
+  const { area } = useParams();
+
+  const confirmedOrderList =  useAppSelector((state) => state.orderList.orderList);
+
+  const currentConfirmedOrderList  = confirmedOrderList.filter(order => order.area == area && order.orderId == Number(tableId))[0]
+
+  
+
+
+
+
+
 
   const [taxPercent, setTaxPercent] = useState<string>("0");
   const [disPercent, setDisPercent] = useState<string>("0");
@@ -102,21 +116,24 @@ const nav = useNavigate()
   const orderList = useAppSelector((state) => state.order);
 
 
+
+
+
   const orderedmenus = useAppSelector((state) => state.order.orders);
   const paymentMethod = useAppSelector((state) => state.order.paymentMethod);
   const customer = useAppSelector((state) => state.order.customerInfo);
 
-  const totalMenuQty = orderedmenus?.reduce((pv, cv) => pv + cv.quantity, 0);
-  const totalMenuAmount = orderedmenus?.reduce(
+  const totalMenuQty =(currentConfirmedOrderList? currentConfirmedOrderList.orders: orderedmenus)?.reduce((pv, cv) => pv + cv.quantity, 0);
+  const totalMenuAmount = (currentConfirmedOrderList? currentConfirmedOrderList.orders: orderedmenus)?.reduce(
     (pv, cv) => pv + cv.price * cv.quantity,
     0
   );
 
   const tax = totalMenuAmount
-    ? totalMenuAmount * (Number(taxPercent) / 100)
+    ? totalMenuAmount * ((currentConfirmedOrderList?currentConfirmedOrderList.tax: Number(taxPercent)) / 100)
     : 0;
   const discount = totalMenuAmount
-    ? totalMenuAmount * (Number(disPercent) / 100)
+    ? totalMenuAmount * ((currentConfirmedOrderList?currentConfirmedOrderList.discount:Number(disPercent)) / 100)
     : 0;
 
   const grandTotal = totalMenuAmount ? totalMenuAmount + tax - discount : 0;
@@ -310,7 +327,7 @@ const nav = useNavigate()
               <div className="flex items-center justify-start gap-4">
                 <Select
                   className="flex-1"
-                  defaultValue={customer}
+                  defaultValue={currentConfirmedOrderList? currentConfirmedOrderList.customerInfo: customer}
                   onChange={(e) => e && dispatch(setCustomerInfo(e))}
                   data={[
                     "Walkin Customer",
@@ -336,7 +353,7 @@ const nav = useNavigate()
             </div>
 
             <div className="flex flex-col gap-y-6">
-              {orderedmenus?.map((menu) => (
+              {(currentConfirmedOrderList? currentConfirmedOrderList.orders: orderedmenus)?.map((menu) => (
                 <div
                   key={menu.id}
                   className="flex items-center justify-between gap-3 px-4"
@@ -389,15 +406,16 @@ const nav = useNavigate()
             <Select
               label="Tax"
               className=""
-              defaultValue={taxPercent}
-              onChange={(e) => e && setTaxPercent(e)}
+              defaultValue={currentConfirmedOrderList? currentConfirmedOrderList.tax.toString():taxPercent}
+              onChange={(e) => (e && setTaxPercent(e), e&& dispatch(setTax(e)))}
+
               data={["0", "5", "10"]}
             />
             <Select
               label="Discount"
               className=""
-              defaultValue={disPercent}
-              onChange={(e) => e && setDisPercent(e)}
+              defaultValue={currentConfirmedOrderList? currentConfirmedOrderList.discount.toString():disPercent}
+              onChange={(e) => (e && setDisPercent(e), e&& dispatch(setDis(e)))}
               data={["0", "5", "10", "15"]}
             />
           </div>
@@ -414,7 +432,7 @@ const nav = useNavigate()
             </div>
 
             <div className="flex  items-center justify-between">
-              <h6>Tax(5%) </h6>
+              <h6>Tax </h6>
               <p>{tax} ks</p>
             </div>
 
@@ -462,7 +480,7 @@ const nav = useNavigate()
 
           <div className="flex items-center justify-between gap-4 mt-6">
             <Button
-                onClick={() => dispatch(onOrderConfirm(), dispatch(addOrder(orderList)), nav('/pos'))}
+                onClick={() => dispatch(onOrderConfirm(), dispatch(addOrder({...orderList, area})), nav('/pos'))}
               
 
               className="basis-1/2"
