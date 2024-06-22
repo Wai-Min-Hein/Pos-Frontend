@@ -30,9 +30,10 @@ import {
   onOrderConfirm,
   setDis,
   setTax,
+  setExistedOrderToState
 } from "../slice/posOrderSlice";
 import {  useNavigate, useParams } from "react-router-dom";
-import { addOrder } from "../slice/OrderListSlice";
+import { addOrder, updateOrder } from "../slice/OrderListSlice";
 
 const PosComponent = () => {
   interface menusInterface {
@@ -93,52 +94,50 @@ const PosComponent = () => {
   ];
 
 
-const nav = useNavigate()
-
-
+  const nav = useNavigate();
   const { tableId } = useParams();
   const { area } = useParams();
+  const dispatch = useAppDispatch();
 
   const confirmedOrderList =  useAppSelector((state) => state.orderList.orderList);
 
-  const currentConfirmedOrderList  = confirmedOrderList.filter(order => order.area == area && order.orderId == Number(tableId))[0]
+  const currentConfirmedOrderList  = confirmedOrderList.filter(order => order.area == area && order.orderId == Number(tableId))[0];
 
-  
+  useEffect(() => {
 
+    if(currentConfirmedOrderList) {
+      dispatch(setExistedOrderToState(currentConfirmedOrderList)) 
+    }
 
+  }, [dispatch, currentConfirmedOrderList]);
 
+   
 
-
-
+ 
   const [taxPercent, setTaxPercent] = useState<string>("0");
   const [disPercent, setDisPercent] = useState<string>("0");
 
-  const orderList = useAppSelector((state) => state.order);
-
-
-
-
-
+  // const orderList = useAppSelector((state) => state.order);
   const orderedmenus = useAppSelector((state) => state.order.orders);
   const paymentMethod = useAppSelector((state) => state.order.paymentMethod);
-  const customer = useAppSelector((state) => state.order.customerInfo);
+  const customerInfo = useAppSelector((state) => state.order.customerInfo);
 
-  const totalMenuQty =(currentConfirmedOrderList? currentConfirmedOrderList.orders: orderedmenus)?.reduce((pv, cv) => pv + cv.quantity, 0);
-  const totalMenuAmount = (currentConfirmedOrderList? currentConfirmedOrderList.orders: orderedmenus)?.reduce(
+  const totalMenuQty =( orderedmenus)?.reduce((pv, cv) => pv + cv.quantity, 0);
+  const totalMenuAmount = ( orderedmenus)?.reduce(
     (pv, cv) => pv + cv.price * cv.quantity,
     0
   );
 
   const tax = totalMenuAmount
-    ? totalMenuAmount * ((currentConfirmedOrderList?currentConfirmedOrderList.tax: Number(taxPercent)) / 100)
+    ? totalMenuAmount * (( Number(taxPercent)) / 100)
     : 0;
   const discount = totalMenuAmount
-    ? totalMenuAmount * ((currentConfirmedOrderList?currentConfirmedOrderList.discount:Number(disPercent)) / 100)
+    ? totalMenuAmount * ((Number(disPercent)) / 100)
     : 0;
 
   const grandTotal = totalMenuAmount ? totalMenuAmount + tax - discount : 0;
 
-  const dispatch = useAppDispatch();
+  
 
   const [menuCategory, setMenuCategory] = useState<menusInterface[]>(menus);
 
@@ -164,7 +163,24 @@ const nav = useNavigate()
     dispatch(setOrderId(Number(tableId)));
 
     dispatch(setCustomerInfo("Walkin Customer"));
-  }, []);
+  }, [dispatch, tableId]);
+
+  console.log(tableId);
+
+  // Handler for updating or confirming orders
+   const handleOrderAction = () => {
+    if (currentConfirmedOrderList) {
+      // Update existing order
+      dispatch(updateOrder({ orders: orderedmenus, orderId: Number(tableId), customerInfo, discount, tax, paymentMethod, area }));
+      dispatch(onOrderConfirm());
+      // console.log("true");
+      nav('/pos');
+    } else {
+      // Add new order
+      dispatch(addOrder({ orders: orderedmenus, orderId: Number(tableId), customerInfo, discount, tax, paymentMethod, area }));
+      nav('/pos'); // Navigate to POS main page after confirming order
+    }
+  };
 
   return (
     <div className="p-4 w-full">
@@ -327,7 +343,8 @@ const nav = useNavigate()
               <div className="flex items-center justify-start gap-4">
                 <Select
                   className="flex-1"
-                  defaultValue={currentConfirmedOrderList? currentConfirmedOrderList.customerInfo: customer}
+                  defaultValue={ customerInfo}
+                  // defaultValue={currentConfirmedOrderList ? currentConfirmedOrderList.customerInfo: customer}
                   onChange={(e) => e && dispatch(setCustomerInfo(e))}
                   data={[
                     "Walkin Customer",
@@ -353,7 +370,7 @@ const nav = useNavigate()
             </div>
 
             <div className="flex flex-col gap-y-6">
-              {(currentConfirmedOrderList? currentConfirmedOrderList.orders: orderedmenus)?.map((menu) => (
+              { orderedmenus?.map((menu) => (
                 <div
                   key={menu.id}
                   className="flex items-center justify-between gap-3 px-4"
@@ -406,7 +423,7 @@ const nav = useNavigate()
             <Select
               label="Tax"
               className=""
-              defaultValue={currentConfirmedOrderList? currentConfirmedOrderList.tax.toString():taxPercent}
+              defaultValue={taxPercent}
               onChange={(e) => (e && setTaxPercent(e), e&& dispatch(setTax(e)))}
 
               data={["0", "5", "10"]}
@@ -414,7 +431,7 @@ const nav = useNavigate()
             <Select
               label="Discount"
               className=""
-              defaultValue={currentConfirmedOrderList? currentConfirmedOrderList.discount.toString():disPercent}
+              defaultValue={disPercent}
               onChange={(e) => (e && setDisPercent(e), e&& dispatch(setDis(e)))}
               data={["0", "5", "10", "15"]}
             />
@@ -480,12 +497,14 @@ const nav = useNavigate()
 
           <div className="flex items-center justify-between gap-4 mt-6">
             <Button
-                onClick={() => dispatch(onOrderConfirm(), dispatch(addOrder({...orderList, area})), nav('/pos'))}
-              
-
+                // onClick={() => (currentConfirmedOrderList? dispatch(updateOrder({...orderList, area}), dispatch(onOrderConfirm())) : dispatch(onOrderConfirm(), dispatch(addOrder({...orderList, area}))),nav('/pos'))}
+              onClick={handleOrderAction}
               className="basis-1/2"
+              
             >
-              Confirm Order
+              {
+                currentConfirmedOrderList? "Update order" : "Confirm order"
+              }
             </Button>
             <Button
               onClick={() => (handlePrint(), setShowPrintTemplate(true))}
@@ -540,4 +559,4 @@ const nav = useNavigate()
   );
 };
 
-export default PosComponent;
+export default PosComponent; 

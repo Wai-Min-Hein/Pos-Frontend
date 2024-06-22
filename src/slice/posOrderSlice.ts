@@ -1,5 +1,6 @@
+
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { RootState } from "../store/store"; 
+import { RootState } from "../store/store";
 
 // Define a type for the slice state
 interface orderedMenusInterface {
@@ -17,9 +18,8 @@ interface initialStateInterface {
   orderId: number;
   customerInfo: string;
   discount: number;
-  tax:number;
-  paymentMethod: string,
-
+  tax: number;
+  paymentMethod: string;
 }
 
 // Define the initial state using that type
@@ -30,12 +30,10 @@ const initialState: initialStateInterface = {
   discount: 0,
   tax: 0,
   paymentMethod: '',
-
-
 };
 
 export const posOrderSlice = createSlice({
-  name: "order",
+  name: "orderList",
   // `createSlice` will infer the state type from the `initialState` argument
   initialState,
   reducers: {
@@ -46,18 +44,11 @@ export const posOrderSlice = createSlice({
       );
 
       if (menuExisted && menuExisted.length > 0) {
-        const filteredMenus = state.orders?.filter(
-          (order) => order.id != currentMenu.id
-        );
-
-        const addQtyMenu = {
-          ...currentMenu,
-          quantity: menuExisted[0].quantity + 1,
-        };
-
-        state.orders = filteredMenus
-          ? [addQtyMenu, ...filteredMenus]
-          : [addQtyMenu];
+        state.orders = state.orders?.map(order =>
+          order.id === currentMenu.id
+            ? { ...order, quantity: order.quantity + 1 }
+            : order
+        ) || state.orders;
       } else {
         state.orders?.push(currentMenu);
       }
@@ -65,33 +56,23 @@ export const posOrderSlice = createSlice({
     increaseMenuQty: (state, action: PayloadAction<orderedMenusInterface>) => {
       const currentMenu = action.payload;
 
-      const filteredMenus = state.orders?.filter(
-        (order) => order.id != currentMenu.id
-      );
-
-      const addQtyMenu = { ...currentMenu, quantity: currentMenu.quantity + 1 };
-
-      state.orders = filteredMenus
-        ? [addQtyMenu, ...filteredMenus]
-        : [addQtyMenu];
+      state.orders = state.orders?.map(order =>
+        order.id === currentMenu.id
+          ? { ...order, quantity: order.quantity + 1 }
+          : order
+      ) || state.orders;
     },
     decreaseMenuQty: (state, action: PayloadAction<orderedMenusInterface>) => {
       const currentMenu = action.payload;
 
-      if(currentMenu.quantity >1){
-        state.orders = state.orders
-        ? state.orders.map((order) =>
-            order.id === currentMenu.id
-              ? { ...order, quantity: order.quantity - 1 }
-              : order
-          )
-        : state.orders;
+      if (currentMenu.quantity > 1) {
+        state.orders = state.orders?.map(order =>
+          order.id === currentMenu.id
+            ? { ...order, quantity: order.quantity - 1 }
+            : order
+        ) || state.orders;
       }
-
-      
-
     },
-
     deleteMenu: (state, action: PayloadAction<orderedMenusInterface>) => {
       const currentMenu = action.payload;
 
@@ -101,45 +82,45 @@ export const posOrderSlice = createSlice({
 
       state.orders = filteredMenus ? filteredMenus : state.orders;
     },
-
-
-    setPaymentMethod : (state,  action: PayloadAction<string>) =>{
-
-
-      state.paymentMethod = action.payload
+    setPaymentMethod: (state, action: PayloadAction<string>) => {
+      state.paymentMethod = action.payload;
     },
-
-    setOrderId : (state,  action: PayloadAction<number>) =>{
-      state.orderId = action.payload
-
+    setOrderId: (state, action: PayloadAction<number>) => {
+      state.orderId = action.payload;
     },
-    setCustomerInfo : (state,  action: PayloadAction<string>) =>{
-      state.customerInfo = action.payload
-
+    setCustomerInfo: (state, action: PayloadAction<string>) => {
+      state.customerInfo = action.payload;
     },
     setDis: (state, action: PayloadAction<string>) =>{
-      state.discount =Number( action.payload)
-
+      state.discount =Number( action.payload)  
     },
     setTax: (state, action: PayloadAction<string>) =>{
       state.tax =Number( action.payload)
-
     },
-    onOrderConfirm : (state) => {
-      state.orders =  [];
+    onOrderConfirm: (state) => {
+      state.orders = [];
       state.customerInfo = '';
       state.discount = 0;
       state.tax = 0;
       state.paymentMethod = '';
+    },
 
-    }
+    setExistedOrderToState : (state, action: PayloadAction<initialStateInterface>) =>{
+
+      state.orders = action.payload.orders
+      state.customerInfo = action.payload.customerInfo
+      state.discount = action.payload.discount
+      state.tax = action.payload.tax
+      state.paymentMethod = action.payload.paymentMethod
+    },
   },
 });
 
-export const { addMenus, increaseMenuQty, decreaseMenuQty, deleteMenu, setPaymentMethod,setOrderId,setCustomerInfo,setDis, setTax, onOrderConfirm } =
+export const { addMenus, increaseMenuQty, decreaseMenuQty, deleteMenu, setPaymentMethod, setOrderId, setCustomerInfo,setDis, setTax, onOrderConfirm,setExistedOrderToState } =
   posOrderSlice.actions;
 
 // Other code such as selectors can use the imported `RootState` type
 export const selectCount = (state: RootState) => state.order.orders;
 
 export default posOrderSlice.reducer;
+

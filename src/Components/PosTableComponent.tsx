@@ -23,16 +23,9 @@ const PosTableComponent = () => {
   const tableId = useAppSelector((state) => state.order.orderId);
 
 
-
-
-
-
- 
-
-
   const getAllAreas = async () => {
     try {
-      const { data } = await axios.get("http://localhost:3000/csa");
+      const { data } = await axios.get("https://pos-t6g7.onrender.com/csa");
 
       setAreas(data.datas);
     } catch (error) {
