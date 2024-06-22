@@ -63,7 +63,7 @@ const FnbComponent:React.FC<FnbComponentProps> = ({ user }) => {
 
     try {
 
-      const datas = await axios.get('http://localhost:3000/fnb')
+      const datas = await axios.get('https://pos-t6g7.onrender.com/fnb')
 
     setFnbDatas(datas.data.datas);
       

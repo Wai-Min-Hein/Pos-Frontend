@@ -28,7 +28,7 @@ const CsaComponent = () => {
 
   const getCsaData = async () => {
     try {
-      const { data } = await axios.get("http://localhost:3000/csa");
+      const { data } = await axios.get("https://pos-t6g7.onrender.com/csa");
       setCsaDatas(data.datas);
     } catch (error) {
       console.log(error);
@@ -47,7 +47,7 @@ const CsaComponent = () => {
 
   const handleUpload = async () => {
     try {
-      const res = await axios.post("http://localhost:3000/csa", form);
+      const res = await axios.post("https://pos-t6g7.onrender.com/csa", form);
     getCsaData();
 
 
@@ -67,7 +67,7 @@ const CsaComponent = () => {
 
 const handleDelete = async (id: string) => {
   try {
-    const res = await axios.delete(`http://localhost:3000/csa/${id}`);
+    const res = await axios.delete(`https://pos-t6g7.onrender.com/csa/${id}`);
     getCsaData();
 
     toast(res.data.message);
