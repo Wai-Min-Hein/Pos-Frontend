@@ -1,4 +1,3 @@
-import React from 'react';
 import { Button, Modal } from '@mantine/core';
 import TopBar from './Components/TopBar';
 import { HiOutlineShoppingCart } from 'react-icons/hi2';
