@@ -48,7 +48,7 @@ const AddFnbComponent = () => {
 
   const handleSubmit = async () => {
     try {
-      const { data } = await axios.post("http://localhost:3000/fnb", form);
+      const { data } = await axios.post("https://pos-t6g7.onrender.com/fnb", form);
 
       toast(data.message);
     } catch (error) {

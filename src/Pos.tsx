@@ -7,6 +7,8 @@ import { useDisclosure } from '@mantine/hooks';
 import { useAppSelector, useAppDispatch } from './hooks/hooks';
 import { useNavigate } from 'react-router-dom';
 import { deleteOrder } from './slice/OrderListSlice';
+import { useEffect } from 'react';
+import { onOrderConfirm } from './slice/posOrderSlice';
 
 const Pos = () => {
   const [opened, { open, close }] = useDisclosure(false);
@@ -17,6 +19,12 @@ const Pos = () => {
   const handleDeleteOrder = (orderId: number) => {
     dispatch(deleteOrder(orderId));
   };
+
+  useEffect(() => {
+    dispatch(onOrderConfirm())
+  }, [])
+
+  
 
   return (
     <div className="w-full min-h-screen overflow-auto">

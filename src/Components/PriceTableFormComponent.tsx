@@ -13,9 +13,9 @@ import { LuMoveLeft, LuSave } from "react-icons/lu";
 
 import excel from "/images/iconsImage/excel.png";
 import details from "/images/iconsImage/details.svg";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { ToastContainer, toast } from "react-toastify";
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { useForm } from "@mantine/form";
 import { DateTimePicker } from "@mantine/dates";
 import axios from "axios";
@@ -34,7 +34,20 @@ const PriceTableFormComponent = () => {
     unit: string;
   }
 
+  interface areaInterface {
+    _id: string;
+    name: string;
+    code: string;
+  }
+
+  interface branchInterface  extends fnbInterface {
+    phone: string;
+    address: string;
+  }
+
   interface menuPriceInterface {
+    menuId: string;
+    category: string;
     name: string;
     price: number;
     vat: string;
@@ -43,9 +56,22 @@ const PriceTableFormComponent = () => {
     adjust: boolean;
   }
 
+  interface priceTableDataInterface {
+    name: string;
+    code: string;
+    area: string;
+    branch: string;
+    startDate: Date;
+    endDate: Date;
+    menus: menuPriceInterface[];
+  }
+
   //all interfaces//
 
   const nav = useNavigate();
+
+  const { id: priceTableId } = useParams();
+
 
   //file change frontend state start//
 
@@ -56,6 +82,11 @@ const PriceTableFormComponent = () => {
 
   //price table form data //
 
+  const [priceTableData, setPriceTableData] =
+    useState<priceTableDataInterface>();
+
+  //price table form data //
+
   const form = useForm({
     mode: "uncontrolled",
     initialValues: {
@@ -63,34 +94,54 @@ const PriceTableFormComponent = () => {
       name: "",
       branch: "",
       area: "",
-      startDate: null,
-      endDate: null,
-      termsOfService: false,
+      startDate: new Date(),
+      endDate: new Date(),
     },
   });
+
   //current menu price form data //
 
   const [menus, setMenus] = useState<menuPriceInterface[]>([]);
 
-  const onFormSubmit = async (values: typeof form.values) =>
-    {
-        try {
-            const {data} = await axios.post("http://localhost:3000/pricetable", {...values, menus})
-console.log(data);
+  const onFormSubmit = async (values: typeof form.values) => {
+    try {
+      if (priceTableId != 'new') {
+        const { data } = await axios.post(
+          `https://pos-t6g7.onrender.com/pricetable/${priceTableId}`,
+          {
+            ...values,
+            menus,
+          }
+        );
 
+        console.log(data);
+      } else {
+        const { data } = await axios.post("https://pos-t6g7.onrender.com/pricetable", {
+          ...values,
+          menus,
+        });
+        console.log(data);
+      }
 
-            toast("Data created successfully")
-            
-        } catch (error) {
-            toast.error("Cannot create new data")
+      toast("Data created successfully");
+    } catch (error) {
+      toast.error("Cannot create new data");
 
-            console.log(error);
-            
-        }
+      console.log(error);
     }
-    
+  };
 
-  //price table form data //
+  const getPriceTableData = async () => {
+    try {
+      const { data } = await axios.get(
+        `https://pos-t6g7.onrender.com/pricetable/${priceTableId}`
+      );
+
+      setPriceTableData(data.datas);
+    } catch (error) {
+      toast.error("Cannot get price table data");
+    }
+  };
 
   const menuPriceForm = useForm({
     mode: "uncontrolled",
@@ -104,16 +155,25 @@ console.log(data);
     },
   });
 
+  const [selectedMenu, setSelectedMenu] = useState<fnbInterface | null>();
+
+
+
   const onMenuPriceFormSubmit = (values: typeof menuPriceForm.values) => {
     const isMenuExisted = menus.filter((menu) => menu.name == values.name)[0];
     const otherMenus = menus.filter((menu) => menu.name != values.name);
-
     if (values.price > 0) {
       if (!isMenuExisted) {
-        setMenus([values, ...menus]);
+        selectedMenu && setMenus([{...values, menuId: selectedMenu?._id, category: selectedMenu?.category}, ...menus]);
+
         menuPriceForm.reset();
+
+
+       
+
+
       } else {
-        setMenus([values, ...otherMenus]);
+        selectedMenu &&  setMenus([{...values,  menuId: selectedMenu?._id, category: selectedMenu?.category}, ...otherMenus]);
         menuPriceForm.reset();
       }
     } else {
@@ -126,53 +186,100 @@ console.log(data);
   };
 
   const onDeleteMenuPrice = () => {
-    const data = menuPriceForm.getValues()
+    const data = menuPriceForm.getValues();
 
-    const isDataExist = menus.filter(menu => menu.name == data.name)[0]
+    const isDataExist = menus.filter((menu) => menu.name == data.name)[0];
 
-    if(isDataExist) {
-        const restMenus = menus.filter(menu => menu.name != data.name);
+    if (isDataExist) {
+      const restMenus = menus.filter((menu) => menu.name != data.name);
 
-        setMenus(restMenus)
-    
-        menuPriceForm.reset();
+      setMenus(restMenus);
+
+      menuPriceForm.reset();
+    } else {
+      toast.error("Data not found to delete");
     }
-    else{
-        toast.error("Data not found to delete")
-    }
-
-    
-
   };
+
 
   //current menu price form data //
 
   //get all menus datas from backend//
 
+  
+
   const [fnbMenus, setFnbMenus] = useState<fnbInterface[] | null>();
 
+  const [areas, setAreas] = useState<areaInterface[] | null>()
+  const [branches, setBranches] = useState<branchInterface[] | null>()
+
+
+
+
+
+
   const fnbMenusName = fnbMenus?.map((fnb) => fnb.name);
+  const areasName = areas?.map((area) => area.name);
+  const branchesName = branches?.map((branch) => branch.name);
+
+
+
+  
 
   //   console.log(selectedMenus, 'selected menus');
 
   const getAllFnbMenus = async () => {
     try {
-      const { data } = await axios.get("http://localhost:3000/fnb");
+      const { data } = await axios.get("https://pos-t6g7.onrender.com/fnb");
 
       setFnbMenus(data.datas);
     } catch (error) {
       toast.error("Cannot get menus data from backend");
     }
   };
+
+  const getAllAreas = async () => {
+    try {
+      const { data } = await axios.get("https://pos-t6g7.onrender.com/csa");
+
+      setAreas(data.datas);
+    } catch (error) {
+      toast.error("Cannot get menus data from backend");
+    }
+  };
+
+  const getAllBranches = async () => {
+    try {
+      const { data } = await axios.get("https://pos-t6g7.onrender.com/branch");
+
+      setBranches(data.datas);
+    } catch (error) {
+      toast.error("Cannot get menus data from backend");
+    }
+  };
   //get all menus datas from backend//
-
-
 
   //useeffects statement//
 
   useEffect(() => {
     getAllFnbMenus();
+    getAllAreas()
+
+    getAllBranches()
+
+   priceTableId!= 'new' && getPriceTableData();
   }, []);
+
+  useEffect(() => {
+    priceTableData && setMenus(priceTableData?.menus);
+  }, [priceTableData]);
+
+  useMemo(() => {
+    //replace form value with pricetable data
+    priceTableData && form.setValues(priceTableData);
+
+  }, [priceTableData]);
+
   //useeffects statement//
 
   const rows = menus.map((data) => (
@@ -271,7 +378,9 @@ console.log(data);
             <div className="flex items-center justify-start gap-4">
               <TextInput
                 {...form.getInputProps("code")}
-                className="!border-b-2 border-b-gray !bg-transparent basis-1/4"
+                className={`!border-b-2 border-b-gray !bg-transparent basis-1/4 ${
+                  priceTableData?.code ? "" : ""
+                }`}
                 label="Price table code"
                 placeholder=""
               />
@@ -289,20 +398,18 @@ console.log(data);
             <div className="flex items-center justify-start gap-4">
               <Select
                 {...form.getInputProps("branch")}
-
                 label="Choose Branch"
                 className="basis-1/3"
                 placeholder="Choose Branch"
-                data={["React", "Angular", "Vue", "Svelte"]}
+                data={branchesName}
               />
 
               <Select
                 label="Choose Area"
                 {...form.getInputProps("area")}
-
                 className="basis-1/3"
                 placeholder="Choose Area"
-                data={["React", "Angular", "Vue", "Svelte"]}
+                data={areasName}
               />
             </div>
           </div>
@@ -312,7 +419,6 @@ console.log(data);
             <div className="flex items-center justify-start gap-4">
               <DateTimePicker
                 {...form.getInputProps("startDate")}
-
                 label="Effective time from"
                 className="basis-1/2"
                 placeholder="Choose Date"
@@ -321,7 +427,6 @@ console.log(data);
               <DateTimePicker
                 label="Effective time to"
                 {...form.getInputProps("endDate")}
-
                 className="basis-1/2"
                 placeholder="Choose Date"
               />
@@ -364,6 +469,14 @@ console.log(data);
                       {...menuPriceForm.getInputProps("name")}
                       key={menuPriceForm.key("name")}
                       data={fnbMenusName}
+
+                      onChange={e => {
+                        const currentMenu = fnbMenus?.filter(menu => menu.name == e)[0]
+                        
+                        setSelectedMenu(currentMenu);
+                        menuPriceForm.setValues({name: e})
+                      }}
+
                       placeholder="Name"
                     />
                   </Table.Td>
@@ -424,7 +537,10 @@ console.log(data);
                   </Table.Td>
 
                   <Table.Td>
-                    <Button onClick={onDeleteMenuPrice} className="!bg-transparent !text-btnDark ">
+                    <Button
+                      onClick={onDeleteMenuPrice}
+                      className="!bg-transparent !text-btnDark "
+                    >
                       Delete
                     </Button>
                   </Table.Td>

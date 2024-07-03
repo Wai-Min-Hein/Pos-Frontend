@@ -2,12 +2,20 @@ import { PayloadAction, createSlice } from "@reduxjs/toolkit";
 import { RootState } from "../store/store";
 
 interface orderedMenusInterface {
+  // id: string;
+  // code: string;
+  // category: string;
+  // name: string;
+  // price: number;
+  // image: string;
+  // quantity: number;
+
   id: string;
   code: string;
   category: string;
   name: string;
   price: number;
-  image: string;
+  image?: string;
   quantity: number;
 }
 
@@ -42,12 +50,12 @@ const orderListSlice = createSlice({
     updateOrder: (state, action: PayloadAction<orderListInterface>) => {
 
 
+
       const index = state.orderList.findIndex(order => order.orderId === action.payload.orderId);
       if (index !== -1) {
         state.orderList[index] = action.payload;
       }
 
-      console.log(action.payload);
 
     },
   },

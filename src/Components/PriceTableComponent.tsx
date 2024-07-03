@@ -13,6 +13,7 @@ import { useEffect, useState } from "react";
 
   
 import * as XLSX from 'xlsx';
+import { ToastContainer, toast } from "react-toastify";
   
 
 
@@ -62,7 +63,7 @@ const PriceTableComponent = () => {
   const getDatas = async () => {
     try {
 
-      const {data} = await axios.get('http://localhost:3000/pricetable')
+      const {data} = await axios.get('https://pos-t6g7.onrender.com/pricetable')
 
       setPriceTableDatas(data.datas);
       
@@ -82,6 +83,22 @@ const PriceTableComponent = () => {
     nav(`/system/pricetable/${id}`)
   }
 
+  const handleDelete=async (id: string) => {
+
+    try {
+
+      const {data} = await axios.delete(`https://pos-t6g7.onrender.com/pricetable/${id}`)
+
+      toast.success(data.message);
+      getDatas()
+      
+    } catch (error) {
+      toast.error("Cannot delete a pricetable")
+      
+    }
+  
+  }
+
   const HandelonExport = () => { 
     
     const workbook = XLSX.utils.book_new();
@@ -99,6 +116,7 @@ const PriceTableComponent = () => {
   return (
     <div className="w-full h-full !overflow-hidden ">
       <TopBar />
+      <ToastContainer />
 
       
 
@@ -131,6 +149,7 @@ const PriceTableComponent = () => {
           priceTableDatas={priceTableDatas}
           tableTitle={tableTitle}
           handleDetail={handleDetail}
+          handleDelete={handleDelete}
         />
       </div>
     </div>

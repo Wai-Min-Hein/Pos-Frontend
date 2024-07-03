@@ -20,7 +20,6 @@ import { FaRegEdit } from "react-icons/fa";
 import { useReactToPrint } from "react-to-print";
 import { useAppSelector, useAppDispatch } from "../hooks/hooks";
 import {
-  addMenus,
   increaseMenuQty,
   decreaseMenuQty,
   deleteMenu,
@@ -34,74 +33,53 @@ import {
 } from "../slice/posOrderSlice";
 import {  useNavigate, useParams } from "react-router-dom";
 import { addOrder, updateOrder } from "../slice/OrderListSlice";
+import axios from "axios";
+import PosComponentMenuRender from "./PosComponentMenuRender";
 
 const PosComponent = () => {
   interface menusInterface {
-    id: string;
-    code: string;
+    
+    menuId: string;
     category: string;
     name: string;
     price: number;
-    image: string;
+    vat: string;
+    disPercent: number;
+    disAmount: number;
+    adjust: boolean;
   }
 
-  const menus: menusInterface[] = [
-    {
-      id: "1",
-      category: "phone",
-      code: "22",
-      name: "i phone 15",
-      price: 3000,
-      image:
-        "https://i.pinimg.com/236x/be/a3/12/bea31296162a1c6d82f7cfa90a14d60b.jpg",
-    },
-    {
-      id: "2",
-      category: "laptop",
-      code: "333",
-      name: "M3 Pro",
-      price: 3000,
-      image:
-        "https://i.pinimg.com/474x/20/97/aa/2097aad744c834823dc24666b428b561.jpg",
-    },
-    {
-      id: "3",
-      category: "shoe",
-      code: "777",
-      name: "Air jordan",
-      price: 3000,
-      image:
-        "https://i.pinimg.com/236x/5f/d1/8e/5fd18eb206cd9aff58b6bc707b776c81.jpg",
-    },
-    {
-      id: "4",
-      category: "airpod",
-      code: "008",
-      name: "air pod",
-      price: 3000,
-      image:
-        "https://i.pinimg.com/236x/5a/e0/c2/5ae0c2a598c1b18ea3cffaa84b0f09c3.jpg",
-    },
-    {
-      id: "5",
-      category: "chair",
-      code: "9990",
-      name: "Gaming chair",
-      price: 3000,
-      image:
-        "https://i.pinimg.com/236x/aa/ca/12/aaca12f1d01952d39ebcfbacc7dbb116.jpg",
-    },
-  ];
+ 
+  
+  const [menus, setMenus] = useState<menusInterface[]>([])
+
+
 
 
   const nav = useNavigate();
   const { tableId } = useParams();
   const { area } = useParams();
+
   const dispatch = useAppDispatch();
+
+  const getDataByArea = async() => {
+    try {
+
+      const {data} = await axios.get(`https://pos-t6g7.onrender.com/pricetable/area/${area}`)
+
+      setMenus(data.datas.menus);
+      
+    } catch (error) {
+
+      console.log('Could not get data');
+      
+    }
+  }
 
   const confirmedOrderList =  useAppSelector((state) => state.orderList.orderList);
 
   const currentConfirmedOrderList  = confirmedOrderList.filter(order => order.area == area && order.orderId == Number(tableId))[0];
+
 
   useEffect(() => {
 
@@ -109,18 +87,21 @@ const PosComponent = () => {
       dispatch(setExistedOrderToState(currentConfirmedOrderList)) 
     }
 
+    getDataByArea()
+
   }, [dispatch, currentConfirmedOrderList]);
 
    
 
  
-  const [taxPercent, setTaxPercent] = useState<string>("0");
-  const [disPercent, setDisPercent] = useState<string>("0");
+  const [taxPercent, setTaxPercent] = useState<string>(currentConfirmedOrderList? currentConfirmedOrderList.tax.toString(): '0');
+  const [disPercent, setDisPercent] = useState<string>(currentConfirmedOrderList? currentConfirmedOrderList.discount.toString(): '0');
 
   // const orderList = useAppSelector((state) => state.order);
   const orderedmenus = useAppSelector((state) => state.order.orders);
   const paymentMethod = useAppSelector((state) => state.order.paymentMethod);
   const customerInfo = useAppSelector((state) => state.order.customerInfo);
+
 
   const totalMenuQty =( orderedmenus)?.reduce((pv, cv) => pv + cv.quantity, 0);
   const totalMenuAmount = ( orderedmenus)?.reduce(
@@ -151,6 +132,7 @@ const PosComponent = () => {
     }
   };
 
+
   const printRef = useRef<HTMLDivElement>(null);
 
   const [showPrintTemplate, setShowPrintTemplate] = useState(false);
@@ -162,22 +144,23 @@ const PosComponent = () => {
   useEffect(() => {
     dispatch(setOrderId(Number(tableId)));
 
-    dispatch(setCustomerInfo("Walkin Customer"));
   }, [dispatch, tableId]);
 
-  console.log(tableId);
 
   // Handler for updating or confirming orders
    const handleOrderAction = () => {
     if (currentConfirmedOrderList) {
       // Update existing order
-      dispatch(updateOrder({ orders: orderedmenus, orderId: Number(tableId), customerInfo, discount, tax, paymentMethod, area }));
+        dispatch(updateOrder({ orders: orderedmenus, orderId: Number(tableId), customerInfo, discount:Number(disPercent) , tax:Number(taxPercent), paymentMethod, area }));
       dispatch(onOrderConfirm());
-      // console.log("true");
+   dispatch(setCustomerInfo(currentConfirmedOrderList.customerInfo));
+
       nav('/pos');
     } else {
       // Add new order
-      dispatch(addOrder({ orders: orderedmenus, orderId: Number(tableId), customerInfo, discount, tax, paymentMethod, area }));
+      dispatch(addOrder({ orders: orderedmenus, orderId: Number(tableId), customerInfo, discount:Number(disPercent) , tax:Number(taxPercent), paymentMethod, area }));
+      dispatch(onOrderConfirm());
+
       nav('/pos'); // Navigate to POS main page after confirming order
     }
   };
@@ -310,22 +293,23 @@ const PosComponent = () => {
 
             <div className="flex items-center justify-start flex-wrap gap-4 mt-4">
               {menus?.map((menu) => (
-                <div
-                  key={menu.id}
-                  onClick={() => dispatch(addMenus({ ...menu, quantity: 1 }))}
-                  className="bg-white basis-[31%] h-48 rounded-md p-4 cursor-pointer"
-                >
-                  <div className="grid place-items-center w-full">
-                    <img
-                      src={menu?.image}
-                      alt=""
-                      className="w-1/5  h-full object-contain "
-                    />
-                  </div>
-                  <p className="text-center">{menu.category}</p>
+                // <div
+                //   key={menu.id}
+                //   onClick={() => dispatch(addMenus({ ...menu, quantity: 1 }))}
+                //   className="bg-white basis-[31%] h-48 rounded-md p-4 cursor-pointer"
+                // >
+                //   <div className="grid place-items-center w-full">
+                //     <img
+                //       src={menu?.image}
+                //       alt=""
+                //       className="w-1/5  h-full object-contain "
+                //     />
+                //   </div>
+                //   <p className="text-center">{menu.category}</p>
 
-                  <h6 className="text-center">{menu.name}</h6>
-                </div>
+                //   <h6 className="text-center">{menu.name}</h6>
+                // </div>
+                <PosComponentMenuRender menu={menu}/>
               ))}
             </div>
           </div>

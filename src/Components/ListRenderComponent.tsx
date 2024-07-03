@@ -33,7 +33,7 @@ interface categoryInterface {
 }
 
 interface branchInterface {
-  id: string;
+  _id: string;
   code: string;
   name: string;
   address?: string;
@@ -395,7 +395,7 @@ const ListRenderComponent = ({
       ))) ||
     (branchDatas &&
       branchDatas?.map((product) => (
-        <Table.Tr key={product.id}>
+        <Table.Tr key={product._id}>
           <Table.Td className="capitalize w-24">{product.code}</Table.Td>
           <Table.Td className="capitalize w-24">{product.name}</Table.Td>
           <Table.Td className="capitalize w-24">{product.address}</Table.Td>
@@ -458,7 +458,9 @@ const ListRenderComponent = ({
                 <TbEdit />
               </div>
 
-              <div className="w-8 h-8 grid place-items-center rounded border-2 border-gray cursor-pointer">
+              <div
+               onClick={() => handleDelete && handleDelete(product._id)}
+              className="w-8 h-8 grid place-items-center rounded border-2 border-gray cursor-pointer">
                 <MdDeleteOutline />
               </div>
             </div>
